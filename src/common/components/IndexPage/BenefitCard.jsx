@@ -6,6 +6,7 @@ function getCount() {
   return count;
 }
 export default function BenefitCards() {
+  count = 0;
   return (
     <div className="grid grid-cols-3 gap-4 w-full px-[10%] ">
       {benefits.map((benefit) => (

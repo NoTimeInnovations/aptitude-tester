@@ -1,30 +1,18 @@
 import React from "react";
-import NavItem from "../components/IndexPage/NavItem";
 import BenefitCards from "../components/IndexPage/BenefitCard";
 import Image from "next/image";
-import NavButton from "../components/IndexPage/NavButton";
 import ExploreButton from "../components/IndexPage/ExploreButton";
 import ServicesCards from "../components/IndexPage/ServicesCards";
 import PricingCards from "../components/IndexPage/PricingCards";
 import { Feature } from "../components/IndexPage/PricingCards";
+import NonLoginFooter from "../components/NonLoginFooter";
+import NonLoginNavBar from "../components/NonLoginNavBar";
 
 export default function IndexPage() {
   return (
     <>
       <div className="bg-[rgba(185,203,239,255)] w-screen pt-10 text-black">
-        <div className=" mx-5 bg-[rgba(210,222,246,255)] rounded py-2 text-black font-bold flex-row flex  justify-between">
-          <ul className="flex flex-col rtl:space-x-reverse md:flex-row ml-6">
-            <NavItem text="Home" />
-            <NavItem text="About" />
-            <NavItem text="Contact" />
-            <NavItem text="Courses" />
-            <NavItem text="Teams" />
-          </ul>
-          <ul className="flex flex-col rtl:space-x-reverse md:flex-row text-white justify-evenly gap-4 mr-8">
-            <NavButton text="Login" />
-            <NavButton text="Sign Up" />
-          </ul>
-        </div>
+        <NonLoginNavBar />
         <div className="mt-40 flex font-bold text-5xl w-full justify-center">
           <span className="text-[#030091] flex flex-col justify-around mb-2">
             Secure&nbsp;
@@ -152,68 +140,7 @@ export default function IndexPage() {
           </button>
         </div>
       </div>
-      <div className="bg-[rgba(185,203,239,255)] w-screen text-black py-20 px-[10%] font-['Poppins']">
-        <span className="font-bold text-3xl">EasyLearn</span>
-        <div className="flex flex-row justify-between">
-          <div>
-            <br />
-            <div className="flex flex-row">
-              <Image
-                src="/media/img/IndexPage/gmail.png"
-                width={32}
-                height={10}
-              />
-              &nbsp;:&nbsp; <a>easylearn@gmail.com</a>
-            </div>
-            <br />
-            <div className="flex flex-row">
-              <Image
-                src="/media/img/IndexPage/phone.png"
-                width={32}
-                height={10}
-              />
-              <div className="flex flex-col justify-center ">
-                <div>
-                  &nbsp;:&nbsp; <a>9852641730</a>
-                </div>
-              </div>
-            </div>
-            <br />
-            <div className="flex flex-row">
-              <Image
-                src="/media/img/IndexPage/location.png"
-                width={32}
-                height={10}
-              />
-              <div className="flex flex-col justify-center ">
-                <div>
-                  &nbsp;:&nbsp; <a>Ernakulam, Kerala</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="font-bold">
-            Social Profile
-            <div className="flex flex-row gap-2">
-              <Image
-                src="/media/img/IndexPage/facebook.svg"
-                width={32}
-                height={10}
-              />
-              <Image
-                src="/media/img/IndexPage/linkedIn.svg"
-                width={32}
-                height={10}
-              />
-              <Image
-                src="/media/img/IndexPage/instagram.svg"
-                width={32}
-                height={10}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
+      <NonLoginFooter />
     </>
   );
 }
