@@ -1,11 +1,11 @@
 import React from "react";
-import NavItem from "../components/LoginPage/NavItem";
-import BenefitCards from "../components/LoginPage/BenefitCards";
+import NavItem from "../components/IndexPage/NavItem";
+import BenefitCards from "../components/IndexPage/BenefitCards";
 import Image from "next/image";
-import NavButton from "../components/LoginPage/NavButton";
-import ExploreButton from "../components/LoginPage/ExploreButton";
+import NavButton from "../components/IndexPage/NavButton";
+import ExploreButton from "../components/IndexPage/ExploreButton";
 
-export default function LoginPage() {
+export default function IndexPage() {
   return (
     <>
       <div className="bg-[rgba(185,203,239,255)] w-screen pt-10 text-black">
@@ -56,12 +56,17 @@ export default function LoginPage() {
           />
         </div>
       </div>
-      <div className="bg-[#F3F3F3] w-screen h-screen text-black pt-[25%]">
+      <div className="bg-[#F3F3F3] w-screen pb-[5%] text-black pt-[25%]">
         <div className="text-6xl pl-[10%] font-['Poppins'] font-bold">
           Benefits Of EasyLearn
         </div>
         <br />
         <BenefitCards />
+      </div>
+      <div className="bg-[rgba(185,203,239,255)] w-screen text-black pt-20">
+        <div className="text-6xl pl-[10%] font-['Poppins'] font-bold">
+          What We Offer
+        </div>
       </div>
     </>
   );
