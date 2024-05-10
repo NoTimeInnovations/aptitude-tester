@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React from "react";
+import CopyRight from "./CopyRight";
 
 export default function NonLoginFooter() {
   return (
@@ -64,6 +65,7 @@ export default function NonLoginFooter() {
           </div>
         </div>
       </div>
+      <CopyRight />
     </div>
   );
 }

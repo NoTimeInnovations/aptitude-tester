@@ -93,7 +93,7 @@ export default function IndexPage() {
         </div>
         <br />
         <br />
-        <div className="bg-white rounded-lg w-screen ml-[10%] pr-[10%] w-[79.99%] text-black py-10 pl-20">
+        <div className="bg-white rounded-lg w-screen mr-[10%] ml-[10%] max-w-[80%] pr-[10%]  text-black py-10 pl-20">
           <div className=" text-6xl font-bold">Ask Us</div>
           <div className="text-lg font-['Poppins'] max-w-[70%] ">
             Many desktop publishing packages and web page editors now use Lorem
