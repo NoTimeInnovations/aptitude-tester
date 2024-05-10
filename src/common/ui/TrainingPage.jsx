@@ -1,6 +1,5 @@
 import Image from "next/image";
 import React from "react";
-import RecentPieResults from "../components/RecentPieResults";
 import CopyRight from "../components/CopyRight";
 
 export default function TrainingPage() {
