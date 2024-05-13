@@ -56,7 +56,7 @@ export default function HomePage() {
               Courses Code : <span>Course</span>
               <button
                 className="bg-[#040269CC] text-base w-fit h-fit py-2 px-3
-               rounded-2xl text-white"
+                rounded-2xl text-white"
               >
                 Watch Now
               </button>
@@ -73,17 +73,16 @@ export default function HomePage() {
           <div className="text-xl flex flex-row justify-between font-bold w-full">
             Scheduled Test <spand>Edit</spand>
           </div>
-          <div className="flex flex-row justify-center gap-2 items-center mt-8">
-            <div className="flex flex-col items-center">
-              <ElevatedShadowDiv>00</ElevatedShadowDiv>hr
+          <div className="mt-8">
+            <div className="flex flex-row gap-2 items-center justify-center">
+              <ElevatedShadowDiv>00</ElevatedShadowDiv>:
+              <ElevatedShadowDiv>00</ElevatedShadowDiv>:
+              <ElevatedShadowDiv>00</ElevatedShadowDiv>
             </div>
-            :
-            <div className="flex flex-col items-center">
-              <ElevatedShadowDiv>00</ElevatedShadowDiv>min
-            </div>
-            :
-            <div className="flex flex-col items-center">
-              <ElevatedShadowDiv>00</ElevatedShadowDiv>sec
+            <div className="grid grid-cols-3 gap-[1.2rem] place-items-center">
+              <span>Hr</span>
+              <span>Min</span>
+              <span>Sec</span>
             </div>
           </div>
           <div className="mt-5 text-lg w-full text-center">English Test</div>
@@ -98,17 +97,18 @@ export default function HomePage() {
           <div className="text-xl flex flex-row justify-center font-bold w-full">
             Overall Perfomance
           </div>
-          <div className="flex flex-row justify-center gap-2 items-center mt-8">
-            <div className="flex flex-col items-center">
-              <ElevatedShadowDiv>00</ElevatedShadowDiv>hr
-            </div>
-            :
-            <div className="flex flex-col items-center">
-              <ElevatedShadowDiv>00</ElevatedShadowDiv>min
-            </div>
-            :
-            <div className="flex flex-col items-center">
-              <ElevatedShadowDiv>00</ElevatedShadowDiv>sec
+          <div className="flex flex-row mt-3">
+            <div className="mt-8">
+              <div className="flex flex-row gap-2 items-center justify-center">
+                <ElevatedShadowDiv>00</ElevatedShadowDiv>:
+                <ElevatedShadowDiv>00</ElevatedShadowDiv>:
+                <ElevatedShadowDiv>00</ElevatedShadowDiv>
+              </div>
+              <div className="grid grid-cols-3 gap-[1.2rem] place-items-center">
+                <span>Hr</span>
+                <span>Min</span>
+                <span>Sec</span>
+              </div>
             </div>
           </div>
           <div className="mt-5 text-lg w-full text-center">English Test</div>

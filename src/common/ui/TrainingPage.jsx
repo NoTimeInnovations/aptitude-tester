@@ -1,10 +1,8 @@
 import React from "react";
 import CopyRight from "../components/CopyRight";
 import ModuleList from "../components/TrainingPage/ModuleList";
-import { getData } from "@/app/json/getJson";
 
 export default function TrainingPage() {
-  getData();
   return (
     <div className="flex-1 bg-white text-black pt-24 pb-10 px-6 min-h-screen">
       <div className="flex flex-row justify-between">
