@@ -115,8 +115,8 @@ export default function HomePage() {
           <div className="mt-1 text-[#BDBDBD] text-base w-full text-center">
             Created on Date
           </div>
-          <button className="mt-7 rounded-full bg-[#040269E5] w-fit py-2 px-10 text-white ">
-            Set Another
+          <button className="mt-7 rounded-full bg-[#040269E5] w-fit py-2 px-14 text-white ">
+            See Overall Results
           </button>
         </div>
       </div>

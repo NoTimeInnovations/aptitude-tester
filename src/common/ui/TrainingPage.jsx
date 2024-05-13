@@ -1,12 +1,14 @@
-import Image from "next/image";
 import React from "react";
 import CopyRight from "../components/CopyRight";
+import ModuleList from "../components/TrainingPage/ModuleList";
+import { getData } from "@/app/json/getJson";
 
 export default function TrainingPage() {
+  getData();
   return (
-    <div className="flex-1 bg-white text-black pt-24 pb-10 px-6">
+    <div className="flex-1 bg-white text-black pt-24 pb-10 px-6 min-h-screen">
       <div className="flex flex-row justify-between">
-        <span className="text-[#040269] font-bold  text-4xl ">Your Course</span>
+        <span className="text-[#040269] font-bold  text-5xl ">Your Course</span>
       </div>
       <br />
       <br />
@@ -33,35 +35,23 @@ export default function TrainingPage() {
       </div>
       <br />
       <br />
-      <div className=" rounded-xl bg-[#E6E6E638] w-full p-6">
-        <div className="text-2xl font-bold">
-          Reasoning
-          <br />
-          <br />
-          <div className="px-5 flex flex-row justify-between">
-            <div>
-              <Image
-                src="/media/img/HomePage/piechart.svg"
-                width={260}
-                height={260}
-              />
-              <div className="grid grid-cols-2 mt-5 gap-y-3 gap-x-10">
-                <span className="text-[#040269] text-2xl font-bond">30</span>
-                <span className="text-[#040269] text-2xl font-bond">30</span>
-
-                <span className="text-black text-lg font-bond">
-                  Total Questions
-                </span>
-                <span className="text-black text-lg font-bond">Time Taken</span>
-              </div>
-            </div>
-
-            <div className="bg-white text-lg font-[700] py-6 px-4 w-3/12">
-              <ul className="flex flex-col justify-around h-full"></ul>
-            </div>
-          </div>
-        </div>
-      </div>
+      <ModuleList>
+        {{
+          module: "Reasoning",
+          topics: [
+            {
+              heading: "Python",
+              link: "",
+              review: "",
+            },
+            {
+              heading: "Python",
+              link: "",
+              review: "",
+            },
+          ],
+        }}
+      </ModuleList>
       <CopyRight />
     </div>
   );
