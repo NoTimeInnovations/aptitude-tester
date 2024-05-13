@@ -4,7 +4,7 @@ import NavItem from "./IndexPage/NavItem";
 
 export default function NonLoginNavBar() {
   return (
-    <div className=" mx-5 bg-[rgba(210,222,246,255)] rounded py-2 text-black font-bold flex-row flex  justify-between">
+    <div className=" mx-5 bg-[rgba(210,222,246,255)] rounded py-2 text-black font-base flex-row flex  justify-between border-[1px]">
       <ul className="flex flex-col rtl:space-x-reverse md:flex-row ml-6">
         <NavItem text="Home" />
         <NavItem text="About" />
