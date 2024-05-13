@@ -8,7 +8,7 @@ export default function HomePage() {
   return (
     <div className="flex-1 bg-white text-black pt-24 pb-10 px-6 font-['Poppins']">
       <div className="flex flex-row justify-between">
-        <span className="text-[#040269] font-bold  text-4xl ">
+        <span className="text-[#040269] font-bold  text-5xl ">
           Good Morning
         </span>
         <div className="flex flex-row">
@@ -24,7 +24,8 @@ export default function HomePage() {
         </div>
       </div>
       {/*toChanage*/}
-      <span className="" id="name">
+      <br />
+      <span className="text-3xl font-semibold" id="name">
         Mr Binil George
       </span>
       <br />
@@ -44,10 +45,10 @@ export default function HomePage() {
               height="315"
               src="https://www.youtube.com/embed/S-L-keJA0u8?si=eoxeeBYWBrPzIR3Q"
               title="YouTube video player"
-              frameborder="0"
+              frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerpolicy="strict-origin-when-cross-origin"
-              allowfullscreen
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
             />
 
             <div className="grid grid-cols-2 text-lg font-[700] py-6 px-4 min-w-3/12">

@@ -2,6 +2,7 @@ import React from "react";
 import RecentPieResults from "../components/RecentPieResults";
 import CopyRight from "../components/CopyRight";
 import StatsItem from "../components/StatsItem";
+import TestsDetails from "../components/ResultsPage/TestsDetails";
 
 export default function ResultsPage() {
   return (
@@ -31,7 +32,73 @@ export default function ResultsPage() {
           </div>
         </div>
       </div>
-
+      <br />
+      <TestsDetails>
+        {{
+          tests: [
+            {
+              heading: "Python",
+              marks: 10,
+              date: "Monday, 23 April 2023",
+              time: "3:30 PM - 6:00 PM",
+              attempted: 25,
+              correct: 22,
+              wrong: 3,
+              pass: true,
+            },
+            {
+              heading: "Java",
+              marks: 10,
+              date: "Monday, 23 April 2023",
+              time: "3:30 PM - 6:00 PM",
+              attempted: 25,
+              correct: 22,
+              wrong: 3,
+              pass: true,
+            },
+            {
+              heading: "Analog",
+              marks: 10,
+              date: "Monday, 23 April 2023",
+              time: "3:30 PM - 6:00 PM",
+              attempted: 25,
+              correct: 22,
+              wrong: 3,
+              pass: false,
+            },
+            {
+              heading: "Digital",
+              marks: 10,
+              date: "Monday, 23 April 2023",
+              time: "3:30 PM - 6:00 PM",
+              attempted: 25,
+              correct: 22,
+              wrong: 3,
+              pass: true,
+            },
+            {
+              heading: "Python",
+              marks: 10,
+              date: "Monday, 23 April 2023",
+              time: "3:30 PM - 6:00 PM",
+              attempted: 25,
+              correct: 22,
+              wrong: 3,
+              pass: false,
+            },
+            {
+              heading: "C++",
+              marks: 10,
+              date: "Monday, 23 April 2023",
+              time: "3:30 PM - 6:00 PM",
+              attempted: 25,
+              correct: 22,
+              wrong: 3,
+              pass: false,
+            },
+          ],
+        }}
+      </TestsDetails>
       <CopyRight />
     </div>
   );

@@ -6,7 +6,7 @@ import ElevatedShadowDiv from "../components/ElevatedShadowDiv";
 
 export default function TestsPage() {
   return (
-    <div className="flex-1 bg-white text-black pt-24 pb-10 px-12 min-h-screen">
+    <div className="flex-1 bg-white text-black pt-24 pb-10 px-12 min-h-screen font-['Poppins']">
       <div className="flex flex-row justify-between">
         <span className="text-[#040269] font-bold  text-5xl ">Mock Tests</span>
       </div>
