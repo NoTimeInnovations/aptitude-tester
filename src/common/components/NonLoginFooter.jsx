@@ -4,7 +4,7 @@ import CopyRight from "./CopyRight";
 
 export default function NonLoginFooter() {
   return (
-    <div className="bg-[rgba(185,203,239,255)] w-screen text-black py-20 px-[10%] font-['Poppins']">
+    <div className="bg-[rgba(185,203,239,255)] w-screen text-black py-14 px-[10%] font-['Poppins']">
       <span className="font-bold text-3xl">EasyLearn</span>
       <div className="flex flex-row justify-between">
         <div>
