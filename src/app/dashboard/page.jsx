@@ -1,7 +1,7 @@
 "use client";
 
-import NavItem from "@/common/components/LoginPage/NavItem";
-import TabHandler from "@/common/components/TabHandler";
+import NavItem from "../../common/components/LoginPage/NavItem";
+import TabHandler from "../../common/components/TabHandler";
 import React, { useState } from "react";
 
 const icons = ["Home", "Courses", "Tests", "Results", "Profile"];
