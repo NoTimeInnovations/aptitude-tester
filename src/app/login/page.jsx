@@ -1,10 +1,12 @@
+"use client";
+
 import NonLoginNavBar from "../../common/components/NonLoginNavBar";
 import NonLoginFooter from "../../common/components/NonLoginFooter";
 import Image from "next/image";
-import { ImageResponse } from "next/server";
-import React from "react";
+import React, { useState } from "react";
 
 export default function page() {
+  var [pswdVisibility, setPwdVisibility] = useState(false);
   return (
     <>
       <div className=" bg-[rgba(185,203,239,255)] w-screen pt-10 text-black">
@@ -25,13 +27,18 @@ export default function page() {
               <div className="mt-[16px] font-light text-[16px]">Password</div>
               <div className=" relative flex flex-row justify-between">
                 <input
-                  type="text"
+                  type={pswdVisibility ? "text" : "password"}
                   className="bg-[rgba(241,241,241,50)] w-full text-sm p-4 rounded-[4px]"
                   placeholder="Password"
                 ></input>
-                <button className="absolute mt-4 mr-4 right-0">
+                <button
+                  className="absolute mt-4 mr-4 right-0"
+                  onClick={() => setPwdVisibility(!pswdVisibility)}
+                >
                   <Image
-                    src="/media/img/LoginPage/Union.svg"
+                    src={`/media/img/${
+                      pswdVisibility ? `Union.svg` : `hide.svg`
+                    }`}
                     width={20}
                     height={10}
                   />
