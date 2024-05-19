@@ -4,6 +4,7 @@ import NonLoginNavBar from "../../common/components/NonLoginNavBar";
 import NonLoginFooter from "../../common/components/NonLoginFooter";
 import Image from "next/image";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
 async function userExist(username) {
   const res = await fetch("/api/checkUser", {
@@ -19,6 +20,7 @@ export default function page() {
   var [mobileNumError, setMobileNumError] = useState("");
   var [passwordError, setPasswordError] = useState("");
   var [confirmPasswordError, setConfirmPasswordError] = useState("");
+  let { push } = useRouter();
   return (
     <>
       <div className=" bg-[rgba(185,203,239,255)] w-screen pt-10 text-black">
@@ -56,7 +58,7 @@ export default function page() {
                     proceed = false;
                   }
                   if (event.target.pswd.value == "") {
-                    setPasswordError("Password Required Required");
+                    setPasswordError("Password Required");
                     proceed = false;
                   }
                   if (
@@ -79,9 +81,25 @@ export default function page() {
                       password: event.target.pswd.value,
                     }),
                   });
-                  const x = await res.json();
-                  console.log(x);
-                  localStorage.setItem("token", x);
+                  if ((await res.json()).error) {
+                    console.log((await res.json()).error);
+                    return alert("Something went wrong please try again");
+                  }
+                  const token = (await res.json()).token;
+                  localStorage.setItem("token", token);
+                  const resp = await (
+                    await fetch("api/auth", {
+                      method: "POST",
+                      body: JSON.stringify({
+                        token: localStorage.getItem("token"),
+                      }),
+                    })
+                  ).json();
+                  if (resp.auth) {
+                    push("/dashboard");
+                  } else {
+                    alert(resp.messge);
+                  }
                 }}
               >
                 <div className="mt-[48px] font-light text-[16px]">UserName</div>

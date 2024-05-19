@@ -4,9 +4,14 @@ import NonLoginNavBar from "../../common/components/NonLoginNavBar";
 import NonLoginFooter from "../../common/components/NonLoginFooter";
 import Image from "next/image";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function page() {
+  let { push } = useRouter();
   var [pswdVisibility, setPwdVisibility] = useState(false);
+
+  var [userNameError, setUserNameError] = useState("");
+  var [passwordError, setPasswordError] = useState("");
   return (
     <>
       <div className=" bg-[rgba(185,203,239,255)] w-screen pt-10 text-black">
@@ -18,49 +23,109 @@ export default function page() {
               <span className="text-[16px] font-light mt-10 text-[rgba(76,76,77,100)] place-self-center">
                 Welcome back! Please log in to access your account.
               </span>
-              <div className="mt-[48px] font-light text-[16px]">Email</div>
-              <input
-                type="text"
-                className="bg-[rgba(241,241,241,50)] text-sm p-4 rounded-[4px]"
-                placeholder="Email"
-              ></input>
-              <div className="mt-[16px] font-light text-[16px]">Password</div>
-              <div className=" relative flex flex-row justify-between">
+              <form
+                onSubmit={async (event) => {
+                  event.preventDefault();
+                  var proceed = true;
+                  setPasswordError("");
+                  setUserNameError("");
+                  if (event.target.username.value == "") {
+                    setUserNameError("Username can't be empty");
+                    proceed = false;
+                  }
+                  if (event.target.pswd.value == "") {
+                    setPasswordError("Password Required");
+                    proceed = false;
+                  }
+                  if (!proceed) {
+                    return;
+                  }
+                  const res = await (
+                    await fetch("/api/login", {
+                      method: "POST",
+                      body: JSON.stringify({
+                        username: event.target.username.value,
+                        password: event.target.pswd.value,
+                      }),
+                    })
+                  ).json();
+
+                  if (res.error) {
+                    return setPasswordError(res.error);
+                  }
+                  const token = res.token;
+                  localStorage.setItem("token", token);
+                  const resp = await (
+                    await fetch("api/auth", {
+                      method: "POST",
+                      body: JSON.stringify({
+                        token: localStorage.getItem("token"),
+                      }),
+                    })
+                  ).json();
+                  if (resp.auth) {
+                    push("/dashboard");
+                  } else {
+                    alert(resp.messge);
+                  }
+                }}
+              >
+                <div className="mt-[48px] font-light text-[16px]">Username</div>
                 <input
-                  type={pswdVisibility ? "text" : "password"}
-                  className="bg-[rgba(241,241,241,50)] w-full text-sm p-4 rounded-[4px]"
-                  placeholder="Password"
-                ></input>
-                <button
-                  className="absolute mt-4 mr-4 right-0"
-                  onClick={() => setPwdVisibility(!pswdVisibility)}
-                >
-                  <Image
-                    src={`/media/img/${
-                      pswdVisibility ? `Union.svg` : `hide.svg`
-                    }`}
-                    width={20}
-                    height={10}
+                  type="text"
+                  className="bg-[rgba(241,241,241,50)] text-sm p-4 w-full rounded-[4px]"
+                  placeholder="Username"
+                  name="username"
+                />
+                {userNameError && (
+                  <div className="text-black text-sm ml-4 text-red-300 mt-4">
+                    *{userNameError}
+                  </div>
+                )}
+                <div className="mt-[16px] font-light text-[16px]">Password</div>
+                <div className=" relative flex flex-row justify-between">
+                  <input
+                    type={pswdVisibility ? "text" : "password"}
+                    className="bg-[rgba(241,241,241,50)] w-full text-sm p-4 rounded-[4px]"
+                    placeholder="Password"
+                    name="pswd"
                   />
-                </button>
-              </div>
-              <div className="text-[12px] flex flex-row justify-end text-[rgba(76,76,77,100)]">
-                <a>Forget Password?</a>
-              </div>
-              <div className="text-[12px] text-[rgba(101,101,103,100)] flex flex-row items-center">
-                <input
-                  type="checkbox"
-                  className="w-5 h-5 bg-gray-100 border-gray-300"
-                ></input>
-                <span className="pl-1">Remember me</span>
-              </div>
-              <div className="pt-14 pb-6 flex flex-row justify-center">
-                <button className="bg-[rgba(4,2,105,100)] rounded-[5px]">
-                  <span className="text-white text-[18px] p-24 font-regular">
-                    LOGIN
-                  </span>
-                </button>
-              </div>
+                  <button
+                    className="absolute mt-4 mr-4 right-0"
+                    onClick={() => setPwdVisibility(!pswdVisibility)}
+                  >
+                    <Image
+                      src={`/media/img/${
+                        pswdVisibility ? `Union.svg` : `hide.svg`
+                      }`}
+                      width={20}
+                      height={10}
+                    />
+                  </button>
+                </div>
+                {passwordError && (
+                  <div className="text-black text-sm ml-4 text-red-300 mt-4">
+                    *{passwordError}
+                  </div>
+                )}
+                <div className="text-[12px] flex flex-row justify-end text-[rgba(76,76,77,100)]">
+                  <a>Forget Password?</a>
+                </div>
+                <div className="text-[12px] text-[rgba(101,101,103,100)] flex flex-row items-center">
+                  <input
+                    type="checkbox"
+                    className="w-5 h-5 bg-gray-100 border-gray-300"
+                  ></input>
+                  <span className="pl-1">Remember me</span>
+                </div>
+                <div className="pt-14 pb-6 flex flex-row justify-center">
+                  <button className="bg-[rgba(4,2,105,100)] rounded-[5px]">
+                    <span className="text-white text-[18px] p-24 font-regular">
+                      LOGIN
+                    </span>
+                  </button>
+                </div>
+              </form>
             </div>
             <div className="bg-gray-400 w-[1px] h-15 mt-9 ml-3"></div>
             <div className="w-full md:w-3/5 text font-['Be Vietnam Pro'] px-2  pt-4 pl-6 mt-4">

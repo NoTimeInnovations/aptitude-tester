@@ -7,5 +7,4 @@ export async function POST(req, res) {
 
     mongooseConnect().then(() => { console.log("Connected to DB") });
     return NextResponse.json({ exists: (await User.countDocuments({ username: username })) > 0 });
-
 }
