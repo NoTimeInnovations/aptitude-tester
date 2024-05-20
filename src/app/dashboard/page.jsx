@@ -3,6 +3,7 @@
 import NavItem from "../../common/components/LoginPage/NavItem";
 import TabHandler from "../../common/components/TabHandler";
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 const UserContext = createContext();
 
@@ -18,7 +19,6 @@ async function authenticate(setter, setUser) {
   ).json();
   if (authRes.user) {
     setUser(authRes.user);
-    console.log(authRes.user);
     return setter("authenticated");
   } else {
     return setter(authRes.error);
@@ -28,6 +28,7 @@ export default function page() {
   const [tab, setTab] = useState(0);
   const [auth, setAuth] = useState("authenticating");
   const [user, setUser] = useState(null);
+  let { push } = useRouter();
   useEffect(() => {
     authenticate(setAuth, setUser);
   }, []);
@@ -60,7 +61,12 @@ export default function page() {
                 <NavItem
                   selected="No"
                   text="Logout"
-                  onClick={() => console.log("Login out")}
+                  onClick={() => {
+                    if (confirm("Do you really want to logout ?")) {
+                      localStorage.removeItem("token");
+                      push("/");
+                    }
+                  }}
                 />
               </div>
             </div>

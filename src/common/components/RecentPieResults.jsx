@@ -1,4 +1,3 @@
-import Image from "next/image";
 import React from "react";
 import { useUserContext } from "../../app/dashboard/page";
 import { PieChart } from "@mui/x-charts/PieChart";
@@ -7,7 +6,16 @@ function listItems(text, color) {
   return (
     <li>
       <div className="flex flex-row items-center">
-        <div className={`h-4 w-4 border border-black bg-[${color}]`} />
+        <div
+          className={
+            "h-4 w-4 border border-black " +
+            (color == 0
+              ? "bg-[#00FF00]"
+              : color == 1
+              ? "bg-[#FF0000]"
+              : "bg-[#0000FF]")
+          }
+        />
         &nbsp;
         {text}
       </div>
@@ -28,7 +36,7 @@ export default function RecentPieResults() {
             You have not attempted any tests yet
           </div>
         ) : (
-          <div className="px-5 grid grid-cols-2 items-center">
+          <div className="px-5 grid md:grid-cols-2 items-center">
             <PieChart
               colors={["#FF0000", "#0000FF", "#00FF00"]}
               series={[
@@ -55,9 +63,9 @@ export default function RecentPieResults() {
 
             <div className="bg-white text-lg font-[700] h-full py-6 px-4 w-fit justify-self-end">
               <ul className="flex flex-col justify-around h-full">
-                {listItems("Correct", "#00FF00")}
-                {listItems("Wrong", "#FF0000")}
-                {listItems("Unanswered", "#0000FF")}
+                {listItems("Correct", 0)}
+                {listItems("Wrong", 1)}
+                {listItems("Unanswered", 2)}
               </ul>
             </div>
             <div className="grid grid-cols-2 mt-5 gap-y-3 gap-x-10">

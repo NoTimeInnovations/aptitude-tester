@@ -16,7 +16,7 @@ export async function POST(req, res) {
         })).json();
 
         if (!resp.auth) {
-            return new Response(JSON.stringify({ error: resp.messge }), { status: 400 });
+            return new Response(JSON.stringify({ error: resp.message }), { status: 400 });
         }
 
         const user = await User.findOne({ username: resp.data.username });
