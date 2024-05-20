@@ -2,7 +2,9 @@
 
 import NavItem from "../../common/components/LoginPage/NavItem";
 import TabHandler from "../../common/components/TabHandler";
-import React, { useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
+
+const UserContext = createContext();
 
 const icons = ["Home", "Courses", "Tests", "Results", "Profile"];
 async function authenticate(setter, setUser) {
@@ -64,7 +66,9 @@ export default function page() {
             </div>
           </div>
           <div className="ml-[20%] -mt-[100vh]">
-            <TabHandler tab={tab} />
+            <UserContext.Provider value={user}>
+              <TabHandler tab={tab} />
+            </UserContext.Provider>
           </div>
         </>
       ) : (
@@ -72,4 +76,8 @@ export default function page() {
       )}
     </>
   );
+}
+
+export function useUserContext() {
+  return useContext(UserContext);
 }
