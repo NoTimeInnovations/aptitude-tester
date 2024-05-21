@@ -10,11 +10,11 @@ import getCalculation from "../../util/perfomanceCalculator";
 import StatsItem from "../components/StatsItem";
 
 export default function HomePage() {
+  const today = new Date();
   const user = useUserContext();
   const scheduledTest = user.scheduled ? user.scheduled : null;
   const scheduledDate =
     scheduledTest != null ? new Date(scheduledTest.date) : null;
-  console.log(scheduledTest);
   const [seconds, minutes, hours, days] =
     scheduledTest != null ? timer(scheduledDate) : [null, null, null, null];
   const [speed, accuracy, passPercent, questionAttempt] =
@@ -34,8 +34,17 @@ export default function HomePage() {
             height={10}
             alt="Calendar Icon"
           />
-          <div className="flex flex-col font-bold text-lg justify-around ml-2">
-            Date
+          <div className="flex flex-col ml-2 font-bold text-lg justify-around">
+            {`${today.getDate().toLocaleString("en-US", {
+              minimumIntegerDigits: 2,
+              useGrouping: false,
+            })}/${(today.getMonth() + 1).toLocaleString("en-US", {
+              minimumIntegerDigits: 2,
+              useGrouping: false,
+            })}/${today.getFullYear().toLocaleString("en-US", {
+              minimumIntegerDigits: 2,
+              useGrouping: false,
+            })}`}
           </div>
         </div>
       </div>
@@ -44,7 +53,7 @@ export default function HomePage() {
         className="text-2xl md:text-3xl font-semibold text-center md:text-left"
         id="name"
       >
-        Mr Binil George
+        Mr {user.firstname + " " + user.lastname}
       </div>
       <br />
       <br />
@@ -53,7 +62,7 @@ export default function HomePage() {
       <br />
       <div className="rounded-xl bg-[#E6E6E638] w-full p-6">
         <div className="text-2xl font-bold">
-          Recent Watch
+          Recent Class
           <br />
           <br />
           <div className="px-5 grid grid-rows-2 lg:grid-rows-1 lg:grid-flow-col lg:auto-cols-max w-full gap-4">

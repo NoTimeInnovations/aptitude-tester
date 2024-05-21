@@ -8,10 +8,10 @@ function listItems(text, color) {
           className={
             " h-4 w-4 border border-black " +
             (color == 0
-              ? "bg-[#00FF00]"
+              ? "bg-[#00af82]"
               : color == 1
               ? "bg-[#FF0000]"
-              : "bg-[#0000FF]")
+              : "bg-[#0075a4]")
           }
         />
         &nbsp;
@@ -45,7 +45,7 @@ export default function RecentPieResults() {
                 <div className="w-full flex justify-center p-2">
                   <PieChart
                     className="w-10 h-10 md:w-screen md:h-screen"
-                    colors={["#FF0000", "#0000FF", "#00FF00"]}
+                    colors={["#FF0000", "#0075a4", "#00af82"]}
                     series={[
                       {
                         data: [
