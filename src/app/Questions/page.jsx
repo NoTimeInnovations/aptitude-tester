@@ -100,12 +100,7 @@ export default function page() {
             <div className="grid grid-cols-5 gap-0.5 mt-4 gap-y-5">
               {arr1.map((item) => (
                 <button key={item}>
-                  <ElevatedShadowDiv>
-                    <div className="w-5 flex items-center">
-                      {item < 10 ? "0" : ""}
-                      {item}
-                    </div>
-                  </ElevatedShadowDiv>
+                  <ElevatedShadowDiv>{item}</ElevatedShadowDiv>
                 </button>
               ))}
             </div>
@@ -130,12 +125,12 @@ export default function page() {
               </div>
               <div className="flex w-fit p-3">
                 <div className="flex flex-row items-center font-['Poppins'] text-black mt-5">
-                  <GreenButton bg="#2F4AD7">
+                  <GreenButton bg="#2F4AD7" className="mr-8">
                     <div className="pr-2 pl-2">1</div>
                   </GreenButton>
-                  <span className="ml-2">Review</span>
+                  <span className="ml-2 mr-4">Review</span>
                 </div>
-                <div className="flex flex-row items-center font-['Poppins'] text-black mt-5 ml-5">
+                <div className="flex flex-row items-center font-['Poppins'] text-black mt-5 ml-7">
                   <GreenButton bg="#F0EEED">
                     <div className="pr-2 pl-2">1</div>
                   </GreenButton>

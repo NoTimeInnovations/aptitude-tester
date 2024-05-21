@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { useUserContext } from "../../app/dashboard/page";
+
 function listItems(text) {
   return (
     <li>
@@ -16,26 +17,26 @@ export default function ProfilePage() {
   const user = useUserContext();
   return (
     <>
-      <div className="flex-1 bg-white text-black pt-24 pb-10 px-6 font-['Poppins'] h-screen">
+      <div className="flex-1 bg-white text-black pt-24 pb-10 px-6 font-['Poppins'] min-h-screen">
         <div className="text-[36px] text-[rgba(4,2,105,100)] font-bold ml-4">
           Profile
         </div>
         <div className="text-[24px] border-[1px] font-semibold rounded-xl mt-16 relative mb-36 ">
           <div className="mt-10 ml-10">Personal Details</div>
-          <div className="flex flex-row justify-between mr-3">
-            <div className="bg-white text-lg font-[700] py-6 px-4 w-fit">
-              <ul className="flex flex-col justify-around h-full mt-2 w-fit">
-                {listItems(`Name:${user.firstname} ${user.lastname}`)}
+          <div className="flex flex-col md:flex-row justify-between mr-3">
+            <div className="bg-white text-lg font-[700] py-6 px-4 md:w-96">
+              <ul className="flex flex-col justify-around h-full mt-2">
+                {listItems(`Name: ${user.firstname} ${user.lastname}`)}
 
-                {listItems("Email:" + user.email)}
+                {listItems("Email: " + user.email)}
 
-                {listItems("Phone:" + user.mobile)}
+                {listItems("Phone: " + user.mobile)}
 
-                {listItems(`Subscription Plan:${user.plan}Rs`)}
+                {listItems(`Subscription Plan: ${user.plan} Rs`)}
               </ul>
             </div>
-            <div className>
-              <div className="flex flex-row justify-end absolute h-100 w-100 top-[30%] start-[80%]">
+            <div className="relative">
+              <div className="absolute inset-y-0 right-0 h-48 w-48 top-[30%] md:top-[50%] md:right-[5%]">
                 <Image
                   src="/media/img/testAccount.svg"
                   width={120}
@@ -43,7 +44,7 @@ export default function ProfilePage() {
                   className="mr-12 mb-7"
                 />
               </div>
-              <div className="flex flex-row justify-end absolute h-40 w-50 top-[45%] start-[81%] ">
+              <div className="absolute inset-y-0 right-0 h-12 w-24 top-[50%] md:top-[70%] md:right-[5%]">
                 <button className="text-[12px]">
                   <div className="flex flex-row">
                     Change Profile

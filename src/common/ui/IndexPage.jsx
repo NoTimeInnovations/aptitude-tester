@@ -13,24 +13,28 @@ export default function IndexPage() {
     <>
       <div className="bg-[rgba(185,203,239,255)] w-screen pt-10 text-black">
         <NonLoginNavBar />
-        <div className="mt-40 flex font-bold text-5xl w-full justify-center">
-          <span className="text-[#030091] flex flex-col justify-around mb-2">
+        <div className="mt-40 flex flex-col font-bold text-4xl md:text-5xl w-full md:w-full justify-center">
+          <span className="text-[#030091] flex flex-col justify-around mb-2 text-center">
             Secure&nbsp;
           </span>
-          <span className=" flex flex-col justify-around mb-2">
-            Your Placements
-          </span>
-          <Image
-            src="/media/img/IndexPage/exclamation.png"
-            className="ml-2"
-            width={20}
-            height={20}
-          />
-          <Image
-            src="/media/img/IndexPage/exclamation.png"
-            width={20}
-            height={20}
-          />
+          <div className="flex text-3xl justify-center">
+            <span className=" flex flex-col justify-around mb-2">
+              Your Placements
+            </span>
+            <div className="flex">
+              <Image
+                src="/media/img/IndexPage/exclamation.png"
+                className="ml-2"
+                width={20}
+                height={20}
+              />
+              <Image
+                src="/media/img/IndexPage/exclamation.png"
+                width={20}
+                height={20}
+              />
+            </div>
+          </div>
         </div>
         <div className="w-full text-xl font-bold text-center">
           With The Best Online Learning Expertise
@@ -83,7 +87,7 @@ export default function IndexPage() {
           <br />
         </div>
 
-        <div className="bg-[#D9D9D9] ml-[10%] w-[80%] grid grid-cols-2 gap-[10%] p-[5%] rounded-xl">
+        <div className="bg-[#D9D9D9] ml-[10%] w-[80%] grid md:grid-cols-2 gap-[5%] md:gap-[10%] p-[5%] rounded-xl pb-[30%] md:pb-[5%]">
           <PricingCards text="SIMPLE - &#8377;50">
             <Feature available="yes">Hello</Feature>
             <Feature available="yes"></Feature>
@@ -97,11 +101,12 @@ export default function IndexPage() {
             <Feature available="no"></Feature>
           </PricingCards>
         </div>
+
         <br />
         <br />
         <div className="bg-white rounded-lg w-screen mr-[10%] ml-[10%] max-w-[80%] pr-[10%]  text-black py-10 pl-20">
-          <div className=" text-6xl font-bold">Ask Us</div>
-          <div className="text-lg font-['Poppins'] max-w-[70%] ">
+          <div className=" text-3xl md:text-6xl font-bold mb-4">Ask Us</div>
+          <div className=" text-xl md:text-lg font-['Poppins'] max-w-[130%] md:max-w-[70%] ">
             Many desktop publishing packages and web page editors now use Lorem
             Ipsum as their default model text, and a search for 'lorem ipsum'
             will uncover many web sites still in their infancy.

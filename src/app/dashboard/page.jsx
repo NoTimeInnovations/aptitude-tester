@@ -37,9 +37,11 @@ export default function page() {
     <>
       {auth == "authenticated" ? (
         <>
-          <div className="text-black sticky top-0 w-[20%] font-['Poppins'] bg-[rgba(185,203,239,255)] h-screen box-border">
-            <div className="flex flex-col py-24 h-screen">
-              <div className="text-3xl pb-24 w-full text-center">EasyLearn</div>
+          <div className="text-black fixed top-0 w-[25%] md:w-[20%] font-['Poppins'] bg-[rgba(185,203,239,255)] h-[100lvh]  box-border flex flex-row">
+            <div className="flex flex-col py-24 h-screen w-full">
+              <div className=" text-[16px] md:text-3xl pb-24 w-full text-center">
+                EasyLearn
+              </div>
               <div className=" divide-y box-border divide-solid">
                 <div></div>
                 <div></div>
@@ -57,7 +59,7 @@ export default function page() {
                   ))}
                 </ul>
               </div>
-              <div className="-mb-24 flex-1 flex flex-col justify-end">
+              <div className=" md:-mb-24 -mb-10 flex-1 flex flex-col justify-end">
                 <NavItem
                   selected="No"
                   text="Logout"
@@ -71,7 +73,7 @@ export default function page() {
               </div>
             </div>
           </div>
-          <div className="ml-[20%] -mt-[100vh]">
+          <div className="ml-[20%]  h-screen overflow-y-scroll">
             <UserContext.Provider value={user}>
               <TabHandler tab={tab} />
             </UserContext.Provider>

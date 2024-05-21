@@ -18,44 +18,46 @@ export default function HomePage() {
   const [seconds, minutes, hours, days] =
     scheduledTest != null ? timer(scheduledDate) : [null, null, null, null];
   const [speed, accuracy, passPercent, questionAttempt] =
-    user.test.lenght < 1 ? [null, null, null, null] : getCalculation(user.test);
+    user.test.length < 1 ? [null, null, null, null] : getCalculation(user.test);
 
   return (
-    <div className="flex-1 bg-white text-black pt-24 pb-10 px-6 font-['Poppins']">
-      <div className="flex flex-row justify-between">
-        <span className="text-[#040269] font-bold  text-5xl ">
+    <div className="flex-1 bg-white text-black pt-12 md:pt-24 pb-10 px-6 font-['Poppins']">
+      <div className="flex flex-col lg:flex-row justify-between items-center">
+        <span className="text-[#040269] font-bold text-3xl md:text-5xl mb-4 lg:mb-0">
           Good Morning
         </span>
-        <div className="flex flex-row">
+        <div className="flex flex-row items-center">
           <Image
             src="/media/img/HomePage/calendar.svg"
+            className="w-6 md:w-8"
             width={30}
             height={10}
+            alt="Calendar Icon"
           />
-          {/*toChanage*/}
-          <div className="flex flex-col font-bold text-lg justify-around">
+          <div className="flex flex-col font-bold text-lg justify-around ml-2">
             Date
           </div>
         </div>
       </div>
-      {/*toChanage*/}
       <br />
-      <span className="text-3xl font-semibold" id="name">
+      <div
+        className="text-2xl md:text-3xl font-semibold text-center md:text-left"
+        id="name"
+      >
         Mr Binil George
-      </span>
+      </div>
       <br />
       <br />
-      {/*toChanage*/}
       <RecentPieResults />
       <br />
       <br />
-      <div className=" rounded-xl bg-[#E6E6E638] w-full p-6">
+      <div className="rounded-xl bg-[#E6E6E638] w-full p-6">
         <div className="text-2xl font-bold">
-          Recent Test Result
+          Recent Watch
           <br />
           <br />
-          <div className="px-5 grid grid-rows-2 lg:grid-rows-1 lg:grid-flow-col lg:auto-cols-max w-full ">
-            <div className="">
+          <div className="px-5 grid grid-rows-2 lg:grid-rows-1 lg:grid-flow-col lg:auto-cols-max w-full gap-4">
+            <div>
               <iframe
                 className="md:h-[16vw] h-[20vh] aspect-video"
                 src="https://www.youtube.com/embed/S-L-keJA0u8?si=eoxeeBYWBrPzIR3Q"
@@ -66,33 +68,31 @@ export default function HomePage() {
                 allowFullScreen
               />
             </div>
-
-            <div className="grid grid-cols-2 text-lg font-[700] py-6 px-4 min-w-3/12 w-fit md:justify-self-center">
-              Courses Type&nbsp;<span className="w-fit">: Course</span>
-              Courses Name&nbsp;<span className="w-fit">: Course</span>
-              Courses Code&nbsp;<span className="w-fit">: Course</span>
-              <button
-                className="bg-[#040269CC] text-base w-fit h-fit py-2 px-3
-                rounded-2xl text-white"
-              >
+            <div className="grid grid-cols-2 text-lg font-bold py-6 px-4">
+              <span>Courses Type</span>
+              <span>: Course</span>
+              <span>Courses Name</span>
+              <span>: Course</span>
+              <span>Courses Code</span>
+              <span>: Course</span>
+              <button className="bg-[#040269CC] text-base py-2 px-3 rounded-2xl text-white col-span-2">
                 Watch Now
               </button>
             </div>
           </div>
         </div>
       </div>
-
       <br />
       <br />
-      <div className="flex px-10 flex-row justify-between">
-        <div className="flex flex-col items-center rounded-xl bg-[#E6E6E638] w-[40%] p-6 h-fit">
-          <div className="text-xl flex flex-row justify-between font-bold w-full">
-            Scheduled Test <spand>Edit</spand>
+      <div className="flex flex-col lg:flex-row justify-between gap-4 px-10">
+        <div className="flex flex-col items-center rounded-xl bg-[#E6E6E638] w-full lg:w-[40%] p-6">
+          <div className="text-xl flex justify-between font-bold w-full mb-4">
+            Scheduled Test <span>Edit</span>
           </div>
           {scheduledTest == null ? (
             <div className="mt-7 text-lg">No Test Scheduled Yet</div>
           ) : (
-            [
+            <>
               <div className="mt-8">
                 <div className="flex w-full flex-row gap-2 items-center justify-center">
                   <ElevatedShadowDiv>{seconds}</ElevatedShadowDiv>:
@@ -106,10 +106,10 @@ export default function HomePage() {
                   <span>Min</span>
                   <span>Sec</span>
                 </div>
-              </div>,
+              </div>
               <div className="mt-5 text-lg w-full text-center">
-                {scheduledTest.topic}&nbsp;Test
-              </div>,
+                {scheduledTest.topic} Test
+              </div>
               <div className="mt-1 text-[#BDBDBD] text-base w-full text-center">
                 {`${scheduledDate.getDate().toLocaleString("en-US", {
                   minimumIntegerDigits: 2,
@@ -121,35 +121,33 @@ export default function HomePage() {
                   minimumIntegerDigits: 2,
                   useGrouping: false,
                 })}`}
-              </div>,
-            ]
+              </div>
+            </>
           )}
-          <button className="mt-7 rounded-full bg-[#040269E5] w-fit py-2 px-10 text-white ">
+          <button className="mt-7 rounded-full bg-[#040269E5] w-fit py-2 px-10 text-white">
             Set Another
           </button>
         </div>
-        <div className="flex flex-col items-center rounded-xl bg-[#E6E6E638] w-[40%] p-6">
-          <div className="text-xl flex flex-row justify-center font-bold w-full">
-            Overall Perfomance
+        <div className="flex flex-col items-center rounded-xl bg-[#E6E6E638] w-full lg:w-[40%] p-6">
+          <div className="text-xl flex justify-center font-bold w-full mb-4">
+            Overall Performance
           </div>
           {user.test.length < 1 ? (
             <div className="text-lg mt-7">
               You have not attempted any test yet
             </div>
           ) : (
-            [
-              <div className=" rounded-xl w-full text-xl font-light rounded-xlg p-3 grid grid-cols-1 gap-5">
-                <StatsItem text="Avg Speed" value={`${speed} Qn/Min`} />
-                <StatsItem text="Accuracay" value={`${accuracy}%`} />
-                <StatsItem text="Pass Percentage" value={`${passPercent}%`} />
-                <StatsItem
-                  text="Questions Attempted"
-                  value={`${questionAttempt} Qns`}
-                />
-              </div>,
-            ]
+            <div className="rounded-xl w-full text-xl font-light p-3 grid gap-5">
+              <StatsItem text="Avg Speed" value={`${speed} Qn/Min`} />
+              <StatsItem text="Accuracy" value={`${accuracy}%`} />
+              <StatsItem text="Pass Percentage" value={`${passPercent}%`} />
+              <StatsItem
+                text="Questions Attempted"
+                value={`${questionAttempt} Qns`}
+              />
+            </div>
           )}
-          <button className="mt-7 rounded-full bg-[#040269E5] w-fit py-2 px-14 text-white ">
+          <button className="mt-7 rounded-full bg-[#040269E5] w-fit py-2 px-14 text-white">
             See Overall Results
           </button>
         </div>
