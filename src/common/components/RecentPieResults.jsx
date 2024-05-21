@@ -42,7 +42,7 @@ export default function RecentPieResults() {
               </div>
             ) : (
               <div className="px-5 grid md:grid-cols-2 items-center w=">
-                <div className="w-full flex justify-center p-2">
+                <div className="w-full flex justify-center md: flex justify-start p-4">
                   <PieChart
                     className="w-10 h-10 md:w-screen md:h-screen"
                     colors={["#FF0000", "#0075a4", "#00af82"]}
@@ -78,12 +78,12 @@ export default function RecentPieResults() {
                         fontSize: 14,
                       },
                     }}
-                    width={window.innerWidth < 720 ? 120 : 300}
-                    height={window.innerWidth < 720 ? 120 : 300}
+                    width={window.innerWidth < 720 ? 120 : 200}
+                    height={window.innerWidth < 720 ? 120 : 200}
                     {...sizing}
                   />
                 </div>
-                <div className="bg-white text-sm md:text-lg font-[600] h-full py-6 px-4 w-full md:w-3/4 md:justify-self-end">
+                <div className="bg-white text-sm md:text-lg font-[600] h-full py-6 px-4 w-full md:w-3/4 md:justify-self-end rounded-xl">
                   <ul className="flex flex-col  justify-around h-full">
                     {listItems("Correct", 0)}
                     {listItems("Wrong", 1)}
@@ -91,21 +91,21 @@ export default function RecentPieResults() {
                   </ul>
                 </div>
 
-                <div className="flex flex-col md:flex-row mt-5 gap-y-3 gap-x-20">
-                  <div className="flex flex-col">
-                    <span className="text-[#040269] text-2xl font-bond">
+                <div className="flex flex-col md:flex-row mt-5 gap-y-3 gap-x-20 ">
+                  <div className="flex flex-col justify-center">
+                    <span className="text-[#040269] text-.5xl md:text-2xl font-bond">
                       30
                     </span>
 
-                    <span className="text-black text-lg font-bond">
+                    <div className="text-black font-bond text-.5xl md:text-xl">
                       Total Questions
-                    </span>
+                    </div>
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-[#040269] text-2xl font-bond">
+                    <span className="text-[#040269] text-.5xl md:text-2xl font-bond">
                       {recentTest.duration}
                     </span>
-                    <span className="text-black text-lg font-bond">
+                    <span className="text-black text-.5xl md:text-2xl font-bond">
                       Time Taken
                     </span>
                   </div>
