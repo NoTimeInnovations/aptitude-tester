@@ -10,6 +10,7 @@ import getCalculation from "../../util/perfomanceCalculator";
 import StatsItem from "../components/StatsItem";
 
 export default function HomePage() {
+  const today = new Date();
   const user = useUserContext();
   const scheduledTest = user.scheduled ? user.scheduled : null;
   const scheduledDate =
@@ -32,20 +33,26 @@ export default function HomePage() {
             width={30}
             height={10}
           />
-          {/*toChanage*/}
-          <div className="flex flex-col font-bold text-lg justify-around">
-            Date
+          <div className="flex flex-col ml-2 font-bold text-lg justify-around">
+            {`${today.getDate().toLocaleString("en-US", {
+              minimumIntegerDigits: 2,
+              useGrouping: false,
+            })}/${(today.getMonth() + 1).toLocaleString("en-US", {
+              minimumIntegerDigits: 2,
+              useGrouping: false,
+            })}/${today.getFullYear().toLocaleString("en-US", {
+              minimumIntegerDigits: 2,
+              useGrouping: false,
+            })}`}
           </div>
         </div>
       </div>
-      {/*toChanage*/}
       <br />
       <span className="text-3xl font-semibold" id="name">
-        Mr Binil George
+        Mr {user.firstname + " " + user.lastname}
       </span>
       <br />
       <br />
-      {/*toChanage*/}
       <RecentPieResults />
       <br />
       <br />
