@@ -81,11 +81,12 @@ export default function page() {
                       password: event.target.pswd.value,
                     }),
                   });
-                  if ((await res.json()).error) {
-                    console.log((await res.json()).error);
+                  const response = await res.json();
+                  if (response.error) {
+                    console.log(response.error);
                     return alert("Something went wrong please try again");
                   }
-                  const token = (await res.json()).token;
+                  const token = response.token;
                   localStorage.setItem("token", token);
                   const resp = await (
                     await fetch("api/auth", {

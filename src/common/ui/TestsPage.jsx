@@ -12,7 +12,7 @@ export default function TestsPage() {
   const scheduledDate =
     scheduledTest != null ? new Date(scheduledTest.date) : null;
   const [seconds, minutes, hours, days] =
-    scheduledDate != null ? timer(scheduledDate) : null;
+    scheduledDate != null ? timer(scheduledDate) : [null, null, null, null];
   return (
     <div className="flex-1 bg-white text-black pt-24 pb-10 px-12 min-h-screen font-['Poppins']">
       <div className="flex flex-row justify-between">
@@ -37,44 +37,48 @@ export default function TestsPage() {
           </div>
         </div>
         {/*toChange*/}
-        <div className="flex flex-row mt-8 justify-between  ">
-          <div>
-            <div className="flex flex-row gap-2 items-center place-items-center text-2xl font-medium">
-              <ElevatedShadowDiv large>{seconds}</ElevatedShadowDiv>:
-              <ElevatedShadowDiv large>{minutes}</ElevatedShadowDiv>:
-              <ElevatedShadowDiv large>{hours}</ElevatedShadowDiv>:
-              <ElevatedShadowDiv large>{days}</ElevatedShadowDiv>
+        {scheduledTest == null ? (
+          <div className="mt-7 text-lg">No Test Scheduled Yet</div>
+        ) : (
+          <div className="flex flex-row mt-8 justify-between  ">
+            <div>
+              <div className="flex flex-row gap-2 items-center place-items-center text-2xl font-medium">
+                <ElevatedShadowDiv large>{seconds}</ElevatedShadowDiv>:
+                <ElevatedShadowDiv large>{minutes}</ElevatedShadowDiv>:
+                <ElevatedShadowDiv large>{hours}</ElevatedShadowDiv>:
+                <ElevatedShadowDiv large>{days}</ElevatedShadowDiv>
+              </div>
+              <div className="grid grid-cols-4 gap-[1.7rem] place-items-center">
+                <span>Days</span>
+                <span>Hr</span>
+                <span>Min</span>
+                <span>Sec</span>
+              </div>
             </div>
-            <div className="grid grid-cols-4 gap-[1.7rem] place-items-center">
-              <span>Days</span>
-              <span>Hr</span>
-              <span>Min</span>
-              <span>Sec</span>
+            <div className="grid gap-8 gap-y-12 grid-cols-2">
+              <div>
+                <div className="text-[#757575]">Title</div>
+                {scheduledTest.topic}&nbsp;Test
+              </div>
+              <div>
+                <div className="text-[#757575]">Scheduled On</div>
+                {`${scheduledDate.getDate().toLocaleString("en-US", {
+                  minimumIntegerDigits: 2,
+                  useGrouping: false,
+                })}/${(scheduledDate.getMonth() + 1).toLocaleString("en-US", {
+                  minimumIntegerDigits: 2,
+                  useGrouping: false,
+                })}/${scheduledDate.getFullYear().toLocaleString("en-US", {
+                  minimumIntegerDigits: 2,
+                  useGrouping: false,
+                })}`}
+              </div>
+              <div>
+                <div className="text-[#757575]">Duration</div>1 Hr, 30 min
+              </div>
             </div>
           </div>
-          <div className="grid gap-8 gap-y-12 grid-cols-2">
-            <div>
-              <div className="text-[#757575]">Title</div>
-              {scheduledTest.topic}&nbsp;Test
-            </div>
-            <div>
-              <div className="text-[#757575]">Scheduled On</div>
-              {`${scheduledDate.getDate().toLocaleString("en-US", {
-                minimumIntegerDigits: 2,
-                useGrouping: false,
-              })}/${(scheduledDate.getMonth() + 1).toLocaleString("en-US", {
-                minimumIntegerDigits: 2,
-                useGrouping: false,
-              })}/${scheduledDate.getFullYear().toLocaleString("en-US", {
-                minimumIntegerDigits: 2,
-                useGrouping: false,
-              })}`}
-            </div>
-            <div>
-              <div className="text-[#757575]">Duration</div>1 Hr, 30 min
-            </div>
-          </div>
-        </div>
+        )}
       </div>
       <br />
       <br />
