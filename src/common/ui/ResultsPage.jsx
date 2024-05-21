@@ -24,31 +24,49 @@ export default function ResultsPage() {
       <div className=" rounded-xl bg-[#E6E6E638] w-full p-6">
         <div className="text-2xl font-bold grid gap-5  grid-cols-2 ">
           Overall Perfomance<span>To Improve</span>
-          <div className="bg-white rounded-xl w-full text-xl font-light rounded-xlg p-3 grid grid-cols-1 gap-5">
-            <StatsItem text="Avg Speed" value={`${speed} Qn/Min`} />
-            <StatsItem text="Accuracay" value={`${accuracy}%`} />
-            <StatsItem text="Pass Percentage" value={`${passPercent}%`} />
-            <StatsItem
-              text="Questions Attempted"
-              value={`${questionAttempt} Qns`}
-            />
+          <div className="bg-white rounded-xl w-full text-xl font-light rounded-xlg p-3 grid grid-cols-1 gap-5 text-center">
+            {user.test.length < 1 ? (
+              <div className="text-lg mt-7">
+                You have not attempted any test yet
+              </div>
+            ) : (
+              [
+                <StatsItem text="Avg Speed" value={`${speed} Qn/Min`} />,
+                <StatsItem text="Accuracay" value={`${accuracy}%`} />,
+                <StatsItem text="Pass Percentage" value={`${passPercent}%`} />,
+                <StatsItem
+                  text="Questions Attempted"
+                  value={`${questionAttempt} Qns`}
+                />,
+              ]
+            )}
           </div>
           <div className="bg-white rounded-xl w-full text-xl font-light rounded-xlg p-3 grid grid-cols-1 gap-5 h-fit text-center">
-            {speed >= 0.8 &&
-              accuracy >= 80 &&
-              passPercent >= 80 &&
-              "You are on the right track"}
-            {speed < 0.8 && <StatsItem text="Avg Speed" value="0.8 Qn/Min" />}
-            {accuracy < 80 && <StatsItem text="Accuracay" value="80%" />}
-            {passPercent < 80 && (
-              <StatsItem text="Pass Percentage" value="80%" />
-            )}
-            {/* 
+            {user.test.length < 1 ? (
+              <div className="text-lg mt-7">
+                You have not attempted any test yet
+              </div>
+            ) : (
+              [
+                speed >= 0.8 &&
+                  accuracy >= 80 &&
+                  passPercent >= 80 &&
+                  "You are on the right track",
+                speed < 0.8 && (
+                  <StatsItem text="Avg Speed" value="0.8 Qn/Min" />
+                ),
+                accuracy < 80 && <StatsItem text="Accuracay" value="80%" />,
+                passPercent < 80 && (
+                  <StatsItem text="Pass Percentage" value="80%" />
+                ),
+                /* 
               <StatsItem
                 text="Questions Attempted"
                 value={`${questionAttempt}%`}
               />
-            } */}
+            } */
+              ]
+            )}
           </div>
         </div>
       </div>

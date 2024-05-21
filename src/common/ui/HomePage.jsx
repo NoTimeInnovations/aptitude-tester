@@ -15,11 +15,11 @@ export default function HomePage() {
   const scheduledTest = user.scheduled ? user.scheduled : null;
   const scheduledDate =
     scheduledTest != null ? new Date(scheduledTest.date) : null;
+  console.log(scheduledTest);
   const [seconds, minutes, hours, days] =
-    scheduledDate != null ? timer(scheduledDate) : null;
-  const [speed, accuracy, passPercent, questionAttempt] = getCalculation(
-    user.test
-  );
+    scheduledTest != null ? timer(scheduledDate) : [null, null, null, null];
+  const [speed, accuracy, passPercent, questionAttempt] =
+    user.test.lenght < 1 ? [null, null, null, null] : getCalculation(user.test);
 
   return (
     <div className="flex-1 bg-white text-black pt-24 pb-10 px-6 font-['Poppins']">
@@ -91,41 +91,46 @@ export default function HomePage() {
 
       <br />
       <br />
-      {/*toChange*/}
       <div className="flex px-10 flex-row justify-between">
-        <div className="flex flex-col items-center rounded-xl bg-[#E6E6E638] w-[40%] p-6">
+        <div className="flex flex-col items-center rounded-xl bg-[#E6E6E638] w-[40%] p-6 h-fit">
           <div className="text-xl flex flex-row justify-between font-bold w-full">
             Scheduled Test <spand>Edit</spand>
           </div>
-          <div className="mt-8">
-            <div className="flex w-full flex-row gap-2 items-center justify-center">
-              <ElevatedShadowDiv>{seconds}</ElevatedShadowDiv>:
-              <ElevatedShadowDiv>{minutes}</ElevatedShadowDiv>:
-              <ElevatedShadowDiv>{hours}</ElevatedShadowDiv>:
-              <ElevatedShadowDiv>{days}</ElevatedShadowDiv>
-            </div>
-            <div className="grid grid-cols-4 gap-[1.2rem] place-items-center">
-              <span>Days</span>
-              <span>Hr</span>
-              <span>Min</span>
-              <span>Sec</span>
-            </div>
-          </div>
-          <div className="mt-5 text-lg w-full text-center">
-            {scheduledTest.topic}&nbsp;Test
-          </div>
-          <div className="mt-1 text-[#BDBDBD] text-base w-full text-center">
-            {`${scheduledDate.getDate().toLocaleString("en-US", {
-              minimumIntegerDigits: 2,
-              useGrouping: false,
-            })}/${(scheduledDate.getMonth() + 1).toLocaleString("en-US", {
-              minimumIntegerDigits: 2,
-              useGrouping: false,
-            })}/${scheduledDate.getFullYear().toLocaleString("en-US", {
-              minimumIntegerDigits: 2,
-              useGrouping: false,
-            })}`}
-          </div>
+          {scheduledTest == null ? (
+            <div className="mt-7 text-lg">No Test Scheduled Yet</div>
+          ) : (
+            [
+              <div className="mt-8">
+                <div className="flex w-full flex-row gap-2 items-center justify-center">
+                  <ElevatedShadowDiv>{seconds}</ElevatedShadowDiv>:
+                  <ElevatedShadowDiv>{minutes}</ElevatedShadowDiv>:
+                  <ElevatedShadowDiv>{hours}</ElevatedShadowDiv>:
+                  <ElevatedShadowDiv>{days}</ElevatedShadowDiv>
+                </div>
+                <div className="grid grid-cols-4 gap-[1.2rem] place-items-center">
+                  <span>Days</span>
+                  <span>Hr</span>
+                  <span>Min</span>
+                  <span>Sec</span>
+                </div>
+              </div>,
+              <div className="mt-5 text-lg w-full text-center">
+                {scheduledTest.topic}&nbsp;Test
+              </div>,
+              <div className="mt-1 text-[#BDBDBD] text-base w-full text-center">
+                {`${scheduledDate.getDate().toLocaleString("en-US", {
+                  minimumIntegerDigits: 2,
+                  useGrouping: false,
+                })}/${(scheduledDate.getMonth() + 1).toLocaleString("en-US", {
+                  minimumIntegerDigits: 2,
+                  useGrouping: false,
+                })}/${scheduledDate.getFullYear().toLocaleString("en-US", {
+                  minimumIntegerDigits: 2,
+                  useGrouping: false,
+                })}`}
+              </div>,
+            ]
+          )}
           <button className="mt-7 rounded-full bg-[#040269E5] w-fit py-2 px-10 text-white ">
             Set Another
           </button>
@@ -134,15 +139,23 @@ export default function HomePage() {
           <div className="text-xl flex flex-row justify-center font-bold w-full">
             Overall Perfomance
           </div>
-          <div className=" rounded-xl w-full text-xl font-light rounded-xlg p-3 grid grid-cols-1 gap-5">
-            <StatsItem text="Avg Speed" value={`${speed} Qn/Min`} />
-            <StatsItem text="Accuracay" value={`${accuracy}%`} />
-            <StatsItem text="Pass Percentage" value={`${passPercent}%`} />
-            <StatsItem
-              text="Questions Attempted"
-              value={`${questionAttempt} Qns`}
-            />
-          </div>
+          {user.test.length < 1 ? (
+            <div className="text-lg mt-7">
+              You have not attempted any test yet
+            </div>
+          ) : (
+            [
+              <div className=" rounded-xl w-full text-xl font-light rounded-xlg p-3 grid grid-cols-1 gap-5">
+                <StatsItem text="Avg Speed" value={`${speed} Qn/Min`} />
+                <StatsItem text="Accuracay" value={`${accuracy}%`} />
+                <StatsItem text="Pass Percentage" value={`${passPercent}%`} />
+                <StatsItem
+                  text="Questions Attempted"
+                  value={`${questionAttempt} Qns`}
+                />
+              </div>,
+            ]
+          )}
           <button className="mt-7 rounded-full bg-[#040269E5] w-fit py-2 px-14 text-white ">
             See Overall Results
           </button>
