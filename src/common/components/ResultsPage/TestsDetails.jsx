@@ -1,7 +1,60 @@
 import React, { useState } from "react";
 
+const daysOfWeek = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+
+const monthsOfYear = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+var tempDate = new Date();
+function dateAssign(date) {
+  tempDate = new Date(date);
+}
+function getTimeRange(duration) {
+  var hours = tempDate.getHours();
+  var minutes = tempDate.getMinutes();
+  var meridiem = hours >= 12 ? "PM" : "AM";
+
+  // Convert hours to 12-hour format
+  hours = hours % 12 || 12;
+
+  // Construct the time string
+  const ret = `${hours}:${minutes < 10 ? "0" : ""}${minutes} ${meridiem}`;
+  tempDate.setMinutes(tempDate.getMinutes() - duration);
+
+  hours = tempDate.getHours();
+  minutes = tempDate.getMinutes();
+
+  meridiem = hours >= 12 ? "PM" : "AM";
+
+  // Convert hours to 12-hour format
+  hours = hours % 12 || 12;
+
+  return (
+    `${hours}:${minutes < 10 ? "0" : ""}${minutes} ${meridiem}` + "-" + ret
+  );
+}
 export default function TestsDetails({ children }) {
-  const tests = children.tests;
+  const tests = children;
   var [isOpen, setOpen] = useState(false);
   return (
     <div className="rounded-xl bg-[#E6E6E638] w-full p-6">
@@ -25,14 +78,17 @@ export default function TestsDetails({ children }) {
             <div className="text-[#757575] text-sm font-base pb-12">Result</div>
             {tests.slice(0, 4).map((test) => [
               <div className="place-self-start">
-                {test.heading}
+                {dateAssign(test.date)}
+                {test.topic}, Test - {test.id + 1}
                 <div className="mt-2 flex min-w-max flex-row gap-2 justify-between text-[#757575] text-sm">
-                  {test.date}
-                  <span>{test.time}</span>
+                  {`${daysOfWeek[tempDate.getDay()]}, ${tempDate.getDate()} ${
+                    monthsOfYear[tempDate.getMonth()]
+                  } ${tempDate.getFullYear()}`}
+                  <span>{getTimeRange(test.duration)}</span>
                 </div>
               </div>,
-              <div className="col-start-6">{test.marks}</div>,
-              <div className="col-span-2">{test.attempted}</div>,
+              <div className="col-start-6">{test.correct - test.wrong}</div>,
+              <div className="col-span-2">{test.correct + test.wrong}</div>,
               <div>{test.correct}</div>,
               <div>{test.wrong}</div>,
               <button
@@ -50,15 +106,18 @@ export default function TestsDetails({ children }) {
             {isOpen &&
               tests.slice(3, tests.length).map((test) => [
                 <div className="place-self-start">
-                  {test.heading}
+                  {dateAssign(test.date)}
+                  {test.topic}-{test.id + 1}
                   <br />
                   <div className="flex min-w-max flex-row gap-2 justify-between text-[#757575] text-sm">
-                    {test.date}
-                    <span>{test.time}</span>
+                    {`${daysOfWeek[tempDate.getDay()]}, ${tempDate.getDate()} ${
+                      monthsOfYear[tempDate.getMonth()]
+                    } ${tempDate.getFullYear()}`}
+                    <span>{getTimeRange(test.duration)}</span>
                   </div>
                 </div>,
-                <div className="col-start-6">{test.marks}</div>,
-                <div className="col-span-2">{test.attempted}</div>,
+                <div className="col-start-6">{test.correct - test.wrong}</div>,
+                <div className="col-span-2">{test.correct + test.wrong}</div>,
                 <div>{test.correct}</div>,
                 <div>{test.wrong}</div>,
                 <button

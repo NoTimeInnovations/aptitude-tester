@@ -9,6 +9,7 @@ export const User = mongoose.models.user || mongoose.model('user', new Schema({
     email: { type: String, required: true },
     mobile: Number,
     date: String,
+    password: { type: String, required: true },
     classes: [Schema.Types.Mixed],
     test: [Schema.Types.Mixed],
     plan: Number,

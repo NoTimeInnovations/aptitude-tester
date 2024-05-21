@@ -52,7 +52,10 @@ export default function IndexPage() {
         </div>
       </div>
       <div className="bg-[#F3F3F3] w-screen pb-20 text-black pt-[25%]">
-        <div className="text-6xl pl-[10%] font-['Poppins'] font-bold">
+        <div
+          id="About"
+          className="text-6xl pl-[10%] font-['Poppins'] font-bold"
+        >
           Benefits Of EasyLearn
         </div>
         <br />
@@ -66,7 +69,10 @@ export default function IndexPage() {
         <ServicesCards />
       </div>
       <div className="bg-[#F3F3F3] w-screen text-black py-20">
-        <div className="text-6xl pl-[10%] font-['Poppins'] font-bold">
+        <div
+          id="Courses"
+          className="text-6xl pl-[10%] font-['Poppins'] font-bold"
+        >
           Our Prices
         </div>
         <div className="text-lg pl-[11%] font-['Poppins'] max-w-[70%] ">

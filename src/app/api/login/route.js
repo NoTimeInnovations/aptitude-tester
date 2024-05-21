@@ -7,10 +7,15 @@ var bcrypt = require('bcryptjs');
 export async function POST(req, res) {
     await mongooseConnect();
     try {
-        const { username, firstname, lastname, mobile, email, password } = await req.json();
-        const hashedPassword = await bcrypt.hashSync(password, bcrypt.genSaltSync(10));//10
-        const user = new User({ username, firstname, lastname, mobile, email, password: hashedPassword, role: "Student" });
-        await user.save();
+        const { username, password } = await req.json();
+        const user = await User.findOne({ username });
+
+        if (user == null || user == undefined) {
+            return new Response(JSON.stringify({ error: "User does not Exist" }), { status: 400 });
+        }
+        if (!await bcrypt.compare(password, user.password)) {
+            return new Response(JSON.stringify({ error: "Wrong Credentials" }), { status: 400 });;
+        }
         const token = jwt.sign(
             { username: user.username, role: user.role },
             process.env.NEXT_PUBLIC_SECRET,

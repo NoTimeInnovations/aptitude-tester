@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import { useUserContext } from "../../app/dashboard/page";
 function listItems(text) {
   return (
     <li>
@@ -12,6 +13,7 @@ function listItems(text) {
 }
 
 export default function ProfilePage() {
+  const user = useUserContext();
   return (
     <>
       <div className="flex-1 bg-white text-black pt-24 pb-10 px-6 font-['Poppins'] h-screen">
@@ -23,13 +25,13 @@ export default function ProfilePage() {
           <div className="flex flex-row justify-between mr-3">
             <div className="bg-white text-lg font-[700] py-6 px-4 w-fit">
               <ul className="flex flex-col justify-around h-full mt-2 w-fit">
-                {listItems("Name:Goutham Rajesh")}
+                {listItems(`Name:${user.firstname} ${user.lastname}`)}
 
-                {listItems("Email:gouthamrajeshr10@gmail.com")}
+                {listItems("Email:" + user.email)}
 
-                {listItems("Phone:7012093754")}
+                {listItems("Phone:" + user.mobile)}
 
-                {listItems("Subscription Plan:100Rs")}
+                {listItems(`Subscription Plan:${user.plan}Rs`)}
               </ul>
             </div>
             <div className>

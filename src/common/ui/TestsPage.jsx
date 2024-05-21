@@ -3,8 +3,16 @@ import TestList from "../components/TestsPage/TestList";
 import CopyRight from "../components/CopyRight";
 import Image from "next/image";
 import ElevatedShadowDiv from "../components/ElevatedShadowDiv";
+import { useUserContext } from "../../app/dashboard/page";
+import timer from "../../util/timer";
 
 export default function TestsPage() {
+  const user = useUserContext();
+  const scheduledTest = user.scheduled ? user.scheduled : null;
+  const scheduledDate =
+    scheduledTest != null ? new Date(scheduledTest.date) : null;
+  const [seconds, minutes, hours, days] =
+    scheduledDate != null ? timer(scheduledDate) : null;
   return (
     <div className="flex-1 bg-white text-black pt-24 pb-10 px-12 min-h-screen font-['Poppins']">
       <div className="flex flex-row justify-between">
@@ -32,19 +40,13 @@ export default function TestsPage() {
         <div className="flex flex-row mt-8 justify-between  ">
           <div>
             <div className="flex flex-row gap-2 items-center place-items-center text-2xl font-medium">
-              <ElevatedShadowDiv>
-                <div className=" p-1">00</div>
-              </ElevatedShadowDiv>
-              :
-              <ElevatedShadowDiv>
-                <div className="p-1">00</div>
-              </ElevatedShadowDiv>
-              :
-              <ElevatedShadowDiv>
-                <div className="p-1">00</div>
-              </ElevatedShadowDiv>
+              <ElevatedShadowDiv large>{seconds}</ElevatedShadowDiv>:
+              <ElevatedShadowDiv large>{minutes}</ElevatedShadowDiv>:
+              <ElevatedShadowDiv large>{hours}</ElevatedShadowDiv>:
+              <ElevatedShadowDiv large>{days}</ElevatedShadowDiv>
             </div>
-            <div className="grid grid-cols-3 gap-[1.7rem] place-items-center">
+            <div className="grid grid-cols-4 gap-[1.7rem] place-items-center">
+              <span>Days</span>
               <span>Hr</span>
               <span>Min</span>
               <span>Sec</span>
@@ -53,18 +55,23 @@ export default function TestsPage() {
           <div className="grid gap-8 gap-y-12 grid-cols-2">
             <div>
               <div className="text-[#757575]">Title</div>
-              Geography quiz
+              {scheduledTest.topic}&nbsp;Test
             </div>
             <div>
-              <div className="text-[#757575]">Created On</div>
-              10 May, 2016
+              <div className="text-[#757575]">Scheduled On</div>
+              {`${scheduledDate.getDate().toLocaleString("en-US", {
+                minimumIntegerDigits: 2,
+                useGrouping: false,
+              })}/${(scheduledDate.getMonth() + 1).toLocaleString("en-US", {
+                minimumIntegerDigits: 2,
+                useGrouping: false,
+              })}/${scheduledDate.getFullYear().toLocaleString("en-US", {
+                minimumIntegerDigits: 2,
+                useGrouping: false,
+              })}`}
             </div>
             <div>
               <div className="text-[#757575]">Duration</div>1 Hr, 30 min
-            </div>
-            <div>
-              <div className="text-[#757575]">Scheduled on</div>
-              16 May, 2024
             </div>
           </div>
         </div>

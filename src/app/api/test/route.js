@@ -1,9 +1,5 @@
 
-import mongooseConnect from "../../../util/mongodb/mongooseConnect";
-
+import jwt from "jsonwebtoken"
 export async function GET() {
-    mongooseConnect().then(() => { console.log("Hello") });
-    return Response.json({
-        name: "connect"
-    });
+
 }
