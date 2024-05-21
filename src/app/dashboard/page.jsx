@@ -61,17 +61,29 @@ export default function page() {
     <>
       {auth == "authenticated" ? (
         <>
-          <div className="text-black fixed top-0 w-[25%] md:w-[20%] font-['Poppins'] bg-[rgba(185,203,239,255)] h-[100lvh]  box-border flex flex-row">
-            <div className="flex flex-col py-24 h-screen w-full">
-              <div className=" text-[16px] md:text-3xl pb-24 w-full text-center">
-                EasyLearn
+          <div className="text-black fixed top-0 w-screen h-[10%] md:w-[20%] font-['Poppins'] bg-[rgba(185,203,239,255)] md:h-[100lvh]  box-border flex md:flex-row flex-col">
+            <div className="flex flex-col md:py-24 py-2 px-2 md:px-0 h-screen w-full">
+              <div className=" text-[16px] md:text-3xl md:pb-24 pb-0 md:flex-col flex justify-center md:justify-around items-center w-full text-center flex-row">
+                <div className="place-self-center">EasyLearn</div>
+                <div className="absolute right-3 py-2 md:collapse">
+                  <NavItem
+                    selected="No"
+                    text="Logout"
+                    onClick={() => {
+                      if (confirm("Do you really want to logout ?")) {
+                        localStorage.removeItem("token");
+                        push("/");
+                      }
+                    }}
+                  />
+                </div>
               </div>
               <div className=" divide-y box-border divide-solid">
                 <div></div>
                 <div></div>
               </div>
-              <div className="flex flex-row">
-                <ul className="w-full">
+              <div className="flex md:flex-row flex-col">
+                <ul className="md:w-full h-full md:h-auto flex md:flex-col flex-row">
                   {icons.map((icon, index) => (
                     <NavItem
                       selected={index == tab ? "yes" : "no"}
@@ -83,7 +95,7 @@ export default function page() {
                   ))}
                 </ul>
               </div>
-              <div className=" md:-mb-24 -mb-10 flex-1 flex flex-col justify-end">
+              <div className=" md:-mb-24 flex-1 flex flex-col justify-end collapse md:visible">
                 <NavItem
                   selected="No"
                   text="Logout"
@@ -97,7 +109,7 @@ export default function page() {
               </div>
             </div>
           </div>
-          <div className="ml-[20%]  h-screen overflow-y-scroll">
+          <div className="md:ml-[20%] mt-[10%] md:mt-0  h-screen overflow-y-scroll">
             <QuestionsContext.Provider value={questions}>
               <ClassesContext.Provider value={classes}>
                 <UserContext.Provider value={user}>

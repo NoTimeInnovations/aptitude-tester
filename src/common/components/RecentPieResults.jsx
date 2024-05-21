@@ -32,7 +32,7 @@ export default function RecentPieResults() {
   return (
     <>
       <div className="flex flex-col md:flex-row">
-        <div className=" rounded-xl bg-[#E6E6E638] w-full md:w-full md:p-6 flex justify-start">
+        <div className=" rounded-xl bg-[#E6E6E638] w-full md:w-full md:p-6 flex justify-start pb-4">
           <div className="text-1xl md:text-4xl font-bold mt-4 ml-3 w-full">
             Recent Test Result
             <br />

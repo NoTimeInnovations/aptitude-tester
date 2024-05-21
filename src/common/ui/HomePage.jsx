@@ -61,14 +61,14 @@ export default function HomePage() {
       <br />
       <br />
       <div className="rounded-xl bg-[#E6E6E638] w-full p-6">
-        <div className="text-2xl font-bold">
+        <div className="text-.5xl md:text-2xl font-bold">
           Recent Class
           <br />
           <br />
-          <div className="px-5 grid grid-rows-2 lg:grid-rows-1 lg:grid-flow-col lg:auto-cols-max w-full gap-4">
+          <div className="px-5 grid grid-rows-1 lg:grid-rows-1 lg:grid-flow-col lg:auto-cols-max w-full gap-1 md:gap-4">
             <div>
               <iframe
-                className="md:h-[16vw] h-[20vh] aspect-video"
+                className="md:h-[16vw] h-[12vh] aspect-video mr-5"
                 src="https://www.youtube.com/embed/S-L-keJA0u8?si=eoxeeBYWBrPzIR3Q"
                 title="YouTube video player"
                 frameBorder="0"
@@ -77,14 +77,14 @@ export default function HomePage() {
                 allowFullScreen
               />
             </div>
-            <div className="grid grid-cols-2 text-lg font-bold py-6 px-4">
+            <div className="grid grid-cols-2 text-[12px] md:text-lg font-bold py-6 px-4">
               <span>Courses Type</span>
               <span>: Course</span>
               <span>Courses Name</span>
               <span>: Course</span>
               <span>Courses Code</span>
               <span>: Course</span>
-              <button className="bg-[#040269CC] text-base py-2 px-3 rounded-2xl text-white col-span-2">
+              <button className="bg-[#040269CC] text-.5xl md:text-base py-2 px-3 rounded-2xl text-white col-span-2 ">
                 Watch Now
               </button>
             </div>

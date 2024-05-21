@@ -5,7 +5,7 @@ export default function NavItem(props) {
   return (
     <li
       onClick={props.onClick}
-      className={`pl-4 py-2 rounded-lg w-full flex flex-row block ${
+      className={`pl-1 md:pl-4 py-2 rounded-lg w-full flex flex-row block ${
         props.selected === "yes" && "bg-[#FFFFFF38]"
       }`}
     >
