@@ -15,7 +15,6 @@ export default function HomePage() {
   const scheduledTest = user.scheduled ? user.scheduled : null;
   const scheduledDate =
     scheduledTest != null ? new Date(scheduledTest.date) : null;
-  console.log(scheduledTest);
   const [seconds, minutes, hours, days] =
     scheduledTest != null ? timer(scheduledDate) : [null, null, null, null];
   const [speed, accuracy, passPercent, questionAttempt] =
@@ -58,7 +57,7 @@ export default function HomePage() {
       <br />
       <div className=" rounded-xl bg-[#E6E6E638] w-full p-6">
         <div className="text-2xl font-bold">
-          Recent Test Result
+          Recent Class
           <br />
           <br />
           <div className="px-5 grid grid-rows-2 lg:grid-rows-1 lg:grid-flow-col lg:auto-cols-max w-full ">

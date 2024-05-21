@@ -6,6 +6,8 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 const UserContext = createContext();
+const QuestionsContext = createContext();
+const ClassesContext = createContext();
 
 const icons = ["Home", "Courses", "Tests", "Results", "Profile"];
 async function authenticate(setter, setUser) {
@@ -24,13 +26,35 @@ async function authenticate(setter, setUser) {
     return setter(authRes.error);
   }
 }
+async function getQuestions(setter) {
+  setter(
+    await (
+      await fetch("api/getQuestions", {
+        method: "GET",
+      })
+    ).json()
+  );
+}
+async function getClasses(setter) {
+  setter(
+    await (
+      await fetch("api/getClasses", {
+        method: "GET",
+      })
+    ).json()
+  );
+}
 export default function page() {
   const [tab, setTab] = useState(0);
   const [auth, setAuth] = useState("authenticating");
   const [user, setUser] = useState(null);
+  const [questions, setQuestions] = useState(null);
+  const [classes, setClasses] = useState(null);
   let { push } = useRouter();
   useEffect(() => {
     authenticate(setAuth, setUser);
+    getQuestions(setQuestions);
+    getClasses(setClasses);
   }, []);
 
   return (
@@ -72,9 +96,13 @@ export default function page() {
             </div>
           </div>
           <div className="ml-[20%] -mt-[100vh]">
-            <UserContext.Provider value={user}>
-              <TabHandler tab={tab} />
-            </UserContext.Provider>
+            <ClassesContext.Provider value={classes}>
+              <QuestionsContext.Provider value={questions}>
+                <UserContext.Provider value={user}>
+                  <TabHandler tab={tab} />
+                </UserContext.Provider>
+              </QuestionsContext.Provider>
+            </ClassesContext.Provider>
           </div>
         </>
       ) : (
@@ -86,4 +114,10 @@ export default function page() {
 
 export function useUserContext() {
   return useContext(UserContext);
+}
+export function useQuestionsContext() {
+  return useContext(QuestionsContext);
+}
+export function useClassesContext() {
+  return useContext(ClassesContext);
 }

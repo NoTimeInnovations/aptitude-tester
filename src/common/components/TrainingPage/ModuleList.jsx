@@ -1,7 +1,15 @@
 "use client";
 import Image from "next/image";
 import React, { useState } from "react";
-
+Array.prototype.contains = function (obj) {
+  var i = this.length;
+  while (i--) {
+    if (this[i] === obj) {
+      return true;
+    }
+  }
+  return false;
+};
 export default function ModuleList({ children }) {
   const heading = children.module;
   const topics = children.topics;
@@ -10,11 +18,11 @@ export default function ModuleList({ children }) {
     <div className="rounded-xl bg-[#E6E6E638] w-full p-6">
       <div className="text-3xl h-auto font-bold">
         <div className="flex mx-2 flex-row justify-between items-center">
-          {heading}
+          <div className="capitalize">{heading}</div>
           <div className="flex flex-row gap-3 font-semibold">
             {/*toChange*/}
             <div className="bg-[#E6E6E638] flex flex-col justify-around px-5 py-2">
-              0/{Object.keys(topics).length}
+              {children.finished.length}/{Object.keys(topics).length}
             </div>
             <button
               className={`bg-[#E6E6E638] p-3 ${!isOpen && `rotate-180`}`}
@@ -38,7 +46,7 @@ export default function ModuleList({ children }) {
                 </div>
               </div>
             </div>
-            {topics.map((topic) => (
+            {topics.map((topic, index) => (
               <div className="px-8 py-3 mt-1 mx-2 bg-white rounded-lg">
                 <div className="flex flex-row justify-between text-lg font-normal">
                   {topic.heading}
@@ -53,7 +61,13 @@ export default function ModuleList({ children }) {
                       </a>
                     </div>
                     <div>{topic.review}</div>
-                    <div>Status</div>
+                    {children.finished.contains(index) && (
+                      <Image
+                        src="/media/img/TrainingPage/status_tick.svg"
+                        width={30}
+                        height={10}
+                      />
+                    )}
                   </div>
                 </div>
               </div>

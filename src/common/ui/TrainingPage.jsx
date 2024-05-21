@@ -1,8 +1,24 @@
 import React from "react";
 import CopyRight from "../components/CopyRight";
 import ModuleList from "../components/TrainingPage/ModuleList";
+import { useClassesContext, useUserContext } from "../../app/dashboard/page";
 
 export default function TrainingPage() {
+  const classes = useClassesContext();
+  const user = useUserContext();
+  var finished = 0;
+  for (var i in user.classes) {
+    finished += user.classes[i].length;
+  }
+  var total = 0;
+  for (var i in classes) {
+    if (i == "_id") {
+      continue;
+    }
+    total += classes[i].length;
+  }
+  const percent =
+    Math.round(((finished / total) * 100 + Number.EPSILON) * 100) / 100;
   return (
     <div className="flex-1 bg-white text-black pt-24 pb-10 px-6 min-h-screen font-['Poppins']">
       <div className="flex flex-row justify-between">
@@ -19,20 +35,43 @@ export default function TrainingPage() {
       type and scrambled it to make a type specimen book.
       <br />
       <br />
-      {/*toChanage*/}
       <br />
       <br />
       <div className="bg-[#040269E5] py-5 px-5 rounded-lg grid gapx-12 gap-5 grid-cols-2 w-4/12 text-white">
         <div className="text-left">
-          Your Progress <span>0</span>/100
+          Your Progress <span>{finished}</span>/{total}
         </div>
         <div className="text-right">
-          <span>0</span>% Complete
+          <span>{percent}</span>% Complete
         </div>
-        <div className="col-span-2 h-2 bg-white w-full" />
+        <div className="col-span-2 h-2 bg-white w-full">
+          <div
+            style={{ width: `${percent}%` }}
+            className="h-full bg-yellow-300"
+          />
+        </div>
       </div>
       <br />
       <br />
+      {classes.error ? (
+        <div>{classes.error}</div>
+      ) : (
+        [
+          Object.keys(classes)
+            .slice(1, 4)
+            .map((item) => [
+              <ModuleList>
+                {{
+                  module: item,
+                  topics: classes[item],
+                  finished: user.classes[item],
+                }}
+              </ModuleList>,
+              <br />,
+            ]),
+        ]
+      )}
+      {/* 
       <ModuleList>
         {{
           module: "Reasoning",
@@ -49,7 +88,7 @@ export default function TrainingPage() {
             },
           ],
         }}
-      </ModuleList>
+      </ModuleList> */}
       <CopyRight />
     </div>
   );
