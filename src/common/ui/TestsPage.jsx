@@ -14,19 +14,21 @@ export default function TestsPage() {
   const [seconds, minutes, hours, days] =
     scheduledDate != null ? timer(scheduledDate) : [null, null, null, null];
   return (
-    <div className="flex-1 bg-white text-black pt-24 pb-10 px-12 min-h-screen font-['Poppins']">
-      <div className="flex flex-row justify-between">
-        <span className="text-[#040269] font-bold  text-5xl ">Mock Tests</span>
+    <div className="flex-1 bg-white text-black pt-24 pb-10 px-6 sm:px-8 md:px-12 min-h-screen font-['Poppins']">
+      <div className="flex flex-col md:flex-row justify-between">
+        <span className="text-[#040269] font-bold text-3xl sm:text-4xl md:text-5xl">
+          Mock Tests
+        </span>
       </div>
       <br />
       <br />
       <div
-        className="bg-white py-5 rounded-lg px-[3.5rem]"
+        className="bg-white py-5 rounded-lg px-4 sm:px-6 md:px-[3.5rem]"
         style={{ filter: "drop-shadow(0 0.5px 0.5px rgb(0 0 0 / 0.25))" }}
       >
-        <div className="flex flex-row justify-between font-semibold text-2xl">
+        <div className="flex flex-col md:flex-row justify-between font-semibold text-xl md:text-2xl">
           Pre Scheduled Test
-          <div className=" font-semibold text-xl flex flex-row items-center">
+          <div className="font-semibold text-lg md:text-xl flex flex-row items-center mt-2 md:mt-0">
             Edit Schedule
             <Image
               className="ml-1"
@@ -40,22 +42,22 @@ export default function TestsPage() {
         {scheduledTest == null ? (
           <div className="mt-7 text-lg">No Test Scheduled Yet</div>
         ) : (
-          <div className="flex flex-row mt-8 justify-between  ">
+          <div className="flex flex-col md:flex-row mt-8 justify-between">
             <div>
-              <div className="flex flex-row gap-2 items-center place-items-center text-2xl font-medium">
+              <div className="flex flex-row gap-2 items-center place-items-center text-xl md:text-2xl font-medium">
                 <ElevatedShadowDiv large>{seconds}</ElevatedShadowDiv>:
                 <ElevatedShadowDiv large>{minutes}</ElevatedShadowDiv>:
                 <ElevatedShadowDiv large>{hours}</ElevatedShadowDiv>:
                 <ElevatedShadowDiv large>{days}</ElevatedShadowDiv>
               </div>
-              <div className="grid grid-cols-4 gap-[1.7rem] place-items-center">
+              <div className="grid grid-cols-4 gap-4 md:gap-[1.7rem] place-items-center">
                 <span>Days</span>
                 <span>Hr</span>
                 <span>Min</span>
                 <span>Sec</span>
               </div>
             </div>
-            <div className="grid gap-8 gap-y-12 grid-cols-2">
+            <div className="grid gap-6 md:gap-8 gap-y-8 md:gap-y-12 grid-cols-1 md:grid-cols-2 mt-8 md:mt-0">
               <div>
                 <div className="text-[#757575]">Title</div>
                 {scheduledTest.topic}&nbsp;Test
@@ -82,7 +84,7 @@ export default function TestsPage() {
       </div>
       <br />
       <br />
-      <div className="px-5 rounded-xl py-20 bg-[#E6E6E638]">
+      <div className="px-4 sm:px-5 rounded-xl py-10 sm:py-20 bg-[#E6E6E638]">
         <TestList>
           {{
             module: "Reasoning",
