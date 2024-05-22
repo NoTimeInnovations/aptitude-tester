@@ -1,5 +1,7 @@
+"use client";
 import React, { useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 Array.prototype.contains = function (obj) {
   var i = this.length;
@@ -11,6 +13,7 @@ Array.prototype.contains = function (obj) {
   return false;
 };
 export default function TestList({ children }) {
+  let { push } = useRouter;
   const heading = children.module;
   const tests = children.tests;
   const userTest = children.testDetails;
@@ -44,17 +47,21 @@ export default function TestList({ children }) {
           <div className="grid grid-cols-1 divide-y">
             {tests.map((test, index) => (
               <div className="px-8 py-3 mt-1 mx-2 bg-white rounded-lg">
-                <div className="flex flex-row justify-between text-lg font-normal">
+                <div className="flex flex-row justify-between items-center text-lg font-normal">
                   Test - {index + 1}
-                  <div className="grid grid-cols-3 w-[40%] justify-items-center">
+                  <div className="grid grid-cols-3 w-[40%] justify-items-center  items-end">
                     <div className="flex flex-row w-full justify-center col-start-2">
-                      <a href={test.link}>
+                      <button
+                        onClick={() => {
+                          push("/testStart?");
+                        }}
+                      >
                         <Image
-                          src="/media/img/TrainingPage/youtube.png"
+                          src="/media/img/TestsPage/externalLink.svg"
                           width={30}
                           height={10}
                         />
-                      </a>
+                      </button>
                     </div>
                     {userTest[heading] && userTest[heading].contains(index) && (
                       <Image
