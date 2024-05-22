@@ -22,7 +22,9 @@ export default function TrainingPage() {
   return (
     <div className="flex-1 bg-white text-black pt-24 pb-10 px-6 min-h-screen font-['Poppins']">
       <div className="flex flex-row justify-between">
-        <span className="text-[#040269] font-bold  text-5xl ">Your Course</span>
+        <span className="text-[#040269] font-bold  text-3xl md:text-5xl ">
+          Your Course
+        </span>
       </div>
       <br />
       <br />

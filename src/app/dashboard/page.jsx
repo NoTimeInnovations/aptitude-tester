@@ -53,7 +53,7 @@ export default function page() {
   let { push } = useRouter();
   useEffect(() => {
     authenticate(setAuth, setUser);
-    getQuestions(setQuestions);
+    // getQuestions(setQuestions);
     getClasses(setClasses);
   }, []);
 

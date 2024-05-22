@@ -4,11 +4,8 @@ import { useUserContext } from "../../app/dashboard/page";
 
 function listItems(text) {
   return (
-    <li>
-      <div className="flex flex-row items-center opacity-50 font-['Be Vietnam Pro'] m-5 mb-10">
-        &nbsp;
-        {text}
-      </div>
+    <li className="flex flex-row items-center opacity-50 font-['Be Vietnam Pro'] m-5 mb-10">
+      &nbsp; {text}
     </li>
   );
 }
@@ -18,45 +15,44 @@ export default function ProfilePage() {
   return (
     <>
       <div className="flex-1 bg-white text-black pt-24 pb-10 px-6 font-['Poppins'] min-h-screen">
-        <div className="text-[36px] text-[rgba(4,2,105,100)] font-bold ml-4">
+        <div className="text-3xl text-[rgba(4,2,105,100)] font-bold ml-4">
           Profile
         </div>
-        <div className="text-[24px] border-[1px] font-semibold rounded-xl mt-16 relative mb-36 ">
-          <div className="mt-10 ml-10">Personal Details</div>
-          <div className="flex flex-col md:flex-row justify-between mr-3">
-            <div className="bg-white text-lg font-[700] py-6 px-4 md:w-96">
-              <ul className="flex flex-col justify-around h-full mt-2">
-                {listItems(`Name: ${user.firstname} ${user.lastname}`)}
-
-                {listItems("Email: " + user.email)}
-
-                {listItems("Phone: " + user.mobile)}
-
-                {listItems(`Subscription Plan: ${user.plan} Rs`)}
-              </ul>
-            </div>
-            <div className="relative">
-              <div className="absolute inset-y-0 right-0 h-48 w-48 top-[30%] md:top-[50%] md:right-[5%]">
+        <div className="text-[24px] border-[1px] font-semibold rounded-xl mt-16 relative mb-36 md:w-3/4 ">
+          <div className="mt-10 text-center md:text-start md:ml-8 ">
+            Personal Details
+          </div>
+          <div className="flex flex-col items-center md:flex-row justify-center mr-3 md:gap-16">
+            <div className="relative mb-10 md:mb-0 md:mr-10 items-center">
+              <div className="h-48 w-48">
                 <Image
                   src="/media/img/testAccount.svg"
-                  width={120}
-                  height={120}
-                  className="mr-12 mb-7"
+                  width={180}
+                  height={180}
+                  className="rounded-full"
+                  alt="Profile Picture"
                 />
               </div>
-              <div className="absolute inset-y-0 right-0 h-12 w-24 top-[50%] md:top-[70%] md:right-[5%]">
-                <button className="text-[12px]">
-                  <div className="flex flex-row">
-                    Change Profile
-                    <Image
-                      src="/media/img/edit.svg"
-                      width={15}
-                      height={15}
-                      className="ml-2"
-                    />
-                  </div>
+              <div className="mt-4 ml-12">
+                <button className="flex flex-row items-center text-[12px]">
+                  Change Profile
+                  <Image
+                    src="/media/img/edit.svg"
+                    width={15}
+                    height={15}
+                    className="ml-2"
+                    alt="Edit Icon"
+                  />
                 </button>
               </div>
+            </div>
+            <div className="text-lg font-[700] py-6 px-4 w-fit md:w-96">
+              <ul className="flex flex-col justify-around h-full mt-2">
+                {listItems(`Name: ${user.firstname} ${user.lastname}`)}
+                {listItems("Email: " + user.email)}
+                {listItems("Phone: " + user.mobile)}
+                {listItems(`Subscription Plan: ${user.plan} Rs`)}
+              </ul>
             </div>
           </div>
         </div>
