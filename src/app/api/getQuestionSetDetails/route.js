@@ -6,7 +6,7 @@ export async function GET(res) {
     mongooseConnect();
     try {
 
-        const questions = await Questions.findOne({});
+        const questions = await Questions.find({}, "topic id -_id");
 
         if (questions == null || questions == undefined) {
             return new Response(JSON.stringify({ error: "Couldn't find any questions, maybe under maintenance" }), { status: 400 });

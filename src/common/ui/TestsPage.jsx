@@ -1,18 +1,67 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import TestList from "../components/TestsPage/TestList";
 import CopyRight from "../components/CopyRight";
 import Image from "next/image";
 import ElevatedShadowDiv from "../components/ElevatedShadowDiv";
-import { useUserContext } from "../../app/dashboard/page";
+import {
+  useQuestionSetContext,
+  useUserContext,
+} from "../../app/dashboard/page";
 import timer from "../../util/timer";
 
 export default function TestsPage() {
-  const user = useUserContext();
+  const [user, setUser] = useState(useUserContext());
+  const [testDetails, setTestDetails] = useState(
+    user.test.reduce((acc, obj) => {
+      return {
+        ...acc,
+        [obj.topic]: [
+          ...(acc[obj.topic] || []),
+          { id: obj["id"], index: obj["index"] },
+        ],
+      };
+    }, {})
+  );
+
+  useEffect(() => {
+    setQuestionSet(
+      user.test.reduce((acc, obj) => {
+        return {
+          ...acc,
+          [obj.topic]: [
+            ...(acc[obj.topic] || []),
+            { id: obj["id"], index: obj["index"] },
+          ],
+        };
+      }, {})
+    );
+  }, [user]);
+
+  const [setDetails, setSetDetails] = useState(useQuestionSetContext());
+
+  const [questionSet, setQuestionSet] = useState(
+    setDetails.reduce((acc, obj) => {
+      return { ...acc, [obj.topic]: [...(acc[obj.topic] || []), obj["id"]] };
+    }, {})
+  );
+
+  useEffect(() => {
+    setQuestionSet(
+      setDetails.reduce((acc, obj) => {
+        return { ...acc, [obj.topic]: [...(acc[obj.topic] || []), obj["id"]] };
+      }, {})
+    );
+  }, [setDetails]);
+
+  console.log(testDetails);
+
   const scheduledTest = user.scheduled ? user.scheduled : null;
   const scheduledDate =
     scheduledTest != null ? new Date(scheduledTest.date) : null;
   const [seconds, minutes, hours, days] =
     scheduledDate != null ? timer(scheduledDate) : [null, null, null, null];
+
   return (
     <div className="flex-1 bg-white text-black pt-24 pb-10 px-12 min-h-screen font-['Poppins']">
       <div className="flex flex-row justify-between">
@@ -83,21 +132,16 @@ export default function TestsPage() {
       <br />
       <br />
       <div className="px-5 rounded-xl py-20 bg-[#E6E6E638]">
-        <TestList>
-          {{
-            module: "Reasoning",
-            tests: [
-              {
-                heading: "Python",
-                link: "",
-              },
-              {
-                heading: "Python",
-                link: "",
-              },
-            ],
-          }}
-        </TestList>
+        {Object.keys(questionSet).map((item) => [
+          <TestList>
+            {{
+              module: item,
+              testDetails,
+              tests: questionSet[item],
+            }}
+          </TestList>,
+          <br />,
+        ])}
         <CopyRight />
       </div>
     </div>

@@ -6,6 +6,7 @@ import { useClassesContext, useUserContext } from "../../app/dashboard/page";
 export default function TrainingPage() {
   const classes = useClassesContext();
   const user = useUserContext();
+  // use Sate
   var finished = 0;
   for (var i in user.classes) {
     finished += user.classes[i].length;
