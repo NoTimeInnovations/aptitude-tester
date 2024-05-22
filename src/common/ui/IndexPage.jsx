@@ -13,11 +13,11 @@ export default function IndexPage() {
     <>
       <div className="bg-[rgba(185,203,239,255)] w-screen pt-10 text-black">
         <NonLoginNavBar />
-        <div className="mt-40 flex flex-col font-bold text-4xl md:text-5xl w-full md:w-full justify-center">
+        <div className="mt-40 flex flex-col md:flex-row font-bold text-4xl md:text-6xl w-full md:w-full justify-center">
           <span className="text-[#030091] flex flex-col justify-around mb-2 text-center">
             Secure&nbsp;
           </span>
-          <div className="flex text-3xl justify-center">
+          <div className="flex text-3xl *:md:text-5xl justify-center">
             <span className=" flex flex-col justify-around mb-2">
               Your Placements
             </span>

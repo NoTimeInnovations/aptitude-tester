@@ -16,7 +16,7 @@ export default function ModuleList({ children }) {
   var [isOpen, setOpen] = useState(false);
   return (
     <div className="rounded-xl bg-[#E6E6E638] w-full p-6">
-      <div className="text-3xl h-auto font-bold">
+      <div className="text-xl md:text-3xl h-auto font-bold">
         <div className="flex mx-2 flex-row justify-between items-center">
           <div className="capitalize">{heading}</div>
           <div className="flex flex-row gap-3 font-semibold">
@@ -36,38 +36,38 @@ export default function ModuleList({ children }) {
         </div>
         {isOpen && (
           <>
-            <div className="px-8 py-6 mt-3 mx-2 bg-white rounded-xl">
-              <div className="flex flex-row justify-between text-xl font-semibold basis-full">
+            <div className="px-2 md:px-8 py-6 mt-3 mx-2 bg-white rounded-xl w-full">
+              <div className="flex flex-row justify-between text-[10px] md:text-xl font-semibold basis-full">
                 Classes
-                <div className="grid grid-cols-3 w-[40%] justify-items-center">
+                <div className="grid grid-cols-2 w-fit md:w-[40%] justify-items-center gap-5 mr-3">
                   <div>Link</div>
-                  <div>Review</div>
                   <div>Status</div>
                 </div>
               </div>
             </div>
             {topics.map((topic, index) => (
-              <div className="px-8 py-3 mt-1 mx-2 bg-white rounded-lg">
-                <div className="flex flex-row justify-between text-lg font-normal">
-                  {topic.heading}
-                  <div className="grid grid-cols-3 w-[40%] justify-items-center">
-                    <div className="flex flex-row w-full justify-center">
+              <div className="md:px-8 py-3 mt-1 mx-2 bg-white rounded-lg w-full">
+                <div className="flex flex-row justify-between text-[10px] md:text-lg font-normal w-[100%] md:w-full">
+                  <div className="px-2 w-[50%]">{topic.heading}</div>
+                  <div className="grid grid-cols-2 w-fit md:w-[40%] justify-items-center ">
+                    <div className="flex flex-row w-fit justify-center mr-7">
                       <a href={topic.link}>
                         <Image
                           src="/media/img/TrainingPage/youtube.png"
-                          width={30}
-                          height={10}
+                          width={window.innerWidth < 720 ? 20 : 30}
+                          height={window.innerWidth < 720 ? 20 : 10}
                         />
                       </a>
                     </div>
-                    <div>{topic.review}</div>
-                    {children.finished.contains(index) && (
-                      <Image
-                        src="/media/img/TrainingPage/status_tick.svg"
-                        width={30}
-                        height={10}
-                      />
-                    )}
+                    <div className="mr-7 md:mr-2">
+                      {children.finished.contains(index) && (
+                        <Image
+                          src="/media/img/TrainingPage/status_tick.svg"
+                          width={window.innerWidth < 720 ? 20 : 20}
+                          height={10}
+                        />
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>

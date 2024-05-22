@@ -23,7 +23,9 @@ export default function TrainingPage() {
   return (
     <div className="flex-1 bg-white text-black pt-24 pb-10 px-6 min-h-screen font-['Poppins']">
       <div className="flex flex-row justify-between">
-        <span className="text-[#040269] font-bold  text-5xl ">Your Course</span>
+        <span className="text-[#040269] font-bold  text-3xl md:text-5xl ">
+          Your Course
+        </span>
       </div>
       <br />
       <br />
@@ -38,7 +40,7 @@ export default function TrainingPage() {
       <br />
       <br />
       <br />
-      <div className="bg-[#040269E5] py-5 px-5 rounded-lg grid gapx-12 gap-5 grid-cols-2 w-4/12 text-white">
+      <div className="bg-[#040269E5] py-5 px-5 rounded-lg grid gapx-12 gap-5 grid-cols-2 w-fit md:w-4/12 text-white">
         <div className="text-left">
           Your Progress <span>{finished}</span>/{total}
         </div>

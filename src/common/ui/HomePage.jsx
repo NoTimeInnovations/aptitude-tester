@@ -21,7 +21,7 @@ export default function HomePage() {
     user.test.length < 1 ? [null, null, null, null] : getCalculation(user.test);
 
   return (
-    <div className="flex-1 bg-white text-black pt-12 md:pt-24 pb-10 px-6 font-['Poppins']">
+    <div className="flex md:flex-1 flex-col  bg-white text-black pt-12 md:pt-24 pb-10 px-6 font-['Poppins']">
       <div className="flex flex-col lg:flex-row justify-between items-center">
         <span className="text-[#040269] font-bold text-3xl md:text-5xl mb-4 lg:mb-0">
           Good Morning
@@ -65,10 +65,10 @@ export default function HomePage() {
           Recent Class
           <br />
           <br />
-          <div className="px-5 grid grid-rows-1 lg:grid-rows-1 lg:grid-flow-col lg:auto-cols-max w-full gap-1 md:gap-4">
+          <div className="px-5 grid grid-rows-1 lg:grid-rows-1 lg:grid-flow-col lg:auto-cols-max w-full gap-2 md:gap-4">
             <div>
               <iframe
-                className="md:h-[16vw] h-[12vh] aspect-video mr-5"
+                className="md:h-[16vw] h-[16vh] aspect-video mr-8"
                 src="https://www.youtube.com/embed/S-L-keJA0u8?si=eoxeeBYWBrPzIR3Q"
                 title="YouTube video player"
                 frameBorder="0"
@@ -77,14 +77,14 @@ export default function HomePage() {
                 allowFullScreen
               />
             </div>
-            <div className="grid grid-cols-2 text-[12px] md:text-lg font-bold py-6 px-4">
+            <div className="grid grid-cols-2 text-[12px] md:text-lg font-bold py-6 px-4 gap-3">
               <span>Courses Type</span>
               <span>: Course</span>
               <span>Courses Name</span>
               <span>: Course</span>
               <span>Courses Code</span>
               <span>: Course</span>
-              <button className="bg-[#040269CC] text-.5xl md:text-base py-2 px-3 rounded-2xl text-white col-span-2 ">
+              <button className="bg-[#040269CC] text-.5xl md:text-base py-2 px-3 rounded-2xl text-white col-span-2 mt-4">
                 Watch Now
               </button>
             </div>
@@ -93,8 +93,8 @@ export default function HomePage() {
       </div>
       <br />
       <br />
-      <div className="flex flex-col lg:flex-row justify-between gap-4 px-10">
-        <div className="flex flex-col items-center rounded-xl bg-[#E6E6E638] w-full lg:w-[40%] p-6">
+      <div className="flex flex-col lg:flex-row justify-between gap-4 md:px-10">
+        <div className="flex flex-col items-center rounded-xl bg-[#E6E6E638] w-fit lg:w-[40%] p-8 md:p-8">
           <div className="text-xl flex justify-between font-bold w-full mb-4">
             Scheduled Test <span>Edit</span>
           </div>
@@ -103,7 +103,7 @@ export default function HomePage() {
           ) : (
             <>
               <div className="mt-8">
-                <div className="flex w-full flex-row gap-2 items-center justify-center">
+                <div className="flex w-fit flex-row gap-2 items-center justify-center">
                   <ElevatedShadowDiv>{seconds}</ElevatedShadowDiv>:
                   <ElevatedShadowDiv>{minutes}</ElevatedShadowDiv>:
                   <ElevatedShadowDiv>{hours}</ElevatedShadowDiv>:
@@ -116,10 +116,10 @@ export default function HomePage() {
                   <span>Sec</span>
                 </div>
               </div>
-              <div className="mt-5 text-lg w-full text-center">
+              <div className="mt-5 text-lg w-fit text-center">
                 {scheduledTest.topic} Test
               </div>
-              <div className="mt-1 text-[#BDBDBD] text-base w-full text-center">
+              <div className="mt-1 text-[#BDBDBD] text-base w-fit text-center">
                 {`${scheduledDate.getDate().toLocaleString("en-US", {
                   minimumIntegerDigits: 2,
                   useGrouping: false,
@@ -146,7 +146,7 @@ export default function HomePage() {
               You have not attempted any test yet
             </div>
           ) : (
-            <div className="rounded-xl w-full text-xl font-light p-3 grid gap-5">
+            <div className="rounded-xl w-fit text-.5xl md:text-xl font-light p-3 grid gap-5">
               <StatsItem text="Avg Speed" value={`${speed} Qn/Min`} />
               <StatsItem text="Accuracy" value={`${accuracy}%`} />
               <StatsItem text="Pass Percentage" value={`${passPercent}%`} />

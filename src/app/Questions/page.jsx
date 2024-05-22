@@ -27,7 +27,7 @@ export default function page() {
                   Question 1
                 </div>
                 <div className="flex text-[rgba(4,2,105,100)] p-5 rounded-2xl h-5 items-center mt-6 mr-8 mb-4 border-[rgba(4,2,105,50)] shadow-xl">
-                  3 Points
+                  1 Points
                 </div>
               </div>
               <div className="text-black text-[18px] md:text-[20px] p-5">
@@ -123,7 +123,7 @@ export default function page() {
                   <span className="ml-2">Not Answered</span>
                 </div>
               </div>
-              <div className="flex w-fit p-3">
+              <div className="flex w-fit ">
                 <div className="flex flex-row items-center font-['Poppins'] text-black mt-5">
                   <GreenButton bg="#2F4AD7" className="mr-8">
                     <div className="pr-2 pl-2">1</div>
