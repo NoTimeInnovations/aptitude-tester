@@ -93,7 +93,7 @@ export default function page() {
               </button>
             </div>
           </div>
-          <div className="bg-white p-7 rounded-xl flex flex-col justify-center mt-8 md:mt-0">
+          <div className="bg-white p-7 rounded-xl flex flex-col justify-center mt-8 mb-8 md:mt-0">
             <div className="font-['Poppins'] text-xl md:text-2xl font-semibold text-[rgba(4,2,105,100)] text-center">
               Question Bank
             </div>
@@ -114,13 +114,13 @@ export default function page() {
                   <GreenButton bg="#2FD790">
                     <div className="pr-2 pl-2">1</div>
                   </GreenButton>
-                  <span className="ml-2"> Answered</span>
+                  <span className="ml-2 text-[14px]"> Answered</span>
                 </div>
                 <div className="flex flex-row items-center font-['Poppins'] text-black mt-5 ml-5">
                   <GreenButton bg="#E44848">
                     <div className="pr-2 pl-2">1</div>
                   </GreenButton>
-                  <span className="ml-2">Not Answered</span>
+                  <span className="ml-2 text-[14px]">Not Answered</span>
                 </div>
               </div>
               <div className="flex w-fit ">
@@ -128,13 +128,13 @@ export default function page() {
                   <GreenButton bg="#2F4AD7" className="mr-8">
                     <div className="pr-2 pl-2">1</div>
                   </GreenButton>
-                  <span className="ml-2 mr-4">Review</span>
+                  <span className="ml-2 mr-4 text-[14px]">Review</span>
                 </div>
                 <div className="flex flex-row items-center font-['Poppins'] text-black mt-5 ml-7">
                   <GreenButton bg="#F0EEED">
                     <div className="pr-2 pl-2">1</div>
                   </GreenButton>
-                  <span className="ml-2">Not Visited</span>
+                  <span className="ml-2 text-[14px]">Not Visited</span>
                 </div>
               </div>
             </div>

@@ -33,12 +33,12 @@ export default function TestList({ children }) {
         </div>
         {isOpen && [
           <div className="px-8 py-6 mt-3 mx-2 bg-white rounded-xl">
-            <div className="flex flex-row justify-between text-xl font-semibold basis-full">
+            <div className="flex flex-row justify-start text-sm md:text-xl font-semibold basis-full">
               Classes
-              <div className="grid grid-cols-3 w-[40%] justify-items-center">
-                <div className="col-start-2">Link</div>
-                <div>Status</div>
-              </div>
+            </div>
+            <div className="grid grid-cols-3 w-[40%] justify-items-center">
+              <div className="col-start-2">Link</div>
+              <div>Status</div>
             </div>
           </div>,
           <div className="grid grid-cols-1 divide-y">
