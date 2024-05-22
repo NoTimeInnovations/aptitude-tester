@@ -61,7 +61,10 @@ export default function page() {
     <>
       {auth == "authenticated" ? (
         <>
-          <div className="text-black fixed top-0 w-screen h-[10%] md:w-[20%] font-['Poppins'] bg-[rgba(185,203,239,255)] md:h-[100lvh]  box-border flex md:flex-row flex-col">
+          <div
+            className="text-black fixed top-0 w-screen h-[10%] md:w-[20%] font-['Poppins'] bg-[rgba(185,203,239,255)] md:h-[100lvh]  box-border flex md:flex-row flex-col"
+            style={{ zIndex: 1500 }}
+          >
             <div className="flex flex-col md:py-24 py-2 px-2 md:px-0 h-screen w-full">
               <div className=" text-[16px] md:text-3xl md:pb-24 pb-0 md:flex-col flex justify-center md:justify-around items-center w-full text-center flex-row">
                 <div className="place-self-center">EasyLearn</div>
@@ -109,7 +112,7 @@ export default function page() {
               </div>
             </div>
           </div>
-          <div className="md:ml-[20%] mt-[10%] md:mt-0  h-screen overflow-y-scroll">
+          <div className="md:ml-[20%] mt-[10%] md:mt-0  h-screen ">
             <QuestionsContext.Provider value={questions}>
               <ClassesContext.Provider value={classes}>
                 <UserContext.Provider value={user}>
