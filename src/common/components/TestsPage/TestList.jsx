@@ -3,11 +3,6 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-function getExclusiveRandomFromArray(ids) {
-  const ret = ids[Math.floor(Math.random() * ids.length)];
-  return ret;
-}
-
 Array.prototype.contains = function (obj, ids, setter) {
   var i = this.length;
   while (i--) {
@@ -15,7 +10,7 @@ Array.prototype.contains = function (obj, ids, setter) {
       return [true, this[i]["id"]];
     }
   }
-  return [false, getExclusiveRandomFromArray(ids)];
+  return [false, ids[Math.floor(Math.random() * ids.length)]];
 };
 export default function TestList({ children }) {
   let { push } = useRouter();
@@ -79,7 +74,7 @@ export default function TestList({ children }) {
                         <button
                           onClick={() =>
                             push(
-                              `/testStart?id=${ID}&written=${isTried}&heading=${heading}`
+                              `/testStart?id=${ID}&written=${isTried}&topic=${heading}&index=${index}`
                             )
                           }
                         >
