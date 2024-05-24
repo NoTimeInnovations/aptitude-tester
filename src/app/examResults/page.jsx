@@ -1,13 +1,21 @@
 "use client";
-import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { EncryptStorage } from "encrypt-storage";
+
+const options = {
+  allowTaint: true,
+  useCORS: true,
+  backgroundColor: "rgba(0,0,0,0)",
+  removeContainer: true,
+};
 
 const encrypter = new EncryptStorage(process.env.NEXT_PUBLIC_SECRET);
 export default function page() {
   const [questions, setQuestions] = useState(
     encrypter.getItem("lastExamQuestions")
   );
+  const positions = encrypter.getItem("lastExamPos");
+  console.log(positions);
   const [details, setDetails] = useState(encrypter.getItem("lastExam"));
   const [result, setResult] = useState(encrypter.getItem("lastExamResults"));
   const [show, setShow] = useState("all");
@@ -19,7 +27,7 @@ export default function page() {
     encrypter.getItem("lastExamDuration")
   );
   const [color, setColor] = useState(false);
-  console.log(questions);
+  console.log(result);
   useEffect(() => {
     setShow("all");
     setColor(
@@ -29,8 +37,40 @@ export default function page() {
     setDuration({ minutes: Math.floor(time / 60), seconds: time % 60 });
   }, []);
 
+  const cardRef = useRef();
+  const prepareURL = async () => {
+    const cardElement = cardRef.current;
+
+    if (!cardElement) return;
+
+    try {
+      // lazy load this package
+      const html2canvas = await import(
+        /* webpackPrefetch: true */ "html2canvas"
+      );
+
+      const result = await html2canvas.default(cardElement, options);
+
+      const asURL = result.toDataURL("image/jpeg");
+      // as far as I know this is a quick and dirty solution
+      const anchor = document.createElement("a");
+      anchor.href = asURL;
+      anchor.download = "your-card.jpeg";
+      anchor.click();
+      anchor.remove();
+      // maybe this part should set state with `setURLData(asURL)`
+      // and when that's set to something you show the download button
+      // which has `href=URLData`, so that people can click on it
+    } catch (reason) {
+      console.log(reason);
+    }
+  };
+
   return (
-    <div className=" font-['Poppins'] bg-[rgba(153,187,221,100)] max-w-screen h-screen md:h-full box-border w-screen md:min-h-screen p-3 md:p-12 pt-20">
+    <div
+      ref={cardRef}
+      className=" font-['Poppins'] bg-[rgba(153,187,221,100)] max-w-screen h-screen md:h-full box-border w-screen md:min-h-screen p-3 md:p-12 pt-20"
+    >
       <div className="bg-[#FFFFFFE5] text-black flex flex-col w-full max-w-[1400px] mt-5 sm:mt-10 p-1 sm:p-5 rounded-2xl items-center mx-auto">
         <div className="mt-6 text-[24px] mb-7 sm:text-[36px] font-['Poppins'] font-bold text-center">
           EasyLearn
@@ -98,11 +138,11 @@ export default function page() {
         <div className="flex flex-row mt-3 justify-end w-3/5 text-white ">
           <div className="flex w-fit gap-2 flex-row justify-between">
             <button>
-              <div className="w-36 h-fit px-2 py-3.5 rounded-xl bg-[#0000009E]">
+              <div className="w-36 h-fit px-2 py-3.5 text-center align-middle rounded-xl bg-[#0000009E]">
                 Exit
               </div>
             </button>
-            <button>
+            <button onClick={prepareURL}>
               <div className="w-36 h-fit px-2 py-3.5 min-w-max rounded-xl bg-[#0402699E]">
                 Download PDF
               </div>
@@ -119,7 +159,73 @@ export default function page() {
                   <div className="text-[#153462] font-bold text-lg">
                     Question {i + 1}
                   </div>
-                  <div></div>
+                  <div className="mt-5">{questions[i].question}</div>
+                  <div className="flex flex-row w-full mt-3 justify-between">
+                    <div className="flex flex-col">
+                      {questions[i].wrong_answers.map((wrong, index) => {
+                        console.log(i, index);
+                        return (
+                          <div
+                            className="flex items-center flex-row gap-2 w-fit"
+                            style={{ order: positions[i][index] }}
+                          >
+                            <div
+                              className={`h-4 aspect-square border rounded-full ${
+                                wrong == details.answers[`${i}`] && "bg-red-300"
+                              }  ${
+                                result[i] != "unanswered" &&
+                                (result[i]
+                                  ? "border-green-300"
+                                  : "border-red-300")
+                              }`}
+                            />
+                            {wrong}
+                          </div>
+                        );
+                      })}
+                      <div
+                        className="flex items-center flex-row gap-2 w-fit"
+                        style={{ order: positions[i][3] }}
+                      >
+                        <div
+                          className={`h-4 aspect-square border rounded-full border-green-300 bg-green-300`}
+                        />
+                        {questions[i].correct_answer}
+                      </div>
+                    </div>
+                    <div className="flex flex-col text-sm">
+                      <div
+                        className={`w-28 text-center p-2 font-[10] rounded-full shadow ${
+                          result[i] == "unanswered"
+                            ? "border text-black"
+                            : result[i]
+                            ? "bg-green-300 text-white"
+                            : "bg-red-300 text-white"
+                        }`}
+                      >
+                        {result[i] != "unanswered"
+                          ? result[i]
+                            ? "correct"
+                            : "wrong"
+                          : "unanswered"}
+                      </div>
+                      <div
+                        className={`w-28 text-center border p-2 font-thin mt-2 rounded-full shadow ${
+                          result[i] == "unanswered"
+                            ? "text-black"
+                            : result[i]
+                            ? "border-green-300 text-green-300"
+                            : "border-red-300 text-red-300"
+                        }`}
+                      >
+                        {result[i] != "unanswered"
+                          ? result[i]
+                            ? "+1 Points"
+                            : "-1 Points"
+                          : "0 Points"}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               )
           )}

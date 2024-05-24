@@ -62,7 +62,7 @@ export default function Page() {
   const isMounted = useRef(false);
   useEffect(() => {
     if (isMounted.current) {
-      for (var i = 0; i < answers.length; i++) {
+      for (var i = 0; i < 30; i++) {
         if (details.answers[`${i}`]) {
           if (details.answers[`${i}`] == "unansweredx1000bhy") {
             result.push("unanswered");
