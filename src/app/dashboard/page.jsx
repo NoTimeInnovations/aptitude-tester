@@ -4,6 +4,7 @@ import NavItem from "../../common/components/LoginPage/NavItem";
 import TabHandler from "../../common/components/TabHandler";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { EncryptStorage } from "encrypt-storage";
 
 const UserContext = createContext();
 const QuestionSetContext = createContext();
@@ -21,6 +22,8 @@ async function authenticate(setter, setUser) {
   ).json();
   if (authRes.user) {
     setUser(authRes.user);
+    console.log(authRes.user);
+    console.log(typeof authRes.user.test);
     return setter("authenticated");
   } else {
     return setter(authRes.error);
@@ -55,6 +58,12 @@ export default function page() {
     authenticate(setAuth, setUser);
     getQuestionSet(setQuestionSet);
     getClasses(setClasses);
+
+    const encrypter = new EncryptStorage(process.env.NEXT_PUBLIC_SECRET);
+    encrypter.removeItem("lastExam");
+    encrypter.removeItem("lastExamAnswers");
+    encrypter.removeItem("lastExamDuration");
+    console.log(encrypter.getItem("lastExam"));
   }, []);
 
   return (

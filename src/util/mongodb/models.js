@@ -26,7 +26,7 @@ export const User = mongoose.models.user || mongoose.model('user', new Schema({
         numerical: [Schema.Types.Number],
         english: [Schema.Types.Number],
     },
-    test: [Schema.Types.Mixed],
+    test: { type: Array, "default": [] },
     scheduled: Schema.Types.Mixed,
     plan: Number,
     role: String

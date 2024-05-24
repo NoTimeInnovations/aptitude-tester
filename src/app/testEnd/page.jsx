@@ -1,12 +1,84 @@
-import React from "react";
+"use client";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { EncryptStorage } from "encrypt-storage";
+import { useSearchParams } from "next/navigation";
+
+async function update(
+  index,
+  id,
+  topic,
+  correct,
+  wrong,
+  duration,
+  isTried,
+  setter
+) {
+  const res = await (
+    await fetch("api/updateTestDetails", {
+      method: "POST",
+      body: JSON.stringify({
+        token: localStorage.getItem("token"),
+        index,
+        id,
+        topic,
+        correct,
+        wrong,
+        duration,
+        isTried,
+      }),
+    })
+  ).json();
+  if (res.error) {
+    alert(`Connection Issues : ${res.error}`);
+  }
+}
 
 export default function Page() {
+  const encrypter = new EncryptStorage(process.env.NEXT_PUBLIC_SECRET);
+  const searchParams = useSearchParams();
+
+  const [details, setDetails] = useState(encrypter.getItem("lastExam"));
+  const [answers, setAnswers] = useState(encrypter.getItem("lastExamAnswers"));
+  const [duration, setDuration] = useState(
+    encrypter.getItem("lastExamDuration")
+  );
+  const [result, setResult] = useState([]);
+
+  const isMounted = useRef(false);
+  useEffect(() => {
+    if (isMounted.current) {
+      for (var i = 0; i < answers.length; i++) {
+        if (details.answers[`${i}`]) {
+          result.push(details.answers[`${i}`] == answers[i]);
+          continue;
+        }
+        result.push("unanswered");
+      }
+      console.log(result);
+      update(
+        Number(details.index),
+        Number(details.id),
+        details.topic,
+        result.filter((x) => x && x != "unanswered").length,
+        result.filter((x) => !x).length,
+        Math.floor(30 - duration.minutes - duration.seconds / 60),
+        details.isTried == "true"
+      );
+    } else {
+      isMounted.current = true;
+    }
+  }, []);
+
+  // encrypter.removeItem("lastExam");
+
   return (
     <>
       <div className="bg-[rgba(153,187,221,100)] h-screen md:h-full w-screen md:min-h-screen p-3 md:p-12 md:pl-32 pt-20">
         <div className="bg-white text-[rgba(0,0,0,100)] w-full max-w-[1400px] rounded-2xl font-['Poppins'] text-.5 xl md:text-[40px] p-6 md:pl-12 md:pt-10 font-semibold relative mx-auto">
-          <div className="w-fit"> Reasoning Test-1</div>
+          <div className="w-fit capitalize">
+            {details.topic} Test-{Number(details.index) + 1}
+          </div>
           <div className="text-[12px] md:text-[22px] font-extralight absolute top-[25%] md:top-[30%] left-[80%] md:start-[70%] transform -translate-x-1/2 md:transform-none w-[50%] md:w-96">
             Total Questions: 30 Qs.
             <br />

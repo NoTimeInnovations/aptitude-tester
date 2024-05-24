@@ -54,8 +54,6 @@ export default function TestsPage() {
     );
   }, [setDetails]);
 
-  console.log(testDetails);
-
   const scheduledTest = user.scheduled ? user.scheduled : null;
   const scheduledDate =
     scheduledTest != null ? new Date(scheduledTest.date) : null;
@@ -138,7 +136,7 @@ export default function TestsPage() {
           <TestList>
             {{
               module: item,
-              testDetails,
+              testDetails: testDetails[item],
               tests: questionSet[item],
             }}
           </TestList>,
