@@ -48,12 +48,14 @@ export default function TestList({ children }) {
         </div>
         {isOpen && [
           <div className="flex flex-row px-2 py-6 mt-3 mx- bg-white rounded-xl">
-            <div className="flex flex-row justify-start text-sm md:text-xl font-semibold basis-full">
+            <div className="flex flex-row justify-start text-[12px] md:text-xl font-semibold basis-full">
               Classes
             </div>
-            <div className="grid grid-cols-3 w-[40%] justify-around">
-              <div className="col-start-1  text-sm md:text-xl mr-1">Link</div>
-              <div className="text-sm md:text-xl ml-4 md:ml-0 ">Status</div>
+            <div className="grid grid-cols-3 w-[40%] justify-around gap-1 md:gap-0">
+              <div className="col-start-1  text-[12px] md:text-xl mr-1 md:ml-11">
+                Link
+              </div>
+              <div className="text-[12px] md:text-xl ml-3 md:ml-16">Status</div>
             </div>
           </div>,
           <div className="grid grid-cols-1 divide-y">
@@ -62,11 +64,11 @@ export default function TestList({ children }) {
 
               choosableIDs = choosableIDs.filter((x) => x != ID);
               return (
-                <div className="px-8 py-3 mt-1 mx-2 bg-white rounded-lg">
-                  <div className="flex flex-row justify-between items-center text-lg font-normal">
+                <div className="px-2 py-3 mt-1 mx-1 bg-white rounded-lg">
+                  <div className="flex flex-row justify-between items-center text-lg font-normal md: w-xl">
                     Test - {index + 1}
-                    <div className="grid grid-cols-3 w-[40%] justify-items-center  items-end">
-                      <div className="flex flex-row w-full justify-center col-start-2">
+                    <div className="grid grid-cols-3 w-[40%] md:w-[35%] justify-end  items-end gap-1">
+                      <div className="flex flex-row w-3/4 justify-star col-start-2 mr-10 md:mr-0">
                         <button
                           onClick={() =>
                             push(
@@ -76,18 +78,20 @@ export default function TestList({ children }) {
                         >
                           <Image
                             src="/media/img/TestsPage/externalLink.svg"
-                            width={30}
-                            height={10}
+                            width={window.innerWidth < 720 ? 20 : 30}
+                            height={window.innerWidth < 720 ? 30 : 30}
                           />
                         </button>
                       </div>
-                      {isTried && (
-                        <Image
-                          src="/media/img/TrainingPage/status_tick.svg"
-                          width={30}
-                          height={10}
-                        />
-                      )}
+                      <div className="flex flex-row w justify-start ml-1">
+                        {isTried && (
+                          <Image
+                            src="/media/img/TrainingPage/status_tick.svg"
+                            width={window.innerWidth < 720 ? 20 : 30}
+                            height={window.innerWidth < 720 ? 30 : 30}
+                          />
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
