@@ -47,17 +47,13 @@ export default function TestList({ children }) {
           </div>
         </div>
         {isOpen && [
-          <div className="flex flex-row px-8 py-6 mt-3 mx-2 bg-white rounded-xl">
+          <div className="flex flex-row px-2 py-6 mt-3 mx- bg-white rounded-xl">
             <div className="flex flex-row justify-start text-sm md:text-xl font-semibold basis-full">
               Classes
             </div>
-            <div className="grid grid-cols-3 w-[40%] justify-items-center">
-              <div className="col-start-2 text-sm md:text-xl mr-3 md:mr-28">
-                Link
-              </div>
-              <div className="text-sm md:text-xl ml-9 md:ml-0 md:mr-9">
-                Status
-              </div>
+            <div className="grid grid-cols-3 w-[40%] justify-around">
+              <div className="col-start-1  text-sm md:text-xl mr-1">Link</div>
+              <div className="text-sm md:text-xl ml-4 md:ml-0 ">Status</div>
             </div>
           </div>,
           <div className="grid grid-cols-1 divide-y">

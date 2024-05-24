@@ -273,6 +273,9 @@ export default function page() {
                 </div>
               </div>
             </div>
+            <button className="font-['Poppins'] text-[#153462] border border-sky-700 md:w-full mt-9 rounded-md shadow-md h-12">
+              Submit
+            </button>
           </div>
         </div>
       ) : (
