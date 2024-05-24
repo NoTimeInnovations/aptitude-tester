@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import BenefitCards from "../components/IndexPage/BenefitCard";
 import Image from "next/image";
