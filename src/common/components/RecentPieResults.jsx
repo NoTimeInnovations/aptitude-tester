@@ -28,7 +28,8 @@ const sizing = {
 
 export default function RecentPieResults() {
   let user = useUserContext();
-  let recentTest = user.test.length != 0 ? user.test[0] : null;
+  let recentTest =
+    user.test.length != 0 ? user.test[user.test.length - 1] : null;
   return (
     <>
       <div className="flex flex-col md:flex-row">

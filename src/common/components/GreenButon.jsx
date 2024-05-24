@@ -1,7 +1,6 @@
 import React from "react";
 
 export default function GreenButton({ bg, children }) {
-  console.log(children);
   return (
     <div
       className={"w-fit h-fit shadow-lg rounded-xl box-border"}

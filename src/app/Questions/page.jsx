@@ -1,15 +1,16 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ElevatedShadowDiv from "../../common/components/ElevatedShadowDiv";
 import GreenButton from "../../common/components/GreenButon";
 import { useRouter, useSearchParams } from "next/navigation";
-import { chipClasses } from "@mui/material";
-import { set } from "mongoose";
+import { EncryptStorage } from "encrypt-storage";
 
 const arr1 = [];
 for (var i = 1; i < 31; i++) {
   arr1.push(i);
 }
+
+var l;
 
 async function authenticate(setter, setUser, setQuestions, topic, id) {
   const authRes = await (
@@ -51,6 +52,7 @@ function assignPositions() {
 }
 
 const positions = arr1.map((i) => assignPositions());
+const encrypter = new EncryptStorage(process.env.NEXT_PUBLIC_SECRET);
 
 export default function page() {
   const [auth, setAuth] = useState("authenticating");
@@ -60,19 +62,87 @@ export default function page() {
 
   const [answers, setAnswers] = useState({});
 
-  const [topic, id, index, isTried] = [
-    useSearchParams().get("topic"),
-    useSearchParams().get("id"),
-    useSearchParams().get("index"),
-    useSearchParams().get("written"),
-  ];
+  const isMounted = useRef(false);
+
+  const searchParams = useSearchParams();
+
+  const [topic, setTopic] = useState(searchParams.get("topic"));
+  const [id, setId] = useState(searchParams.get("id"));
+  const [index, setIndex] = useState(searchParams.get("index"));
+  const [isTried, setIsTried] = useState(searchParams.get("written"));
 
   const [currentQuestions, setCurrentQuestion] = useState(0);
+
+  const [started, setStarted] = useState(new Date());
+  const [minutes, setMinutes] = useState(-1);
+  const [seconds, setSeconds] = useState(-1);
 
   let { push } = useRouter();
   useEffect(() => {
     authenticate(setAuth, setUser, setQuestions, topic, Number(id));
+    const preExam = encrypter.getItem("lastExam");
+    if (preExam) {
+      setAnswers(preExam.answers);
+      setTopic(preExam.topic);
+      setId(preExam.id);
+      setIndex(preExam.index);
+      setIsTried(preExam.isTried);
+      setStarted(preExam.started);
+    }
   }, []);
+
+  useEffect(() => {
+    if (questions == null) {
+      return;
+    }
+    encrypter.setItem(
+      "lastExamAnswers",
+      JSON.stringify(
+        questions.questions.reduce((acc, obj) => {
+          return [...acc, obj["correct_answer"]];
+        }, [])
+      )
+    );
+  }, [questions]);
+
+  useEffect(() => {
+    if (isMounted.current) {
+      encrypter.setItem(
+        "lastExam",
+        JSON.stringify({
+          answers: answers,
+          topic,
+          id,
+          index,
+          isTried,
+          started,
+        })
+      );
+    } else {
+      isMounted.current = true;
+    }
+  }, [JSON.stringify(answers), isMounted.current == false]);
+
+  useEffect(() => {
+    if (started) {
+      const interval = setInterval(() => {
+        const { newMinutes, newSeconds, isTimeOver } = calculateTimeLeft(
+          new Date(started)
+        );
+        setMinutes(newMinutes);
+        setSeconds(newSeconds);
+        if (isTimeOver) {
+          clearInterval(interval);
+          encrypter.setItem(
+            "lastExamDuration",
+            JSON.stringify({ minutes: 0, seconds: 0 })
+          );
+          push(`/testEnd`);
+        }
+      }, 1000);
+    }
+  }, [started]);
+
   return (
     <>
       {auth == "authenticated" ? (
@@ -82,7 +152,7 @@ export default function page() {
               {topic}-Test {Number(index) + 1}
             </div>
             <div className="bg-[rgba(4,2,105,100)] w-32 md:w-48 text-white p-2 pl-6 md:pl-12 rounded-xl text-[24px] md:text-[32px] mt-4 md:mt-0">
-              30:00
+              {minutes}:{seconds}
             </div>
           </div>
           <div className="flex flex-col md:flex-row justify-between pb-0 px-6 md:px-24">
@@ -137,7 +207,12 @@ export default function page() {
                     Save & Next
                   </span>
                 </button>
-                <button className="bg-[rgb(0,0,0)] rounded-[5px] p-3 pl-10 pr-10 md:ml-[28%]">
+                <button
+                  onClick={() => {
+                    encrypter.removeItem("lastExam");
+                  }}
+                  className="bg-[rgb(0,0,0)] rounded-[5px] p-3 pl-10 pr-10 md:ml-[28%]"
+                >
                   <span className="text-white text-[16px] md:text-[18px] font-['Poppins']">
                     Review
                   </span>
@@ -284,4 +359,19 @@ function CheckBox({
       <div className="text-black ml-2">{children}</div>
     </div>
   );
+}
+
+function calculateTimeLeft(startedDate) {
+  const currentDate = new Date();
+  const timeDifference = currentDate.getTime() - startedDate.getTime();
+  const timeLeft = 1 * 30 * 1000 - timeDifference; // 30 minutes in milliseconds
+
+  if (timeLeft <= 0) {
+    return { newMinutes: 0, newSeconds: 0, isTimeOver: true };
+  }
+
+  const newMinutes = Math.floor((timeLeft / (1000 * 60)) % 60);
+  const newSeconds = Math.floor((timeLeft / 1000) % 60);
+
+  return { newMinutes, newSeconds, isTimeOver: false };
 }
