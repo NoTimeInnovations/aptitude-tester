@@ -15,7 +15,7 @@ export default function page() {
           <div className="mt-2 text-start items-center capitalize">
             {topic} Test - {Number(index) + 1}
           </div>
-          <div className="text-[12px] md:text-[22px] font-extralight absolute top-[25%] md:top-[30%] left-[80%] md:left-[70%] transform -translate-x-1/2 md:translate-x-0 w-[50%] md:w-96 text-left">
+          <div className="text-[12px] md:text-[22px] font-extralight absolute top-[25%] md:top-[25%] left-[80%] md:left-[70%] transform -translate-x-1/2 md:translate-x-0 w-[50%] md:w-96 text-left">
             <div className="-mb-2">Total Questions: 30 Qs.</div>
             <br />
             <div> Total Time: 30 minutes.</div>
@@ -32,7 +32,7 @@ export default function page() {
             onClick={() => {
               push(`/questions?${params}`);
             }}
-            className="bg-[rgba(4,2,105,100)] rounded-[5px] mt-8 md:mt-20 h-10 w-full md:w-auto px-4"
+            className="bg-[rgba(4,2,105,100)] rounded-[5px] mt-8 md:mt-20 h-10 w-full md:w-1/5 px-4"
           >
             <span className="text-white text-[18px] font-['Poppins']">
               Start
