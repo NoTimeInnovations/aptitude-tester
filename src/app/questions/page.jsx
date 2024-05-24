@@ -130,7 +130,7 @@ export default function page() {
             "lastExamDuration",
             JSON.stringify({ minutes: 0, seconds: 0 })
           );
-          //push(`/testEnd`);
+          push(`/testEnd`);
         }
       }, 1000);
     }

@@ -92,8 +92,8 @@ export default function Page() {
 
   return (
     <>
-      <div className="bg-[rgba(153,187,221,100)] h-screen md:h-full w-screen md:min-h-screen p-3 md:p-12 md:pl-32 pt-20">
-        <div className="bg-white text-[rgba(0,0,0,100)] w-full max-w-[1400px] rounded-2xl font-['Poppins'] text-.5 xl md:text-[40px] p-6 md:pl-12 md:pt-10 font-semibold relative mx-auto">
+      <div className="bg-[rgba(153,187,221,100)] h-screen md:h-full w-screen md:min-h-screen p-3 pr-3 md:pr-24 md:p-12 md:pl-32 pt-20">
+        <div className="bg-white text-[rgba(0,0,0,100)] w-full max-w-8xl rounded-2xl font-['Poppins'] text-.5 xl md:text-2xl pb-8 p-6 md:pl-12 md:pt-10 font-semibold relative mx-auto">
           <div className="w-fit capitalize">
             {details.topic} Test-{Number(details.index) + 1}
           </div>
@@ -103,7 +103,7 @@ export default function Page() {
             Total Time: 30 minutes.
           </div>
         </div>
-        <div className="bg-white flex flex-col w-full max-w-[1400px] mt-16 sm:mt-32 p-6 sm:p-36 rounded-2xl items-center mx-auto">
+        <div className="bg-white flex flex-col w-full max-w-8xl mt-16 sm:mt-32 p-6 sm:p-36 rounded-2xl items-center mx-auto">
           <div className="mt-12">
             <Image
               src="/media/img/testEnd.svg"

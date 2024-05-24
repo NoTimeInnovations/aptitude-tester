@@ -9,34 +9,35 @@ export default function NonLoginFooter() {
       <div className="flex flex-row justify-between">
         <div>
           <br />
-          <div className="flex flex-row">
+          <div className="flex flex-row w-">
             <Image
               src="/media/img/IndexPage/gmail.png"
-              width={32}
-              height={10}
+              width={window.innerWidth < 720 ? 40 : 40}
+              height={window.innerWidth < 720 ? 40 : 40}
             />
-            &nbsp;:&nbsp;{" "}
-            <a className="text-[12px] md:text-[20px]">easylearn@gmail.com</a>
+            <div className="text-xs md:text-xl">
+              &nbsp;:&nbsp;easylearn@gmail.com
+            </div>
           </div>
           <br />
-          <div className="flex flex-row h-6 w-6 md:h-12 md:w-12">
+          <div className="flex flex-row h-6 w-fit md:h-12 md:w-12">
             <Image
               src="/media/img/IndexPage/phone.png"
-              width={32}
-              height={10}
+              width={window.innerWidth < 720 ? 30 : 40}
+              height={window.innerWidth < 720 ? 30 : 40}
             />
-            <div className="flex flex-col justify-center text-[12px] md:text-[20px]">
+            <div className="flex flex-col justify-center text-xs md:text-xl">
               <div className="">&nbsp;:&nbsp;9852641730</div>
             </div>
           </div>
           <br />
-          <div className="flex flex-row">
+          <div className="flex flex-row w-fit">
             <Image
               src="/media/img/IndexPage/location.png"
-              width={32}
-              height={10}
+              width={window.innerWidth < 720 ? 30 : 40}
+              height={window.innerWidth < 720 ? 30 : 40}
             />
-            <div className="flex flex-col justify-center text-[12px] md:text-[20px] ">
+            <div className="flex flex-col justify-center text-xs md:text-xl w-fit">
               <div className="">
                 &nbsp;:&nbsp; <a>Ernakulam, Kerala</a>
               </div>
@@ -44,23 +45,23 @@ export default function NonLoginFooter() {
           </div>
         </div>
         <div className="">
-          <div className="font-bold w-32">
+          <div className="font-bold w-fit ml-8">
             Social Profile
             <div className="flex flex-row gap-2">
               <Image
                 src="/media/img/IndexPage/facebook.svg"
-                width={32}
-                height={10}
+                width={window.innerWidth < 720 ? 30 : 40}
+                height={window.innerWidth < 720 ? 30 : 40}
               />
               <Image
                 src="/media/img/IndexPage/linkedIn.svg"
-                width={32}
-                height={10}
+                width={window.innerWidth < 720 ? 30 : 40}
+                height={window.innerWidth < 720 ? 30 : 40}
               />
               <Image
                 src="/media/img/IndexPage/instagram.svg"
-                width={32}
-                height={10}
+                width={window.innerWidth < 720 ? 30 : 40}
+                height={window.innerWidth < 720 ? 30 : 40}
               />
             </div>
           </div>
