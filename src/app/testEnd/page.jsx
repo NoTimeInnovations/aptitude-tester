@@ -3,7 +3,9 @@ import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { EncryptStorage } from "encrypt-storage";
 import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
+const encrypter = new EncryptStorage(process.env.NEXT_PUBLIC_SECRET);
 async function update(
   index,
   id,
@@ -30,13 +32,21 @@ async function update(
     })
   ).json();
   if (res.error) {
-    alert(`Connection Issues : ${res.error}`);
+    alert(
+      `Connection Issues, Try refreshing the page \nMessage : ${res.error}`
+    );
+    return setter(res.error);
   }
+  setter("");
+  encrypter.removeItem("lastExam");
+  encrypter.removeItem("lastExamAnswers");
 }
 
 export default function Page() {
-  const encrypter = new EncryptStorage(process.env.NEXT_PUBLIC_SECRET);
+  let { push } = useRouter();
   const searchParams = useSearchParams();
+
+  const [errors, setErrors] = useState("");
 
   const [details, setDetails] = useState(encrypter.getItem("lastExam"));
   const [answers, setAnswers] = useState(encrypter.getItem("lastExamAnswers"));
@@ -50,6 +60,10 @@ export default function Page() {
     if (isMounted.current) {
       for (var i = 0; i < answers.length; i++) {
         if (details.answers[`${i}`]) {
+          if (details.answers[`${i}`] == "unansweredx1000bhy") {
+            result.push("unanswered");
+            continue;
+          }
           result.push(details.answers[`${i}`] == answers[i]);
           continue;
         }
@@ -63,7 +77,8 @@ export default function Page() {
         result.filter((x) => x && x != "unanswered").length,
         result.filter((x) => !x).length,
         Math.floor(30 - duration.minutes - duration.seconds / 60),
-        details.isTried == "true"
+        details.isTried == "true",
+        setErrors
       );
     } else {
       isMounted.current = true;
@@ -97,7 +112,20 @@ export default function Page() {
           <div className="text-[24px] sm:text-[36px] text-black font-['Poppins'] mt-16 font-bold text-center">
             Your answers have been saved
           </div>
-          <button className="bg-[rgba(4,2,105,100)] rounded-[8px] mt-12 h-14 w-44">
+          <button
+            onClick={() => {
+              encrypter.setItem("lastExam", JSON.stringify(details));
+              encrypter.setItem(
+                "lastExamResults",
+                JSON.stringify({
+                  correct: result.filter((x) => x && x != "unanswered").length,
+                  wrong: result.filter((x) => !x).length,
+                })
+              );
+              push("/examResults");
+            }}
+            className="bg-[rgba(4,2,105,100)] rounded-[8px] mt-12 h-14 w-44"
+          >
             <span className="text-white text-[14px] font-['Poppins']">
               View Result
             </span>

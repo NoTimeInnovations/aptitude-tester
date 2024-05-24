@@ -60,10 +60,6 @@ export default function page() {
     getClasses(setClasses);
 
     const encrypter = new EncryptStorage(process.env.NEXT_PUBLIC_SECRET);
-    encrypter.removeItem("lastExam");
-    encrypter.removeItem("lastExamAnswers");
-    encrypter.removeItem("lastExamDuration");
-    console.log(encrypter.getItem("lastExam"));
   }, []);
 
   return (
