@@ -5,8 +5,12 @@ import { EncryptStorage } from "encrypt-storage";
 
 const encrypter = new EncryptStorage(process.env.NEXT_PUBLIC_SECRET);
 export default function page() {
+  const [questions, setQuestions] = useState(
+    encrypter.getItem("lastExamQuestions")
+  );
   const [details, setDetails] = useState(encrypter.getItem("lastExam"));
   const [result, setResult] = useState(encrypter.getItem("lastExamResults"));
+  const [show, setShow] = useState("all");
   const results = {
     correct: result.filter((x) => x && x != "unanswered").length,
     wrong: result.filter((x) => !x).length,
@@ -15,8 +19,9 @@ export default function page() {
     encrypter.getItem("lastExamDuration")
   );
   const [color, setColor] = useState(false);
-  console.log(result);
+  console.log(questions);
   useEffect(() => {
+    setShow("all");
     setColor(
       results.correct - results.wrong >= 20 ? "text-green-300" : "text-red-300"
     );
@@ -106,11 +111,18 @@ export default function page() {
         </div>
         <div className=" w-10/12 mt-3 border border-[#E6E6E699] py-20 px-10 bg-[##E6E6E638]">
           <span className="text-5xl font-extrabold">Answers</span>
-          {result.map((item, i) => (
-            <div className={`${result[i] == a}`}>
-              <div>Question {i + 1}</div>
-            </div>
-          ))}
+          {result.map(
+            (item, i) =>
+              (show == "all" ||
+                (result[i] == show && result[i] != "unanswered")) && (
+                <div className="my-10">
+                  <div className="text-[#153462] font-bold text-lg">
+                    Question {i + 1}
+                  </div>
+                  <div></div>
+                </div>
+              )
+          )}
         </div>
       </div>
     </div>

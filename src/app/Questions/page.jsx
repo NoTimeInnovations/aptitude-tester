@@ -95,14 +95,7 @@ export default function page() {
     if (questions == null) {
       return;
     }
-    encrypter.setItem(
-      "lastExamAnswers",
-      JSON.stringify(
-        questions.questions.reduce((acc, obj) => {
-          return [...acc, obj["correct_answer"]];
-        }, [])
-      )
-    );
+    encrypter.setItem("lastExamAnswers", JSON.stringify(questions.questions));
   }, [questions]);
 
   useEffect(() => {

@@ -38,7 +38,6 @@ async function update(
     return setter(res.error);
   }
   setter("");
-  encrypter.removeItem("lastExam");
   encrypter.removeItem("lastExamAnswers");
 }
 
@@ -49,7 +48,12 @@ export default function Page() {
   const [errors, setErrors] = useState("");
 
   const [details, setDetails] = useState(encrypter.getItem("lastExam"));
-  const [answers, setAnswers] = useState(encrypter.getItem("lastExamAnswers"));
+  const [rawAll, setRawAll] = useState(encrypter.getItem("lastExamAnswers"));
+  const [answers, setAnswers] = useState(
+    rawAll.reduce((acc, obj) => {
+      return [...acc, obj["correct_answer"]];
+    }, [])
+  );
   const [duration, setDuration] = useState(
     encrypter.getItem("lastExamDuration")
   );
@@ -69,7 +73,6 @@ export default function Page() {
         }
         result.push("unanswered");
       }
-      console.log(result);
       update(
         Number(details.index),
         Number(details.id),
@@ -114,8 +117,8 @@ export default function Page() {
           </div>
           <button
             onClick={() => {
-              encrypter.setItem("lastExam", JSON.stringify(details));
               encrypter.setItem("lastExamResults", JSON.stringify(result));
+              encrypter.setItem("lastExamQuestions", JSON.stringify(rawAll));
               push("/examResults");
             }}
             className="bg-[rgba(4,2,105,100)] rounded-[8px] mt-12 h-14 w-44"
