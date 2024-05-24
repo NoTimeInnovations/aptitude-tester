@@ -8,8 +8,10 @@ import PricingCards from "../components/IndexPage/PricingCards";
 import { Feature } from "../components/IndexPage/PricingCards";
 import NonLoginFooter from "../components/NonLoginFooter";
 import NonLoginNavBar from "../components/NonLoginNavBar";
+import { useRouter } from "next/navigation";
 
 export default function IndexPage() {
+  let { push } = useRouter();
   return (
     <>
       <div className="bg-[rgba(185,203,239,255)] w-screen pt-10 text-black">
@@ -44,8 +46,18 @@ export default function IndexPage() {
           Enhance your aptitude and exam skills
         </div>
         <div className="w-full flex flex-row justify-center gap-2 text-white font-['Poppins'] mt-7">
-          <ExploreButton text="Explore Courses" />
-          <ExploreButton text="View Pricing" />
+          <ExploreButton
+            onClick={() => {
+              push("#Courses");
+            }}
+            text="Explore Courses"
+          />
+          <ExploreButton
+            onClick={() => {
+              push("#Pricing");
+            }}
+            text="View Pricing"
+          />
         </div>
         <div className="flex flex-row mt-20 justify-center -mb-[22%]">
           <Image
@@ -67,7 +79,10 @@ export default function IndexPage() {
         <BenefitCards />
       </div>
       <div className="bg-[rgba(185,203,239,255)] text-lg w-screen text-black py-20">
-        <div className="text-6xl pl-[10%] font-['Poppins'] font-bold">
+        <div
+          id="Courses"
+          className="text-6xl pl-[10%] font-['Poppins'] font-bold"
+        >
           What We Offer
         </div>
         <br />
@@ -75,7 +90,7 @@ export default function IndexPage() {
       </div>
       <div className="bg-[#F3F3F3] w-screen text-black py-20">
         <div
-          id="Courses"
+          id="Pricing"
           className="text-6xl pl-[10%] font-['Poppins'] font-bold"
         >
           Our Prices

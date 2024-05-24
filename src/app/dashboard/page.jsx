@@ -5,10 +5,12 @@ import TabHandler from "../../common/components/TabHandler";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { EncryptStorage } from "encrypt-storage";
+import { scrollToTop } from "../../util/common";
 
 const UserContext = createContext();
 const QuestionSetContext = createContext();
 const ClassesContext = createContext();
+const SetTabContext = createContext();
 
 const icons = ["Home", "Courses", "Tests", "Results", "Profile"];
 async function authenticate(setter, setUser) {
@@ -48,7 +50,11 @@ async function getClasses(setter) {
   );
 }
 export default function page() {
-  const [tab, setTab] = useState(0);
+  const [tab, setTabRaw] = useState(0);
+  const setTab = (x) => {
+    scrollToTop();
+    setTabRaw(x);
+  };
   const [auth, setAuth] = useState("authenticating");
   const [user, setUser] = useState(null);
   const [classes, setClasses] = useState(null);
@@ -122,13 +128,15 @@ export default function page() {
             </div>
           </div>
           <div className="md:ml-[20%] mt-[10%] md:mt-0  h-screen z-0">
-            <QuestionSetContext.Provider value={questionSet}>
-              <ClassesContext.Provider value={classes}>
-                <UserContext.Provider value={user}>
-                  <TabHandler tab={tab} />
-                </UserContext.Provider>
-              </ClassesContext.Provider>
-            </QuestionSetContext.Provider>
+            <SetTabContext.Provider value={setTab}>
+              <QuestionSetContext.Provider value={questionSet}>
+                <ClassesContext.Provider value={classes}>
+                  <UserContext.Provider value={user}>
+                    <TabHandler tab={tab} />
+                  </UserContext.Provider>
+                </ClassesContext.Provider>
+              </QuestionSetContext.Provider>
+            </SetTabContext.Provider>
           </div>
         </>
       ) : (
@@ -148,4 +156,8 @@ export function useQuestionSetContext() {
 
 export function useClassesContext() {
   return useContext(ClassesContext);
+}
+
+export function useSetTabContext() {
+  return useContext(SetTabContext);
 }
