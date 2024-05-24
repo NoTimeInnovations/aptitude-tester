@@ -35,22 +35,22 @@ export default function TestList({ children }) {
           </div>
         </div>
         {isOpen && [
-          <div className="px-8 py-6 mt-3 mx-2 bg-white rounded-xl">
+          <div className="flex flex-row px-2 py-6 mt-3 mx- bg-white rounded-xl">
             <div className="flex flex-row justify-start text-sm md:text-xl font-semibold basis-full">
               Classes
             </div>
-            <div className="grid grid-cols-3 w-[40%] justify-items-center">
-              <div className="col-start-2">Link</div>
-              <div>Status</div>
+            <div className="grid grid-cols-3 w-[40%] justify-around">
+              <div className="col-start-1  text-sm md:text-xl mr-1">Link</div>
+              <div className="text-sm md:text-xl ml-4 md:ml-0 ">Status</div>
             </div>
           </div>,
           <div className="grid grid-cols-1 divide-y">
             {tests.map((test, index) => (
-              <div className="px-8 py-3 mt-1 mx-2 bg-white rounded-lg">
-                <div className="flex flex-row justify-between items-center text-lg font-normal">
+              <div className="px-2 py-3 mt-1 mx-1 bg-white rounded-lg">
+                <div className="flex flex-row justify-between items-center text-lg font-normal w-[95%]">
                   Test - {index + 1}
-                  <div className="grid grid-cols-3 w-[40%] justify-items-center  items-end">
-                    <div className="flex flex-row w-full justify-center col-start-2">
+                  <div className="grid grid-cols-3 w-[35%] justify-end  items-end ">
+                    <div className="flex flex-row w-fit justify-start col-start-2">
                       <button
                         onClick={() => {
                           push("/testStart?");
@@ -63,13 +63,16 @@ export default function TestList({ children }) {
                         />
                       </button>
                     </div>
-                    {userTest[heading] && userTest[heading].contains(index) && (
-                      <Image
-                        src="/media/img/TrainingPage/status_tick.svg"
-                        width={30}
-                        height={10}
-                      />
-                    )}
+                    <div className="flex flex-row w-fit justify-start">
+                      {userTest[heading] &&
+                        userTest[heading].contains(index) && (
+                          <Image
+                            src="/media/img/TrainingPage/status_tick.svg"
+                            width={30}
+                            height={10}
+                          />
+                        )}
+                    </div>
                   </div>
                 </div>
               </div>
