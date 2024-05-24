@@ -4,14 +4,16 @@ import React from "react";
 import RecentPieResults from "../components/RecentPieResults";
 import CopyRight from "../components/CopyRight";
 import ElevatedShadowDiv from "../components/ElevatedShadowDiv";
-import { useUserContext } from "../../app/dashboard/page";
+import { useSetTabContext, useUserContext } from "../../app/dashboard/page";
 import timer from "../../util/timer";
 import getCalculation from "../../util/perfomanceCalculator";
 import StatsItem from "../components/StatsItem";
+import { scrollToTop } from "../../util/common";
 
 export default function HomePage() {
   const today = new Date();
   const user = useUserContext();
+  const setTab = useSetTabContext();
   const scheduledTest = user.scheduled ? user.scheduled : null;
   const scheduledDate =
     scheduledTest != null ? new Date(scheduledTest.date) : null;
@@ -19,7 +21,6 @@ export default function HomePage() {
     scheduledTest != null ? timer(scheduledDate) : [null, null, null, null];
   const [speed, accuracy, passPercent, questionAttempt] =
     user.test.length < 1 ? [null, null, null, null] : getCalculation(user.test);
-
   return (
     <div className="flex md:flex-1 flex-col  bg-white text-black pt-12 md:pt-24 pb-10 px-6 font-['Poppins']">
       <div className="flex flex-col lg:flex-row justify-between items-center">
@@ -156,7 +157,12 @@ export default function HomePage() {
               />
             </div>
           )}
-          <button className="mt-7 rounded-full bg-[#040269E5] w-fit py-2 px-14 text-white">
+          <button
+            onClick={() => {
+              setTab(3);
+            }}
+            className="mt-7 rounded-full bg-[#040269E5] w-fit py-2 px-14 text-white"
+          >
             See Overall Results
           </button>
         </div>
