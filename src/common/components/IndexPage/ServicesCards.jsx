@@ -20,11 +20,11 @@ export default function ServicesCards() {
       {services.map((service) => (
         <div
           key={service}
-          className=" items-center bg-[#040269E5] rounded-2xl p-12"
+          className=" items-center bg-[#040269E5] rounded-2xl pt-8 p-6 md:p-12"
         >
           <Image className="w-full" src={getSrc()} width={100} height={100} />
           <br />
-          <br />
+
           {service}
           <br />
           <br />

@@ -1,8 +1,12 @@
+"use client";
 import Image from "next/image";
 import React from "react";
 import CopyRight from "./CopyRight";
 
 export default function NonLoginFooter() {
+  if (typeof window !== "undefined") {
+    return;
+  }
   return (
     <div className="bg-[rgba(185,203,239,255)] w-screen text-black py-14 px-[10%] font-['Poppins']">
       <span className="font-bold text-[12px] md:text-3xl">EasyLearn</span>
@@ -12,7 +16,7 @@ export default function NonLoginFooter() {
           <div className="flex flex-row w-">
             <Image
               src="/media/img/IndexPage/gmail.png"
-              width={window.innerWidth < 720 ? 40 : 40}
+              width={window && (window.innerWidth < 720 ? 40 : 40)}
               height={window.innerWidth < 720 ? 40 : 40}
             />
             <div className="text-xs md:text-xl">

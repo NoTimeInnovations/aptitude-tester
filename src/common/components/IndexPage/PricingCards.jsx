@@ -19,12 +19,12 @@ export const Feature = (props) => {
 
 export default function PricingCards(props) {
   return (
-    <div className="bg-white px-5 pt-10 pb-14 rounded-lg">
+    <div className="bg-white px-2 pt-5 pb-6 md:px-5 md:pt-10 md:pb-14 rounded-lg">
       <div className="bg-[#B4D2FF4D] rounded py-5 text-center text-xl">
         {props.text}
       </div>
       <br />
-      <div className="bg-[#E3E3E34D] py-6 px-4 text-center rounded-lg font-bold">
+      <div className="bg-[#E3E3E34D] px-2 py-2 md:py-6 md:px-4 text-center rounded-lg font-bold">
         Available features
         <br />
         <br />

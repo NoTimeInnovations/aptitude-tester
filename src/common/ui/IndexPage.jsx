@@ -15,7 +15,7 @@ export default function IndexPage() {
       <div className="bg-[rgba(185,203,239,255)] w-screen pt-10 text-black">
         <NonLoginNavBar />
         <div className="mt-40 flex flex-col md:flex-row font-bold text-4xl md:text-6xl w-full md:w-full justify-center">
-          <span className="text-[#030091] flex flex-col justify-around mb-2 text-center">
+          <span className="text-[#030091] flex flex-col justify-around mb-1 md:mb-2 text-center">
             Secure&nbsp;
           </span>
           <div className="flex text-3xl *:md:text-5xl justify-center">
@@ -59,7 +59,7 @@ export default function IndexPage() {
       <div className="bg-[#F3F3F3] w-screen pb-20 text-black pt-[25%]">
         <div
           id="About"
-          className="text-6xl pl-[10%] font-['Poppins'] font-bold"
+          className="text-5xl md:text-6xl pl-[10%] font-['Poppins'] font-bold"
         >
           Benefits Of EasyLearn
         </div>
@@ -80,7 +80,7 @@ export default function IndexPage() {
         >
           Our Prices
         </div>
-        <div className="text-lg pl-[11%] font-['Poppins'] max-w-[70%] ">
+        <div className="text-lg pl-[11%] font-['Poppins'] w-11/12 md:w-9/12 ">
           Many desktop publishing packages and web page editors now use Lorem
           Ipsum as their default model text, and a search for 'lorem ipsum' will
           uncover many web sites still in their infancy.
@@ -88,7 +88,7 @@ export default function IndexPage() {
           <br />
         </div>
 
-        <div className="bg-[#D9D9D9] ml-[10%] w-[80%] grid md:grid-cols-2 gap-[5%] md:gap-[10%] p-[5%] rounded-xl pb-[30%] md:pb-[5%]">
+        <div className="bg-[#D9D9D9] ml-[10%] w-[80%] grid md:grid-cols-2 gap-[5%] md:gap-[10%] p-3 md:p-[5%] rounded-xl pb-[30%] md:pb-[5%]">
           <PricingCards text="SIMPLE - &#8377;50">
             <Feature available="yes">Hello</Feature>
             <Feature available="yes"></Feature>
@@ -105,16 +105,16 @@ export default function IndexPage() {
 
         <br />
         <br />
-        <div className="bg-white rounded-lg w-screen mr-[10%] ml-[10%] max-w-[80%] pr-[10%]  text-black py-10 pl-20">
+        <div className="bg-white rounded-lg w-screen mr-[10%] ml-[10%] max-w-[80%] pr-[10%]  text-black px-5 py-5 md:py-10 md:pl-20">
           <div className=" text-3xl md:text-6xl font-bold mb-4">Ask Us</div>
-          <div className=" text-xl md:text-lg font-['Poppins'] max-w-[130%] md:max-w-[70%] ">
+          <div className=" text-sm md:text-lg font-['Poppins'] w-full md:max-w-[70%] ">
             Many desktop publishing packages and web page editors now use Lorem
             Ipsum as their default model text, and a search for 'lorem ipsum'
             will uncover many web sites still in their infancy.
           </div>
           <br />
           <form>
-            <div className="w-[30%] mb-4 border border-gray-200 rounded-lg bg-white ">
+            <div className="w-5/6 md:w-[30%] mb-4 border border-gray-200 rounded-lg bg-white ">
               <input
                 id="comment"
                 type="text"
