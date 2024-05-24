@@ -115,13 +115,7 @@ export default function Page() {
           <button
             onClick={() => {
               encrypter.setItem("lastExam", JSON.stringify(details));
-              encrypter.setItem(
-                "lastExamResults",
-                JSON.stringify({
-                  correct: result.filter((x) => x && x != "unanswered").length,
-                  wrong: result.filter((x) => !x).length,
-                })
-              );
+              encrypter.setItem("lastExamResults", JSON.stringify(result));
               push("/examResults");
             }}
             className="bg-[rgba(4,2,105,100)] rounded-[8px] mt-12 h-14 w-44"
