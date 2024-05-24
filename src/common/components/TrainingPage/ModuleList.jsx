@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import React, { useState } from "react";
-Array.prototype.contains = function (obj) {
+Array.prototype.contains2 = function (obj) {
   var i = this.length;
   while (i--) {
     if (this[i] === obj) {
@@ -61,7 +61,7 @@ export default function ModuleList({ children }) {
                       </a>
                     </div>
                     <div>{topic.review}</div>
-                    {children.finished.contains(index) && (
+                    {children.finished.contains2(index) && (
                       <Image
                         src="/media/img/TrainingPage/status_tick.svg"
                         width={30}

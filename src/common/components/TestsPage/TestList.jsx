@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-Array.prototype.contains = function (obj, ids, setter) {
+Array.prototype.contains = function (obj, ids) {
   var i = this.length;
   while (i--) {
     if (this[i]["index"] === obj) {
@@ -29,6 +29,7 @@ export default function TestList({ children }) {
       ).includes(x)
   );
 
+  console.log(choosableIDs);
   const [isOpen, setOpen] = useState(false);
   return (
     <div className="rounded-xl bg-white w-full p-6">

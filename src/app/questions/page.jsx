@@ -55,6 +55,7 @@ const positions = arr1.map((i) => assignPositions());
 const encrypter = new EncryptStorage(process.env.NEXT_PUBLIC_SECRET);
 
 export default function page() {
+  encrypter.setItem("lastExamPos", positions);
   const [auth, setAuth] = useState("authenticating");
   const [user, setUser] = useState(null);
   const [questions, setQuestions] = useState(null);
@@ -360,7 +361,7 @@ function CheckBox({
 function calculateTimeLeft(startedDate) {
   const currentDate = new Date();
   const timeDifference = currentDate.getTime() - startedDate.getTime();
-  const timeLeft = 1 * 30 * 1000 - timeDifference; // 30 minutes in milliseconds
+  const timeLeft = 1 * 10 * 1000 - timeDifference; // 30 minutes in milliseconds
 
   if (timeLeft <= 0) {
     return { newMinutes: 0, newSeconds: 0, isTimeOver: true };
