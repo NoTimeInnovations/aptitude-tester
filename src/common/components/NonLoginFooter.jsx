@@ -46,7 +46,7 @@ export default function NonLoginFooter() {
               />
               <div className="flex flex-col justify-center text-xs md:text-xl w-fit">
                 <div className="">
-                  &nbsp;:&nbsp; <a>Ernakulam, Kerala</a>
+                  &nbsp;:&nbsp; <span>Ernakulam, Kerala</span>
                 </div>
               </div>
             </div>
