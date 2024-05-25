@@ -9,13 +9,14 @@ import { Feature } from "../components/IndexPage/PricingCards";
 import NonLoginFooter from "../components/NonLoginFooter";
 import NonLoginNavBar from "../components/NonLoginNavBar";
 import { useRouter } from "next/navigation";
-
+import Webapp from "../components/IndexPage/Webapp";
 export default function IndexPage() {
   let { push } = useRouter();
   return (
     <>
       <div className="bg-[rgba(185,203,239,255)] w-screen pt-10 text-black">
         <NonLoginNavBar />
+        <Webapp />
         <div className="mt-40 flex flex-col md:flex-row font-bold text-4xl md:text-6xl w-full md:w-full justify-center">
           <span className="text-[#030091] flex flex-col justify-around mb-1 md:mb-2 text-center">
             Secure&nbsp;
