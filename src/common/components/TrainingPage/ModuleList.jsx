@@ -16,7 +16,7 @@ export default function ModuleList({ children }) {
   var [isOpen, setOpen] = useState(false);
   return (
     <div className="rounded-xl bg-[#E6E6E638] w-full p-6">
-      <div className="text-3xl h-auto font-bold">
+      <div className="text-xl md:text-3xl h-auto font-bold w- fit">
         <div className="flex mx-2 flex-row justify-between items-center">
           <div className="capitalize">{heading}</div>
           <div className="flex flex-row gap-3 font-semibold">
@@ -36,21 +36,19 @@ export default function ModuleList({ children }) {
         </div>
         {isOpen && (
           <>
-            <div className="px-8 py-6 mt-3 mx-2 bg-white rounded-xl">
-              <div className="flex flex-row justify-between text-xl font-semibold basis-full">
-                Classes
-                <div className="grid grid-cols-3 w-[40%] justify-items-center">
-                  <div>Link</div>
-                  <div>Review</div>
-                  <div>Status</div>
-                </div>
+            <div className="px-4 md:px-8 py-6 mt-3  bg-white rounded-xl w-full">
+              <div className="grid grid-cols-3 justify-between text-sm md:text-xl font-semibold basis-full w-[97%]">
+                <div>Classes</div>
+                <div className="text-end">Link</div>
+                <div className="text-end">Status</div>
               </div>
             </div>
+
             {topics.map((topic, index) => (
-              <div className="px-8 py-3 mt-1 mx-2 bg-white rounded-lg">
-                <div className="flex flex-row justify-between text-lg font-normal">
+              <div className="px-2 md:px-8 py-3 mt-1 bg-white rounded-lg">
+                <div className="flex flex-row justify-between text-xs md:text-sm font-normal w-[80%] md:w-full">
                   {topic.heading}
-                  <div className="grid grid-cols-3 w-[40%] justify-items-center">
+                  <div className="grid grid-cols-3 w-[80%] md:w-[45%] justify-items-center md:ml-3">
                     <div className="flex flex-row w-full justify-center">
                       <a href={topic.link}>
                         <Image
