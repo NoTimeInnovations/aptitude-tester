@@ -134,7 +134,7 @@ export default function IndexPage() {
           <form>
             <div className="w-5/6 md:w-[30%] mb-4 border border-gray-200 rounded-lg bg-white ">
               <input
-                id="comment"
+                id="name"
                 type="text"
                 className="w-full block p-2.5 text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
                 placeholder="Name..."
