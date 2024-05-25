@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import BenefitCards from "../components/IndexPage/BenefitCard";
 import Image from "next/image";
 import ExploreButton from "../components/IndexPage/ExploreButton";
@@ -12,12 +12,52 @@ import { useRouter } from "next/navigation";
 import Webapp from "../components/IndexPage/Webapp";
 export default function IndexPage() {
   let { push } = useRouter();
+  const [showInstallModel, setShowInstallModel] = useState(false);
+  const [prompt, setPrompt] = useState(null);
+
+  useEffect(() => {
+    const handleBeforeInstallPrompt = (event) => {
+      event.preventDefault();
+      setPrompt(event);
+
+      if (!window.matchMedia("(display-mode:standalone)").matches) {
+        setShowInstallModel(true);
+      }
+    };
+    window.addEventListener(
+      "beforeinstallprompt",
+      handleBeforeInstallPrompt,
+      false
+    );
+
+    return () => {
+      window.removeEventListener(
+        "beforeInstallPrompt",
+        handleBeforeInstallPrompt,
+        false
+      );
+    };
+  }, []);
+  const handleInstallClick = () => {
+    if (prompt) {
+      prompt.prompt();
+      prompt.userChoice.then((result) => {
+        if (result.outcome === "accepted") {
+          console.log("Accepted");
+        } else {
+          console.log("Cancelled");
+        }
+        setPrompt(null);
+        setShowInstallModel(false);
+      });
+    }
+  };
   return (
     <>
       <div className="bg-[rgba(185,203,239,255)] w-screen pt-10 text-black">
         <NonLoginNavBar />
         <div className="fixed bottom-12 right-12">
-          <Webapp />
+          <Webapp show={showInstallModel} onClick={handleInstallClick} />
         </div>
         <div className="mt-40 flex flex-col md:flex-row font-bold text-4xl md:text-6xl w-full md:w-full justify-center">
           <span className="text-[#030091] flex flex-col justify-around mb-1 md:mb-2 text-center">
