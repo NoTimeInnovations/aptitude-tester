@@ -3,7 +3,7 @@
 import NonLoginNavBar from "../../common/components/NonLoginNavBar";
 import NonLoginFooter from "../../common/components/NonLoginFooter";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function page() {
@@ -26,7 +26,7 @@ export default function page() {
               <form
                 onSubmit={async (event) => {
                   event.preventDefault();
-                  var proceed = true;
+                  let proceed = true;
                   setPasswordError("");
                   setUserNameError("");
                   if (event.target.username.value == "") {
@@ -40,15 +40,27 @@ export default function page() {
                   if (!proceed) {
                     return;
                   }
-                  const res = await (
-                    await fetch("/api/login", {
-                      method: "POST",
-                      body: JSON.stringify({
-                        username: event.target.username.value,
-                        password: event.target.pswd.value,
-                      }),
-                    })
-                  ).json();
+                  let res;
+                  try {
+                    res = await (
+                      await fetch("/api/login", {
+                        method: "POST",
+                        body: JSON.stringify({
+                          username: event.target.username.value,
+                          password: event.target.pswd.value,
+                        }),
+                      })
+                    ).json();
+                  } catch (error) {
+                    console.log(error);
+                    if (error.message.includes("end", "json", "unepected")) {
+                      setPasswordError(
+                        "Connection issue, something preventing us from connecting"
+                      );
+                      return;
+                    }
+                    setPasswordError("Something went wrong with connection");
+                  }
 
                   if (res.error) {
                     return setPasswordError(res.error);
@@ -90,7 +102,7 @@ export default function page() {
                     placeholder="Password"
                     name="pswd"
                   />
-                  <button
+                  <span
                     className="absolute mt-4 mr-4 right-0"
                     onClick={() => setPwdVisibility(!pswdVisibility)}
                   >
@@ -101,7 +113,7 @@ export default function page() {
                       width={20}
                       height={10}
                     />
-                  </button>
+                  </span>
                 </div>
                 {passwordError && (
                   <div className="text-black text-sm ml-4 text-red-300 mt-4">
