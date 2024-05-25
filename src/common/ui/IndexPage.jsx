@@ -16,7 +16,7 @@ export default function IndexPage() {
     <>
       <div className="bg-[rgba(185,203,239,255)] w-screen pt-10 text-black">
         <NonLoginNavBar />
-        <div className="fixed bottom-12 right-12">
+        <div className="fixed bottom-12 right-14 md:right-12 left-14">
           <Webapp />
         </div>
         <div className="mt-40 flex flex-col md:flex-row font-bold text-4xl md:text-6xl w-full md:w-full justify-center">

@@ -36,37 +36,42 @@ export default function ModuleList({ children }) {
         </div>
         {isOpen && (
           <>
-            <div className="px-4 md:px-8 py-6 mt-3  bg-white rounded-xl w-full">
-              <div className="grid grid-cols-3 justify-between text-sm md:text-xl font-semibold basis-full w-[97%]">
+            <div className="px-4 md:px-8 py-6 mt-3 bg-white rounded-xl w-full">
+              <div className="grid grid-cols-3 text-sm md:text-xl font-semibold w-full md:w-[90%]">
                 <div>Classes</div>
-                <div className="text-end">Link</div>
-                <div className="text-end">Status</div>
+                <div className="text-right">Link</div>
+                <div className="text-right">Status</div>
               </div>
             </div>
 
             {topics.map((topic, index) => (
-              <div className="px-2 md:px-8 py-3 mt-1 bg-white rounded-lg">
-                <div className="flex flex-row justify-between text-xs md:text-sm font-normal w-[80%] md:w-full">
+              <div
+                key={index}
+                className="px-2 md:px-8 py-3 mt-1 bg-white rounded-lg grid grid-cols-2 items-center"
+              >
+                <div className="text-xs md:text-sm font-normal w-full">
                   {topic.heading}
-                  <div className="grid grid-cols-3 w-[80%] md:w-[45%] justify-items-center md:ml-3">
-                    <div className="flex flex-row w-full justify-center">
-                      <a href={topic.link}>
-                        <Image
-                          src="/media/img/TrainingPage/youtube.png"
-                          width={30}
-                          height={10}
-                        />
-                      </a>
-                    </div>
-                    <div>{topic.review}</div>
-                    {children.finished.contains2(index) && (
+                </div>
+                <div className="flex justify-between w-full md:w-[45%] md:ml-3 items-center">
+                  <div className="ml-3 md:ml-10">
+                    <a href={topic.link}>
                       <Image
-                        src="/media/img/TrainingPage/status_tick.svg"
+                        src="/media/img/TrainingPage/youtube.png"
                         width={30}
                         height={10}
+                        alt="YouTube"
                       />
-                    )}
+                    </a>
                   </div>
+                  {children.finished.contains2(index) && (
+                    <Image
+                      className="ml-3 md:ml-10"
+                      src="/media/img/TrainingPage/status_tick.svg"
+                      width={20}
+                      height={10}
+                      alt="Status Tick"
+                    />
+                  )}
                 </div>
               </div>
             ))}
