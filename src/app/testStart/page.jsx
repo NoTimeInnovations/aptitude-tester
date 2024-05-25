@@ -10,7 +10,7 @@ export default function page() {
   const params = useSearchParams().toString();
   return (
     <>
-      <div className="bg-[rgba(153,187,221,100)] min-h-screen p-3 md:p-12 md:pl-32 pt-20">
+      <div className="bg-[rgba(153,187,221,100)] min-h-screen p-3 md:p-12 md:pl-32 pt-20  ">
         <div className="bg-white text-[rgba(0,0,0,100)] w-full md:w-6xl h-auto md:h-40 rounded-2xl font-['Poppins'] text-.5xl md:text-5xl pl-6 md:pl-12 pt-6 pb-8 md:pb-0 md:pt-10 font-semibold relative">
           <div className="mt-2 text-start items-center capitalize">
             {topic} Test - {Number(index) + 1}
@@ -21,7 +21,7 @@ export default function page() {
             <div> Total Time: 30 minutes.</div>
           </div>
         </div>
-        <div className="bg-white flex flex-col w-full md:w-[1400px] mt-12 md:mt-36 p-6 md:p-36 rounded-2xl items-center">
+        <div className="bg-white flex flex-col w-full md:w-6xl mt-12 md:mt-36 p-6 md:p-36 rounded-2xl items-center">
           <Image
             src="/media/img/testStart.svg"
             width={300}
