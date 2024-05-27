@@ -56,8 +56,10 @@ export default function IndexPage() {
     <>
       <div className="bg-[rgba(185,203,239,255)] w-screen pt-10 text-black">
         <NonLoginNavBar />
-        <div className="fixed bottom-12 right-14 md:right-12 left-14">
-          <Webapp show={showInstallModel} onClick={handleInstallClick} />
+        <div className="fixed bottom-12 pointer-events-none w-full flex flex-row justify-center md:justify-end md:right-12">
+          <div className=" pointer-events-auto">
+            <Webapp show={showInstallModel} onClick={handleInstallClick} />
+          </div>
         </div>
         <div className="mt-40 flex flex-col md:flex-row font-bold text-4xl md:text-6xl w-full md:w-full justify-center">
           <span className="text-[#030091] flex flex-col justify-around mb-1 md:mb-2 text-center">
