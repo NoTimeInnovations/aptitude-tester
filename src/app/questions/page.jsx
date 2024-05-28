@@ -4,6 +4,7 @@ import ElevatedShadowDiv from "../../common/components/ElevatedShadowDiv";
 import GreenButton from "../../common/components/GreenButon";
 import { useRouter, useSearchParams } from "next/navigation";
 import { EncryptStorage } from "encrypt-storage";
+import { usePageVisibility } from "../../util/common";
 
 const arr1 = [];
 for (var i = 1; i < 31; i++) {
@@ -56,6 +57,10 @@ const encrypter = new EncryptStorage(process.env.NEXT_PUBLIC_SECRET);
 
 export default function page() {
   encrypter.setItem("lastExamPos", positions);
+
+  const isPageVisible = usePageVisibility();
+  const [invisibilityCount, setInvisibilityCount] = useState(0);
+
   const [auth, setAuth] = useState("authenticating");
   const [user, setUser] = useState(null);
   const [questions, setQuestions] = useState(null);
@@ -136,6 +141,22 @@ export default function page() {
       }, 1000);
     }
   }, [started]);
+
+  useEffect(() => {
+    if (!isPageVisible) {
+      setInvisibilityCount((prevCount) => prevCount + 1);
+    }
+  }, [isPageVisible]);
+
+  useEffect(() => {
+    if (invisibilityCount >= 3) {
+      encrypter.setItem(
+        "lastExamDuration",
+        JSON.stringify({ minutes: minutes, seconds: seconds })
+      ); // Reset the count after the alert
+      push(`/testEnd`);
+    }
+  }, [invisibilityCount]);
 
   return (
     <>
@@ -265,7 +286,16 @@ export default function page() {
                   </div>
                 </div>
               </div>
-              <button className="font-['Poppins'] text-[#153462] border border-sky-700 md:w-full mt-9 rounded-md shadow-md h-12">
+              <button
+                onClick={() => {
+                  encrypter.setItem(
+                    "lastExamDuration",
+                    JSON.stringify({ minutes: minutes, seconds: seconds })
+                  ); // Reset the count after the alert
+                  push(`/testEnd`);
+                }}
+                className="font-['Poppins'] text-[#153462] border border-sky-700 md:w-full mt-9 rounded-md shadow-md h-12"
+              >
                 Submit
               </button>
             </div>
@@ -361,7 +391,7 @@ function CheckBox({
 function calculateTimeLeft(startedDate) {
   const currentDate = new Date();
   const timeDifference = currentDate.getTime() - startedDate.getTime();
-  const timeLeft = 1 * 10 * 1000 - timeDifference; // 30 minutes in milliseconds
+  const timeLeft = 30 * 60 * 1000 - timeDifference; // 30 minutes in milliseconds
 
   if (timeLeft <= 0) {
     return { newMinutes: 0, newSeconds: 0, isTimeOver: true };

@@ -8,6 +8,7 @@ import { EncryptStorage } from "encrypt-storage";
 import { scrollToTop } from "../../util/common";
 
 const UserContext = createContext();
+const SetUserContext = createContext();
 const QuestionSetContext = createContext();
 const ClassesContext = createContext();
 const SetTabContext = createContext();
@@ -24,8 +25,6 @@ async function authenticate(setter, setUser) {
   ).json();
   if (authRes.user) {
     setUser(authRes.user);
-    console.log(authRes.user);
-    console.log(typeof authRes.user.test);
     return setter("authenticated");
   } else {
     return setter(authRes.error);
@@ -69,7 +68,9 @@ export default function page() {
     encrypter.removeItem("lastExam");
     encrypter.removeItem("lastExamAnswers");
     encrypter.removeItem("lastExamDuration");
-    console.log(encrypter.getItem("lastExam"));
+    encrypter.removeItem("lastExamResults");
+    encrypter.removeItem("lastExamQuestions");
+    encrypter.removeItem("lastExamPos");
   }, []);
 
   return (
@@ -131,9 +132,11 @@ export default function page() {
             <SetTabContext.Provider value={setTab}>
               <QuestionSetContext.Provider value={questionSet}>
                 <ClassesContext.Provider value={classes}>
-                  <UserContext.Provider value={user}>
-                    <TabHandler tab={tab} />
-                  </UserContext.Provider>
+                  <SetUserContext.Provider value={setUser}>
+                    <UserContext.Provider value={user}>
+                      <TabHandler tab={tab} />
+                    </UserContext.Provider>
+                  </SetUserContext.Provider>
                 </ClassesContext.Provider>
               </QuestionSetContext.Provider>
             </SetTabContext.Provider>
@@ -148,6 +151,9 @@ export default function page() {
 
 export function useUserContext() {
   return useContext(UserContext);
+}
+export function useSetUserContext() {
+  return useContext(SetUserContext);
 }
 
 export function useQuestionSetContext() {

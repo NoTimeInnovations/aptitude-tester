@@ -53,7 +53,7 @@ export default function page() {
                     ).json();
                   } catch (error) {
                     console.log(error);
-                    if (error.message.includes("end", "json", "unepected")) {
+                    if (error.message.includes("end", "json", "unexpected")) {
                       setPasswordError(
                         "Connection issue, something preventing us from connecting"
                       );

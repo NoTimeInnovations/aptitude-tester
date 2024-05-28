@@ -9,6 +9,7 @@ import timer from "../../util/timer";
 import getCalculation from "../../util/perfomanceCalculator";
 import StatsItem from "../components/StatsItem";
 import { scrollToTop } from "../../util/common";
+import Link from "next/link";
 
 export default function HomePage() {
   const today = new Date();
@@ -97,26 +98,39 @@ export default function HomePage() {
       <div className="flex flex-col lg:flex-row justify-between gap-4 md:px-10">
         <div className="flex flex-col items-center rounded-xl bg-[#E6E6E638] w-fit lg:w-[40%] p-8 md:p-8">
           <div className="text-xl flex justify-between font-bold w-full mb-4">
-            Scheduled Test <span>Edit</span>
+            Scheduled Test{" "}
+            <button
+              onClick={() => {
+                setTab(2);
+              }}
+            >
+              Edit
+            </button>
           </div>
           {scheduledTest == null ? (
             <div className="mt-7 text-lg">No Test Scheduled Yet</div>
           ) : (
             <>
               <div className="mt-8">
-                <div className="flex w-fit flex-row gap-2 items-center justify-center">
-                  <ElevatedShadowDiv>{seconds}</ElevatedShadowDiv>:
-                  <ElevatedShadowDiv>{minutes}</ElevatedShadowDiv>:
-                  <ElevatedShadowDiv>{hours}</ElevatedShadowDiv>:
-                  <ElevatedShadowDiv>{days}</ElevatedShadowDiv>
-                </div>
-                <div className="grid grid-cols-4 gap-[1.2rem] place-items-center">
-                  <span>Days</span>
-                  <span>Hr</span>
-                  <span>Min</span>
-                  <span>Sec</span>
-                </div>
+                {minutes + seconds + hours + days >= 0
+                  ? [
+                      <div className="flex w-fit flex-row gap-2 items-center justify-center">
+                        <ElevatedShadowDiv>{seconds}</ElevatedShadowDiv>:
+                        <ElevatedShadowDiv>{minutes}</ElevatedShadowDiv>:
+                        <ElevatedShadowDiv>{hours}</ElevatedShadowDiv>:
+                        <ElevatedShadowDiv>{days}</ElevatedShadowDiv>
+                      </div>,
+
+                      <div className="grid grid-cols-4 gap-[1.2rem] place-items-center">
+                        <span>Days</span>
+                        <span>Hr</span>
+                        <span>Min</span>
+                        <span>Sec</span>
+                      </div>,
+                    ]
+                  : "You missed a scheduled Test"}
               </div>
+
               <div className="mt-5 text-lg w-fit text-center">
                 {scheduledTest.topic} Test
               </div>

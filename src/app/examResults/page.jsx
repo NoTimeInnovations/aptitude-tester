@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import { EncryptStorage } from "encrypt-storage";
+import { useRouter } from "next/navigation";
 
 const options = {
   allowTaint: true,
@@ -11,11 +12,11 @@ const options = {
 
 const encrypter = new EncryptStorage(process.env.NEXT_PUBLIC_SECRET);
 export default function page() {
+  let { push } = useRouter();
   const [questions, setQuestions] = useState(
     encrypter.getItem("lastExamQuestions")
   );
   const positions = encrypter.getItem("lastExamPos");
-  console.log(positions);
   const [details, setDetails] = useState(encrypter.getItem("lastExam"));
   const [result, setResult] = useState(encrypter.getItem("lastExamResults"));
   const [show, setShow] = useState("all");
@@ -27,7 +28,6 @@ export default function page() {
     encrypter.getItem("lastExamDuration")
   );
   const [color, setColor] = useState(false);
-  console.log(result);
   useEffect(() => {
     setShow("all");
     setColor(
@@ -55,7 +55,7 @@ export default function page() {
       // as far as I know this is a quick and dirty solution
       const anchor = document.createElement("a");
       anchor.href = asURL;
-      anchor.download = "your-card.jpeg";
+      anchor.download = "your-report.jpeg";
       anchor.click();
       anchor.remove();
       // maybe this part should set state with `setURLData(asURL)`
@@ -137,7 +137,7 @@ export default function page() {
 
         <div className="flex flex-col md:flex-row mt-3 justify-end w-full md:w-3/5 text-white">
           <div className="flex w-full md:w-fit gap-2 flex-col md:flex-row justify-between">
-            <button>
+            <button onClick={() => push("/dashboard")}>
               <div className="w-full md:w-36 h-fit px-2 py-3.5 text-center align-middle rounded-xl bg-[#0000009E]">
                 Exit
               </div>

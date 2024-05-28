@@ -28,8 +28,6 @@ export default function TestList({ children }) {
           : []
       ).includes(x)
   );
-
-  console.log(choosableIDs);
   const [isOpen, setOpen] = useState(false);
   return (
     <div className="rounded-xl bg-white w-full p-6">
