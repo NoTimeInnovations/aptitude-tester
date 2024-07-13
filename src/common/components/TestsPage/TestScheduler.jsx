@@ -22,7 +22,6 @@ export default function TestScheduler({ questionSet, show, setShow }) {
 
   const [errors, setErrors] = useState("");
 
-  const minDate = getTomorrow();
   const maxDate = getTwoMonthsInFuture();
   return (
     show && (
@@ -84,7 +83,7 @@ export default function TestScheduler({ questionSet, show, setShow }) {
                 const fields = {
                   topic,
                   id: Number(test),
-                  date: date.toISOString(),
+                  date,
                 };
                 res = await (
                   await fetch("/api/updateSchedule", {
@@ -105,7 +104,7 @@ export default function TestScheduler({ questionSet, show, setShow }) {
                   );
                   return;
                 }
-                setErrors("Something went wrong with connection");
+                setErrors("Something went wrong with connection");
               }
               if (res.error) {
                 return setErrors(res.error);
@@ -139,7 +138,7 @@ export default function TestScheduler({ questionSet, show, setShow }) {
                 name="datePicker"
                 className="max-w-sm mb-6"
                 onSelectedDateChanged={handleDatePickerChange}
-                minDate={minDate}
+                minDate={new Date()}
                 maxDate={maxDate}
               />
               <label
@@ -211,11 +210,6 @@ export default function TestScheduler({ questionSet, show, setShow }) {
       </div>
     )
   );
-}
-function getTomorrow() {
-  let tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  return tomorrow;
 }
 
 // Function to get a date object for two months in the future

@@ -2,32 +2,22 @@
 import { NextResponse } from 'next/server';
 
 export async function POST(request, res) {
-    const { fields } = await request.json();
-
-    const personalAccessToken = process.env.AIRTABLE_PAT;
-    const baseId = process.env.AIRTABLE_BASE_ID;
-    const tableName = process.env.AIRTABLE_TABLE_NAME;
-
-    const url = `https://api.airtable.com/v0/${baseId}/${tableName}`;
-    const options = {
-        method: 'POST',
-        headers: {
-            Authorization: `Bearer ${personalAccessToken}`,
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ fields }),
-    };
-
+    await mongooseConnect();
     try {
-        const response = await fetch(url, options);
-        const data = await response.json();
+        const { username, firstname, lastname, mobile, email, password } = await req.json();
+        const hashedPassword = await bcrypt.hashSync(password, bcrypt.genSaltSync(10));//10
+        const user = new User({ username, firstname, lastname, mobile, email, password: hashedPassword, role: "Student" });
+        await user.save();
+        const token = jwt.sign(
+            { username: user.username, role: user.role },
+            process.env.NEXT_PUBLIC_SECRET,
+            { expiresIn: '30d' }
+        );
 
-        if (!response.ok) {
-            return NextResponse.json({ error: data }, { status: response.status });
-        }
+        return new Response(JSON.stringify({ token }), { status: 200 });
+    } catch (err) {
+        console.error(err); // Log the error for debugging
 
-        return NextResponse.json(data);
-    } catch (error) {
-        return NextResponse.json({ error: error.message }, { status: 500 });
+        return new Response(JSON.stringify({ error: err.message }), { status: 500 });
     }
 }

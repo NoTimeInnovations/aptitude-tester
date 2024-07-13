@@ -13,6 +13,12 @@ export const Classes = mongoose.models.classes || mongoose.model('classes', new 
     english: [Schema.Types.Mixed]
 }));
 
+export const Task = mongoose.models.remainders || mongoose.model('remainders', new mongoose.Schema({
+    email: { type: String, required: true },
+    scheduledTime: { type: Date, required: true }
+}));
+
+
 export const User = mongoose.models.user || mongoose.model('user', new Schema({
     username: { type: String, required: true, unique: true },
     firstname: { type: String, required: true },
@@ -27,7 +33,11 @@ export const User = mongoose.models.user || mongoose.model('user', new Schema({
         english: [Schema.Types.Number],
     },
     test: { type: Array, "default": [] },
-    scheduled: Schema.Types.Mixed,
+    scheduled: {
+        topic: String,
+        id: Number,
+        date: Date
+    },
     plan: Number,
     role: String
 }, { timestamps: true }));

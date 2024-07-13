@@ -20,7 +20,6 @@ export default function ModuleList({ children }) {
         <div className="flex mx-2 flex-row justify-between items-center">
           <div className="capitalize">{heading}</div>
           <div className="flex flex-row gap-3 font-semibold">
-            {/*toChange*/}
             <div className="bg-[#E6E6E638] flex flex-col justify-around px-5 py-2">
               {children.finished.length}/{Object.keys(topics).length}
             </div>
@@ -37,42 +36,41 @@ export default function ModuleList({ children }) {
         {isOpen && (
           <>
             <div className="px-4 md:px-8 py-6 mt-3 bg-white rounded-xl w-full">
-              <div className="grid grid-cols-3 text-sm md:text-xl font-semibold w-full md:w-[90%]">
-                <div>Classes</div>
-                <div className="text-right">Link</div>
-                <div className="text-right">Status</div>
+              <div className="grid grid-cols-10 text-sm md:text-xl font-semibold">
+                <div className="col-span-6">Classes</div>
+                <div className="text-center col-span-2">Link</div>
+                <div className="text-center col-span-2">Status</div>
               </div>
             </div>
 
             {topics.map((topic, index) => (
               <div
                 key={index}
-                className="px-2 md:px-8 py-3 mt-1 bg-white rounded-lg grid grid-cols-2 items-center"
+                className="px-2 md:px-8 py-3 mt-1 bg-white rounded-lg grid grid-cols-10 items-center"
               >
-                <div className="text-xs md:text-sm font-normal w-full">
+                <div className="text-xs md:text-sm font-normal w-full col-span-6">
                   {topic.heading}
                 </div>
-                <div className="flex justify-between w-full md:w-[45%] md:ml-3 items-center">
-                  <div className="ml-3 md:ml-10">
-                    <a href={topic.link}>
-                      <Image
-                        src="/media/img/TrainingPage/youtube.png"
-                        width={30}
-                        height={10}
-                        alt="YouTube"
-                      />
-                    </a>
-                  </div>
-                  {children.finished.contains2(index) && (
+                <div className="flex flex-col items-center col-span-2">
+                  <a href={topic.link}>
                     <Image
-                      className="ml-3 md:ml-10"
+                      src="/media/img/TrainingPage/youtube.png"
+                      width={30}
+                      height={10}
+                      alt="YouTube"
+                    />
+                  </a>
+                </div>
+                {children.finished.contains2(index) && (
+                  <div className="col-span-2 flex flex-col items-center">
+                    <Image
                       src="/media/img/TrainingPage/status_tick.svg"
                       width={20}
                       height={10}
                       alt="Status Tick"
                     />
-                  )}
-                </div>
+                  </div>
+                )}
               </div>
             ))}
           </>
