@@ -1,3 +1,5 @@
+"use client"
+
 export function scrollToTop() {
     const isBrowser = () => typeof window !== 'undefined';
     if (!isBrowser()) return;
