@@ -14,7 +14,7 @@ var l;
 
 async function authenticate(setter, setUser, setQuestions, topic, id) {
   const authRes = await (
-    await fetch("api/getQuestions", {
+    await fetch(`${BASE_URL}api/getQuestions`, {
       method: "POST",
       body: JSON.stringify({
         token: localStorage.getItem("token"),

@@ -68,7 +68,7 @@ export default function page() {
                   const token = res.token;
                   localStorage.setItem("token", token);
                   const resp = await (
-                    await fetch("api/auth", {
+                    await fetch(`${BASE_URL}api/auth`, {
                       method: "POST",
                       body: JSON.stringify({
                         token: localStorage.getItem("token"),

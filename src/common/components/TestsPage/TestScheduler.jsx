@@ -86,7 +86,7 @@ export default function TestScheduler({ questionSet, show, setShow }) {
                   date,
                 };
                 res = await (
-                  await fetch("/api/updateSchedule", {
+                  await fetch(`${BASE_URL}api/updateSchedule`, {
                     method: "POST",
                     body: JSON.stringify({
                       token: localStorage.getItem("token"),

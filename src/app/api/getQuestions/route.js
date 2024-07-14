@@ -1,13 +1,13 @@
 import { Questions, User } from "../../../util/mongodb/models";
 import mongooseConnect from "../../../util/mongodb/mongooseConnect";
-
+import { BASE_URL } from "../../../util/common";
 
 export async function POST(req, res) {
     mongooseConnect();
     try {
         const { token, topic, id } = await req.json();
 
-        var resp = await (await fetch("http:localhost:3000/api/auth", {
+        var resp = await (await fetch(`${BASE_URL}api/auth`, {
             method: "POST",
             body: JSON.stringify({
                 token,

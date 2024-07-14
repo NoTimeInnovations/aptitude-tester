@@ -7,7 +7,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 
 async function userExist(username) {
-  const res = await fetch("/api/checkUser", {
+  const res = await fetch(`${BASE_URL}api/checkUser`, {
     method: "POST",
     body: JSON.stringify({ username }),
   });
@@ -72,7 +72,7 @@ export default function SignUpPage() {
                   }
                   if (!proceed) return;
 
-                  const res = await fetch("/api/createAccount", {
+                  const res = await fetch(`${BASE_URL}api/createAccount`, {
                     method: "POST",
                     body: JSON.stringify({
                       username: event.target.username.value,
@@ -91,7 +91,7 @@ export default function SignUpPage() {
                   const token = response.token;
                   localStorage.setItem("token", token);
 
-                  const authResponse = await fetch("/api/auth", {
+                  const authResponse = await fetch(`${BASE_URL}api/auth`, {
                     method: "POST",
                     body: JSON.stringify({
                       token: localStorage.getItem("token"),

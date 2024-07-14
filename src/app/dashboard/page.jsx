@@ -13,10 +13,12 @@ import {
   SetTabContext,
 } from "../../util/contexts";
 
+import { BASE_URL } from "../../util/common";
+
 const icons = ["Home", "Courses", "Tests", "Results", "Profile"];
 async function authenticate(setter, setUser) {
   const authRes = await (
-    await fetch("api/getUser", {
+    await fetch(`${BASE_URL}api/getUser`, {
       method: "POST",
       body: JSON.stringify({
         token: localStorage.getItem("token"),
@@ -33,7 +35,7 @@ async function authenticate(setter, setUser) {
 async function getQuestionSet(setter) {
   setter(
     await (
-      await fetch("api/getQuestionSetDetails", {
+      await fetch(`${BASE_URL}api/getQuestionSetDetails`, {
         method: "GET",
       })
     ).json()
@@ -42,7 +44,7 @@ async function getQuestionSet(setter) {
 async function getClasses(setter) {
   setter(
     await (
-      await fetch("api/getClasses", {
+      await fetch(`${BASE_URL}api/getClasses`, {
         method: "GET",
       })
     ).json()
