@@ -1,6 +1,6 @@
 import { User } from "../../../util/mongodb/models";
 import mongooseConnect from "../../../util/mongodb/mongooseConnect";
-import { BASE_URL } from "../../../util/common";
+import { BASE_URL } from "../../../util/common-server";
 
 
 export async function POST(req, res) {
