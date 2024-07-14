@@ -4,6 +4,7 @@ import ElevatedShadowDiv from "../../common/components/ElevatedShadowDiv";
 import GreenButton from "../../common/components/GreenButon";
 import { useRouter, useSearchParams } from "next/navigation";
 import { usePageVisibility } from "../../util/common";
+import { BASE_URL } from "../../../util/common";
 
 const arr1 = [];
 for (var i = 1; i < 31; i++) {

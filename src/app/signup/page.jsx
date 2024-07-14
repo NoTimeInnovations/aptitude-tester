@@ -5,6 +5,7 @@ import NonLoginFooter from "../../common/components/NonLoginFooter";
 import Image from "next/image";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import { BASE_URL } from "../../../util/common";
 
 async function userExist(username) {
   const res = await fetch(`${BASE_URL}api/checkUser`, {

@@ -6,6 +6,8 @@ import Image from "next/image";
 import React, { Suspense, useState } from "react";
 import { useRouter } from "next/navigation";
 
+import { BASE_URL } from "../../../util/common";
+
 export default function page() {
   let { push } = useRouter();
   var [pswdVisibility, setPwdVisibility] = useState(false);
@@ -43,7 +45,7 @@ export default function page() {
                   let res;
                   try {
                     res = await (
-                      await fetch("/api/login", {
+                      await fetch(`${BASE_URL}api/login`, {
                         method: "POST",
                         body: JSON.stringify({
                           username: event.target.username.value,
