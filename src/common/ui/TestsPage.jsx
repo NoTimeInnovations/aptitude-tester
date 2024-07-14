@@ -6,10 +6,7 @@ import Image from "next/image";
 import ElevatedShadowDiv from "../components/ElevatedShadowDiv";
 import TestScheduler from "../components/TestsPage/TestScheduler";
 // import Datepicker from "flowbite-datepicker/Datepicker";
-import {
-  useQuestionSetContext,
-  useUserContext,
-} from "../../app/dashboard/page";
+import { useQuestionSetContext, useUserContext } from "../../util/contexts";
 import timer from "../../util/timer";
 
 export default function TestsPage() {

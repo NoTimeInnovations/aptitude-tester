@@ -1,7 +1,7 @@
 import React from "react";
 import CopyRight from "../components/CopyRight";
 import ModuleList from "../components/TrainingPage/ModuleList";
-import { useClassesContext, useUserContext } from "../../app/dashboard/page";
+import { useClassesContext, useUserContext } from "../../util/contexts";
 
 export default function TrainingPage() {
   const classes = useClassesContext();

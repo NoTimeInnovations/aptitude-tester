@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { useUserContext } from "../../app/dashboard/page";
+import { useUserContext } from "../../util/contexts";
 
 function listItems(text) {
   return (

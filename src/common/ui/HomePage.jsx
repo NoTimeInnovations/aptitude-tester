@@ -4,12 +4,10 @@ import React from "react";
 import RecentPieResults from "../components/RecentPieResults";
 import CopyRight from "../components/CopyRight";
 import ElevatedShadowDiv from "../components/ElevatedShadowDiv";
-import { useSetTabContext, useUserContext } from "../../app/dashboard/page";
+import { useSetTabContext, useUserContext } from "../../util/contexts";
 import timer from "../../util/timer";
 import getCalculation from "../../util/perfomanceCalculator";
 import StatsItem from "../components/StatsItem";
-import { scrollToTop } from "../../util/common";
-import Link from "next/link";
 
 export default function HomePage() {
   const today = new Date();

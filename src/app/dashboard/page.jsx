@@ -6,12 +6,13 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { EncryptStorage } from "encrypt-storage";
 import { scrollToTop } from "../../util/common";
-
-const UserContext = createContext();
-const SetUserContext = createContext();
-const QuestionSetContext = createContext();
-const ClassesContext = createContext();
-const SetTabContext = createContext();
+import {
+  UserContext,
+  SetUserContext,
+  QuestionSetContext,
+  ClassesContext,
+  SetTabContext,
+} from "../../util/contexts";
 
 const icons = ["Home", "Courses", "Tests", "Results", "Profile"];
 async function authenticate(setter, setUser) {
@@ -147,23 +148,4 @@ export default function page() {
       )}
     </>
   );
-}
-
-export function useUserContext() {
-  return useContext(UserContext);
-}
-export function useSetUserContext() {
-  return useContext(SetUserContext);
-}
-
-export function useQuestionSetContext() {
-  return useContext(QuestionSetContext);
-}
-
-export function useClassesContext() {
-  return useContext(ClassesContext);
-}
-
-export function useSetTabContext() {
-  return useContext(SetTabContext);
 }

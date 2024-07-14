@@ -4,7 +4,7 @@ import CopyRight from "../components/CopyRight";
 import StatsItem from "../components/StatsItem";
 import TestsDetails from "../components/ResultsPage/TestsDetails";
 import getCalculation from "../../util/perfomanceCalculator";
-import { useUserContext } from "../../app/dashboard/page";
+import { useUserContext } from "../../util/contexts";
 
 export default function ResultsPage() {
   const user = useUserContext();

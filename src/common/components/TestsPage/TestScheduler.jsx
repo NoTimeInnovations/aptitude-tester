@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Datepicker } from "flowbite-react";
-import { useSetUserContext, useUserContext } from "../../../app/dashboard/page";
+import { useSetUserContext, useUserContext } from "../../../util/contexts";
 
 export default function TestScheduler({ questionSet, show, setShow }) {
   const [user, setUser] = [useUserContext(), useSetUserContext()];
