@@ -8,7 +8,7 @@ export async function POST(req, res) {
     try {
 
         const { token } = await req.json();
-
+        console.log(BASE_URL);
         var resp = await (await fetch(`${BASE_URL}/api/auth`, {
             method: "POST",
             body: JSON.stringify({
