@@ -6,7 +6,7 @@ import Image from "next/image";
 import React, { Suspense, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { BASE_URL } from "../../../util/common";
+import { BASE_URL } from "../../util/common";
 
 export default function page() {
   let { push } = useRouter();

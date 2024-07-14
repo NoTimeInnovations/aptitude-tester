@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import { BASE_URL } from "../../../util/common";
+import { BASE_URL } from "../../util/common";
 
 var encrypter;
 async function update(
