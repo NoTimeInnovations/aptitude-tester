@@ -17,7 +17,7 @@ async function update(
   setter
 ) {
   const res = await (
-    await fetch(`${BASE_URL}api/updateTestDetails`, {
+    await fetch(`${BASE_URL}/api/updateTestDetails`, {
       method: "POST",
       body: JSON.stringify({
         token: localStorage.getItem("token"),

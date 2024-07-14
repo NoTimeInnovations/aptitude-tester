@@ -50,4 +50,4 @@ export function usePageVisibility() {
 
 export const BASE_URL = process.env.NODE_ENV === "production"
     ? process.env.NEXT_PUBLIC_URL
-    : "http://localhost:1337";
+    : "http://localhost:3000/";

@@ -45,7 +45,7 @@ export default function page() {
                   let res;
                   try {
                     res = await (
-                      await fetch(`${BASE_URL}api/login`, {
+                      await fetch(`${BASE_URL}/api/login`, {
                         method: "POST",
                         body: JSON.stringify({
                           username: event.target.username.value,
@@ -70,7 +70,7 @@ export default function page() {
                   const token = res.token;
                   localStorage.setItem("token", token);
                   const resp = await (
-                    await fetch(`${BASE_URL}api/auth`, {
+                    await fetch(`${BASE_URL}/api/auth`, {
                       method: "POST",
                       body: JSON.stringify({
                         token: localStorage.getItem("token"),
