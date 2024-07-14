@@ -16,37 +16,41 @@ export default function page() {
   const [details, setDetails] = useState();
   const [result, setResult] = useState();
   const [show, setShow] = useState("all");
-  var results;
+  const [results, setResults] = useState();
   const [duration, setDuration] = useState();
   const [color, setColor] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       const encrypt = async () => {
-        EncryptStorage = await import("encrypt-storage");
+        const { EncryptStorage } = await import("encrypt-storage");
         const encrypter = new EncryptStorage(process.env.NEXT_PUBLIC_SECRET);
         setQuestions(encrypter.getItem("lastExamQuestions"));
         setPositions(encrypter.getItem("lastExamPos"));
         setDetails(encrypter.getItem("lastExam"));
         setResult(encrypter.getItem("lastExamResults"));
-        setDuration(encrypter.getItem("lastExamDuration"));
+        var dur = encrypter.getItem("lastExamDuration");
 
-        results = {
-          correct: result.filter((x) => x && x != "unanswered").length,
-          wrong: result.filter((x) => !x).length,
-        };
-        setShow("all");
-        setColor(
-          results.correct - results.wrong >= 20
-            ? "text-green-300"
-            : "text-red-300"
-        );
-        const time = 1800 - duration.minutes * 60 - duration.seconds;
+        const time = 1800 - dur.minutes * 60 - dur.seconds;
         setDuration({ minutes: Math.floor(time / 60), seconds: time % 60 });
       };
       encrypt();
     }
   }, []);
+
+  useEffect(() => {
+    if (!result) return;
+
+    var temp = {
+      correct: result.filter((x) => x && x != "unanswered").length,
+      wrong: result.filter((x) => !x).length,
+    };
+    setResults(temp);
+    setShow("all");
+    setColor(
+      temp.correct - temp.wrong >= 20 ? "text-green-300" : "text-red-300"
+    );
+  }, [result]);
 
   const cardRef = useRef();
   const prepareURL = async () => {
@@ -77,6 +81,10 @@ export default function page() {
     }
   };
 
+  if (!results) {
+    return <div>Server Side</div>;
+  }
+  console.log(duration);
   return (
     <div
       ref={cardRef}
@@ -137,7 +145,7 @@ export default function page() {
               : {results && results.correct + results.wrong}
             </span>
             Correct Answers
-            <span className="text-black">: {results && results.correct}</span>
+            <span className="text-black">: {results.correct}</span>
             Wrong Answers{" "}
             <span className="text-black">: {results && results.wrong}</span>
             Overall result :

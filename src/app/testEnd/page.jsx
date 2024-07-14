@@ -48,19 +48,27 @@ export default function Page() {
 
   const [details, setDetails] = useState();
   const [rawAll, setRawAll] = useState();
-  const [answers, setAnswers] = useState(
-    rawAll.reduce((acc, obj) => {
-      return [...acc, obj["correct_answer"]];
-    }, [])
-  );
+  const [answers, setAnswers] = useState();
   const [duration, setDuration] = useState();
   const [result, setResult] = useState([]);
 
   const isMounted = useRef(false);
+
+  useEffect(() => {
+    if (!rawAll) {
+      return;
+    }
+    setAnswers(
+      rawAll.reduce((acc, obj) => {
+        return [...acc, obj["correct_answer"]];
+      }, [])
+    );
+  }, [rawAll]);
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       const encrypt = async () => {
-        EncryptStorage = await import("encrypt-storage");
+        const { EncryptStorage } = await import("encrypt-storage");
         encrypter = new EncryptStorage(process.env.NEXT_PUBLIC_SECRET);
         setDetails(encrypter.getItem("lastExam"));
         setRawAll(encrypter.getItem("lastExamAnswers"));
@@ -68,7 +76,11 @@ export default function Page() {
       };
       encrypt();
     }
+  }, []);
+
+  useEffect(() => {
     if (isMounted.current) {
+      if (!details || !answers) return;
       for (var i = 0; i < 30; i++) {
         if (details.answers[`${i}`]) {
           if (details.answers[`${i}`] == "unansweredx1000bhy") {
@@ -93,9 +105,13 @@ export default function Page() {
     } else {
       isMounted.current = true;
     }
-  }, []);
+  }, [details, answers]);
 
   // encrypter.removeItem("lastExam");
+
+  if (!encrypter) {
+    return <div>This is Server</div>;
+  }
 
   return (
     <>

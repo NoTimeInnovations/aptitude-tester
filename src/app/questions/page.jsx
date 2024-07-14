@@ -54,7 +54,8 @@ function assignPositions() {
 const positions = arr1.map((i) => assignPositions());
 var encrypter;
 
-export default function page() {
+export default function page({ params }) {
+  console.log(params);
   if (encrypter) {
     encrypter.setItem("lastExamPos", positions);
   }
@@ -90,7 +91,7 @@ export default function page() {
     authenticate(setAuth, setUser, setQuestions, topic, Number(id));
     if (typeof window !== "undefined") {
       const encrypt = async () => {
-        EncryptStorage = await import("encrypt-storage");
+        const { EncryptStorage } = await import("encrypt-storage");
         encrypter = new EncryptStorage(process.env.NEXT_PUBLIC_SECRET);
         const preExam = encrypter.getItem("lastExam");
         if (preExam) {

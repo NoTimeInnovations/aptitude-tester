@@ -66,7 +66,7 @@ export default function page() {
       getClasses(setClasses);
 
       const encrypt = async () => {
-        EncryptStorage = await import("encrypt-storage");
+        const { EncryptStorage } = await import("encrypt-storage");
         const encrypter = new EncryptStorage(process.env.NEXT_PUBLIC_SECRET);
         encrypter.removeItem("lastExam");
         encrypter.removeItem("lastExamAnswers");
