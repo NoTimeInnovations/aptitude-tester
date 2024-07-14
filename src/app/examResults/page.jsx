@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import { EncryptStorage } from "encrypt-storage";
 import { useRouter } from "next/navigation";
 
 const options = {
@@ -10,31 +9,43 @@ const options = {
   removeContainer: true,
 };
 
-const encrypter = new EncryptStorage(process.env.NEXT_PUBLIC_SECRET);
 export default function page() {
   let { push } = useRouter();
-  const [questions, setQuestions] = useState(
-    encrypter.getItem("lastExamQuestions")
-  );
-  const positions = encrypter.getItem("lastExamPos");
-  const [details, setDetails] = useState(encrypter.getItem("lastExam"));
-  const [result, setResult] = useState(encrypter.getItem("lastExamResults"));
+  const [questions, setQuestions] = useState();
+  const [positions, setPositions] = useState();
+  const [details, setDetails] = useState();
+  const [result, setResult] = useState();
   const [show, setShow] = useState("all");
-  const results = {
-    correct: result.filter((x) => x && x != "unanswered").length,
-    wrong: result.filter((x) => !x).length,
-  };
-  const [duration, setDuration] = useState(
-    encrypter.getItem("lastExamDuration")
-  );
+  var results;
+  const [duration, setDuration] = useState();
   const [color, setColor] = useState(false);
+
   useEffect(() => {
-    setShow("all");
-    setColor(
-      results.correct - results.wrong >= 20 ? "text-green-300" : "text-red-300"
-    );
-    const time = 1800 - duration.minutes * 60 - duration.seconds;
-    setDuration({ minutes: Math.floor(time / 60), seconds: time % 60 });
+    if (typeof window !== "undefined") {
+      const encrypt = async () => {
+        EncryptStorage = await import("encrypt-storage");
+        const encrypter = new EncryptStorage(process.env.NEXT_PUBLIC_SECRET);
+        setQuestions(encrypter.getItem("lastExamQuestions"));
+        setPositions(encrypter.getItem("lastExamPos"));
+        setDetails(encrypter.getItem("lastExam"));
+        setResult(encrypter.getItem("lastExamResults"));
+        setDuration(encrypter.getItem("lastExamDuration"));
+
+        results = {
+          correct: result.filter((x) => x && x != "unanswered").length,
+          wrong: result.filter((x) => !x).length,
+        };
+        setShow("all");
+        setColor(
+          results.correct - results.wrong >= 20
+            ? "text-green-300"
+            : "text-red-300"
+        );
+        const time = 1800 - duration.minutes * 60 - duration.seconds;
+        setDuration({ minutes: Math.floor(time / 60), seconds: time % 60 });
+      };
+      encrypt();
+    }
   }, []);
 
   const cardRef = useRef();
@@ -78,7 +89,7 @@ export default function page() {
         <div
           className={`w-full flex flex-col sm:flex-row text-lg ${color} font-semibold items-center`}
         >
-          {results.correct - results.wrong >= 20
+          {results && results.correct - results.wrong >= 20
             ? [
                 <div
                   className={`bg-gradient-to-l from-green-300 w-full h-1`}
@@ -98,35 +109,42 @@ export default function page() {
         <div className="w-full md:w-3/5 mx-10 px-10 mt-5 justify-between bg-white border-[#00000033] border flex flex-col md:flex-row p-3 rounded-md">
           <div
             className={`shadow-xl rounded-full w-fit p-14 flex items-center ${color} text-5xl aspect-square border ${
-              results.correct - results.wrong >= 20
+              results && results.correct - results.wrong >= 20
                 ? "border-green-300"
                 : "border-red-300"
             }`}
             style={{ borderRadius: "50%" }}
           >
-            {results.correct - results.wrong}/30
+            {results && results.correct - results.wrong}/30
           </div>
           <div className="grid gap-2 grid-cols-2 capitalize text-[#757575] mt-5 md:mt-0 md:ml-10">
             Test
             <span className="text-black">
-              : {`${details.topic}-Test ${Number(details.index) + 1}`}
+              :{" "}
+              {`${details && details.topic}-Test ${
+                Number(details && details.index) + 1
+              }`}
             </span>
             Time Taken
             <span className="text-black">
-              : {`${duration.minutes}min ${duration.seconds}sec`}
+              :{" "}
+              {`${duration && duration.minutes}min ${
+                duration && duration.seconds
+              }sec`}
             </span>
             Questions Attempted
             <span className="text-black">
-              : {results.correct + results.wrong}
+              : {results && results.correct + results.wrong}
             </span>
             Correct Answers
-            <span className="text-black">: {results.correct}</span>
-            Wrong Answers <span className="text-black">: {results.wrong}</span>
+            <span className="text-black">: {results && results.correct}</span>
+            Wrong Answers{" "}
+            <span className="text-black">: {results && results.wrong}</span>
             Overall result :
             <span className="text-black">
               :
               {Math.round(
-                (((results.correct - results.wrong) * 10) / 3 +
+                (((results && results.correct - results.wrong) * 10) / 3 +
                   Number.EPSILON) *
                   100
               ) / 100}
@@ -151,85 +169,86 @@ export default function page() {
         </div>
         <div className="w-full md:w-10/12 mt-3 border border-[#E6E6E699] py-20 px-5 md:px-10 bg-[#E6E6E638] rounded-md">
           <span className="text-2xl md:text-5xl font-extrabold">Answers</span>
-          {result.map(
-            (item, i) =>
-              (show == "all" ||
-                (result[i] == show && result[i] != "unanswered")) && (
-                <div className="my-10" key={i}>
-                  <div className="text-[#153462] font-bold text-lg">
-                    Question {i + 1}
-                  </div>
-                  <div className="mt-5">{questions[i].question}</div>
-                  <div className="flex flex-col md:flex-row w-full mt-3 justify-between">
-                    <div className="flex flex-col">
-                      {questions[i].wrong_answers.map((wrong, index) => {
-                        console.log(i, index);
-                        return (
-                          <div
-                            key={index}
-                            className="flex items-center flex-row gap-2 w-fit"
-                            style={{ order: positions[i][index] }}
-                          >
+          {result &&
+            result.map(
+              (item, i) =>
+                (show == "all" ||
+                  (result[i] == show && result[i] != "unanswered")) && (
+                  <div className="my-10" key={i}>
+                    <div className="text-[#153462] font-bold text-lg">
+                      Question {i + 1}
+                    </div>
+                    <div className="mt-5">{questions[i].question}</div>
+                    <div className="flex flex-col md:flex-row w-full mt-3 justify-between">
+                      <div className="flex flex-col">
+                        {questions[i].wrong_answers.map((wrong, index) => {
+                          return (
                             <div
-                              className={`h-4 aspect-square border rounded-full ${
-                                wrong == details.answers[`${i}`] && "bg-red-300"
-                              }  ${
-                                result[i] != "unanswered" &&
-                                (result[i]
-                                  ? "border-green-300"
-                                  : "border-red-300")
-                              }`}
-                            />
-                            {wrong}
-                          </div>
-                        );
-                      })}
-                      <div
-                        className="flex items-center flex-row gap-2 w-fit"
-                        style={{ order: positions[i][3] }}
-                      >
+                              key={index}
+                              className="flex items-center flex-row gap-2 w-fit"
+                              style={{ order: positions[i][index] }}
+                            >
+                              <div
+                                className={`h-4 aspect-square border rounded-full ${
+                                  wrong == details.answers[`${i}`] &&
+                                  "bg-red-300"
+                                }  ${
+                                  result[i] != "unanswered" &&
+                                  (result[i]
+                                    ? "border-green-300"
+                                    : "border-red-300")
+                                }`}
+                              />
+                              {wrong}
+                            </div>
+                          );
+                        })}
                         <div
-                          className={`h-4 aspect-square border rounded-full border-green-300 bg-green-300`}
-                        />
-                        {questions[i].correct_answer}
+                          className="flex items-center flex-row gap-2 w-fit"
+                          style={{ order: positions[i][3] }}
+                        >
+                          <div
+                            className={`h-4 aspect-square border rounded-full border-green-300 bg-green-300`}
+                          />
+                          {questions[i].correct_answer}
+                        </div>
                       </div>
-                    </div>
-                    <div className="flex flex-col text-sm">
-                      <div
-                        className={`w-28 text-center p-2 font-[10] rounded-full shadow ${
-                          result[i] == "unanswered"
-                            ? "border text-black"
-                            : result[i]
-                            ? "bg-green-300 text-white"
-                            : "bg-red-300 text-white"
-                        }`}
-                      >
-                        {result[i] != "unanswered"
-                          ? result[i]
-                            ? "correct"
-                            : "wrong"
-                          : "unanswered"}
-                      </div>
-                      <div
-                        className={`w-28 text-center border p-2 font-thin mt-2 rounded-full shadow ${
-                          result[i] == "unanswered"
-                            ? "text-black"
-                            : result[i]
-                            ? "border-green-300 text-green-300"
-                            : "border-red-300 text-red-300"
-                        }`}
-                      >
-                        {result[i] != "unanswered"
-                          ? result[i]
-                            ? "+1 Points"
-                            : "-1 Points"
-                          : "0 Points"}
+                      <div className="flex flex-col text-sm">
+                        <div
+                          className={`w-28 text-center p-2 font-[10] rounded-full shadow ${
+                            result[i] == "unanswered"
+                              ? "border text-black"
+                              : result[i]
+                              ? "bg-green-300 text-white"
+                              : "bg-red-300 text-white"
+                          }`}
+                        >
+                          {result[i] != "unanswered"
+                            ? result[i]
+                              ? "correct"
+                              : "wrong"
+                            : "unanswered"}
+                        </div>
+                        <div
+                          className={`w-28 text-center border p-2 font-thin mt-2 rounded-full shadow ${
+                            result[i] == "unanswered"
+                              ? "text-black"
+                              : result[i]
+                              ? "border-green-300 text-green-300"
+                              : "border-red-300 text-red-300"
+                          }`}
+                        >
+                          {result[i] != "unanswered"
+                            ? result[i]
+                              ? "+1 Points"
+                              : "-1 Points"
+                            : "0 Points"}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              )
-          )}
+                )
+            )}
         </div>
       </div>
     </div>

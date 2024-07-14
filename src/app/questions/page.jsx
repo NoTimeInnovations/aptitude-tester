@@ -3,7 +3,6 @@ import React, { useEffect, useRef, useState } from "react";
 import ElevatedShadowDiv from "../../common/components/ElevatedShadowDiv";
 import GreenButton from "../../common/components/GreenButon";
 import { useRouter, useSearchParams } from "next/navigation";
-import { EncryptStorage } from "encrypt-storage";
 import { usePageVisibility } from "../../util/common";
 
 const arr1 = [];
@@ -53,10 +52,12 @@ function assignPositions() {
 }
 
 const positions = arr1.map((i) => assignPositions());
-const encrypter = new EncryptStorage(process.env.NEXT_PUBLIC_SECRET);
+var encrypter;
 
 export default function page() {
-  encrypter.setItem("lastExamPos", positions);
+  if (encrypter) {
+    encrypter.setItem("lastExamPos", positions);
+  }
 
   const isPageVisible = usePageVisibility();
   const [invisibilityCount, setInvisibilityCount] = useState(0);
@@ -84,16 +85,24 @@ export default function page() {
   const [seconds, setSeconds] = useState(-1);
 
   let { push } = useRouter();
+
   useEffect(() => {
     authenticate(setAuth, setUser, setQuestions, topic, Number(id));
-    const preExam = encrypter.getItem("lastExam");
-    if (preExam) {
-      setAnswers(preExam.answers);
-      setTopic(preExam.topic);
-      setId(preExam.id);
-      setIndex(preExam.index);
-      setIsTried(preExam.isTried);
-      setStarted(preExam.started);
+    if (typeof window !== "undefined") {
+      const encrypt = async () => {
+        EncryptStorage = await import("encrypt-storage");
+        encrypter = new EncryptStorage(process.env.NEXT_PUBLIC_SECRET);
+        const preExam = encrypter.getItem("lastExam");
+        if (preExam) {
+          setAnswers(preExam.answers);
+          setTopic(preExam.topic);
+          setId(preExam.id);
+          setIndex(preExam.index);
+          setIsTried(preExam.isTried);
+          setStarted(preExam.started);
+        }
+      };
+      encrypt();
     }
   }, []);
 
@@ -101,22 +110,26 @@ export default function page() {
     if (questions == null) {
       return;
     }
-    encrypter.setItem("lastExamAnswers", JSON.stringify(questions.questions));
+    if (encrypter) {
+      encrypter.setItem("lastExamAnswers", JSON.stringify(questions.questions));
+    }
   }, [questions]);
 
   useEffect(() => {
     if (isMounted.current) {
-      encrypter.setItem(
-        "lastExam",
-        JSON.stringify({
-          answers: answers,
-          topic,
-          id,
-          index,
-          isTried,
-          started,
-        })
-      );
+      if (encrypter) {
+        encrypter.setItem(
+          "lastExam",
+          JSON.stringify({
+            answers: answers,
+            topic,
+            id,
+            index,
+            isTried,
+            started,
+          })
+        );
+      }
     } else {
       isMounted.current = true;
     }
@@ -132,10 +145,12 @@ export default function page() {
         setSeconds(newSeconds);
         if (isTimeOver) {
           clearInterval(interval);
-          encrypter.setItem(
-            "lastExamDuration",
-            JSON.stringify({ minutes: 0, seconds: 0 })
-          );
+          if (encrypter) {
+            encrypter.setItem(
+              "lastExamDuration",
+              JSON.stringify({ minutes: 0, seconds: 0 })
+            );
+          }
           push(`/testEnd`);
         }
       }, 1000);
@@ -150,10 +165,12 @@ export default function page() {
 
   useEffect(() => {
     if (invisibilityCount >= 3) {
-      encrypter.setItem(
-        "lastExamDuration",
-        JSON.stringify({ minutes: minutes, seconds: seconds })
-      ); // Reset the count after the alert
+      if (encrypter) {
+        encrypter.setItem(
+          "lastExamDuration",
+          JSON.stringify({ minutes: minutes, seconds: seconds })
+        );
+      } // Reset the count after the alert
       push(`/testEnd`);
     }
   }, [invisibilityCount]);
@@ -224,6 +241,9 @@ export default function page() {
                 </button>
                 <button
                   onClick={() => {
+                    if (!encrypter) {
+                      return;
+                    }
                     encrypter.removeItem("lastExam");
                   }}
                   className="bg-[rgb(0,0,0)] rounded-[5px] p-3 pl-10 pr-10 md:ml-[28%]"
@@ -288,10 +308,12 @@ export default function page() {
               </div>
               <button
                 onClick={() => {
-                  encrypter.setItem(
-                    "lastExamDuration",
-                    JSON.stringify({ minutes: minutes, seconds: seconds })
-                  ); // Reset the count after the alert
+                  if (encrypter) {
+                    encrypter.setItem(
+                      "lastExamDuration",
+                      JSON.stringify({ minutes: minutes, seconds: seconds })
+                    );
+                  } // Reset the count after the alert
                   push(`/testEnd`);
                 }}
                 className="font-['Poppins'] text-[#153462] border border-sky-700 md:w-full mt-9 rounded-md shadow-md h-12"

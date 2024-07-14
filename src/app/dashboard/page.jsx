@@ -2,9 +2,8 @@
 
 import NavItem from "../../common/components/LoginPage/NavItem";
 import TabHandler from "../../common/components/TabHandler";
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { EncryptStorage } from "encrypt-storage";
 import { scrollToTop } from "../../util/common";
 import {
   UserContext,
@@ -61,17 +60,23 @@ export default function page() {
   const [questionSet, setQuestionSet] = useState(null);
   let { push } = useRouter();
   useEffect(() => {
-    authenticate(setAuth, setUser);
-    getQuestionSet(setQuestionSet);
-    getClasses(setClasses);
+    if (typeof window !== "undefined") {
+      authenticate(setAuth, setUser);
+      getQuestionSet(setQuestionSet);
+      getClasses(setClasses);
 
-    const encrypter = new EncryptStorage(process.env.NEXT_PUBLIC_SECRET);
-    encrypter.removeItem("lastExam");
-    encrypter.removeItem("lastExamAnswers");
-    encrypter.removeItem("lastExamDuration");
-    encrypter.removeItem("lastExamResults");
-    encrypter.removeItem("lastExamQuestions");
-    encrypter.removeItem("lastExamPos");
+      const encrypt = async () => {
+        EncryptStorage = await import("encrypt-storage");
+        const encrypter = new EncryptStorage(process.env.NEXT_PUBLIC_SECRET);
+        encrypter.removeItem("lastExam");
+        encrypter.removeItem("lastExamAnswers");
+        encrypter.removeItem("lastExamDuration");
+        encrypter.removeItem("lastExamResults");
+        encrypter.removeItem("lastExamQuestions");
+        encrypter.removeItem("lastExamPos");
+      };
+      encrypt();
+    }
   }, []);
 
   return (

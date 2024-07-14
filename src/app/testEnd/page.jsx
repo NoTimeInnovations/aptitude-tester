@@ -1,11 +1,10 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { EncryptStorage } from "encrypt-storage";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 
-const encrypter = new EncryptStorage(process.env.NEXT_PUBLIC_SECRET);
+var encrypter;
 async function update(
   index,
   id,
@@ -47,20 +46,28 @@ export default function Page() {
 
   const [errors, setErrors] = useState("");
 
-  const [details, setDetails] = useState(encrypter.getItem("lastExam"));
-  const [rawAll, setRawAll] = useState(encrypter.getItem("lastExamAnswers"));
+  const [details, setDetails] = useState();
+  const [rawAll, setRawAll] = useState();
   const [answers, setAnswers] = useState(
     rawAll.reduce((acc, obj) => {
       return [...acc, obj["correct_answer"]];
     }, [])
   );
-  const [duration, setDuration] = useState(
-    encrypter.getItem("lastExamDuration")
-  );
+  const [duration, setDuration] = useState();
   const [result, setResult] = useState([]);
 
   const isMounted = useRef(false);
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      const encrypt = async () => {
+        EncryptStorage = await import("encrypt-storage");
+        encrypter = new EncryptStorage(process.env.NEXT_PUBLIC_SECRET);
+        setDetails(encrypter.getItem("lastExam"));
+        setRawAll(encrypter.getItem("lastExamAnswers"));
+        setDuration(encrypter.getItem("lastExamDuration"));
+      };
+      encrypt();
+    }
     if (isMounted.current) {
       for (var i = 0; i < 30; i++) {
         if (details.answers[`${i}`]) {
