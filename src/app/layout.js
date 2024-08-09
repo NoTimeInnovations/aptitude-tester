@@ -16,11 +16,11 @@ export default function RootLayout({ children }) {
       <head>
         <meta name="theme-color" content="#317EFB" />
       </head>
-      {process.env.NODE_ENV == "production" && (
+      {process.env.NODE_ENV != "proction" && (
         <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7589879263289412"
-          crossorigin="anonymous"
+          crossOrigin="anonymous"
         ></script>
       )}
       <body className={inter.className}>{children}</body>
