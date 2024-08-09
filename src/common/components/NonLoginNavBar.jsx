@@ -19,6 +19,9 @@ export default function NonLoginNavBar() {
         <ul className="flex co rtl:space-x-reverse text-white justify-evenly md:mt-3 gap-4 md:mr-8 text-sm md:text-">
           <NavButton text="Login" onClick={() => push("/login")} />
           <NavButton text="Sign Up" onClick={() => push("/signup")} />
+          {localStorage.getItem("token") && (
+            <NavButton text="Home" onClick={() => push("/dashboard")} />
+          )}
         </ul>
       </div>
     </div>
