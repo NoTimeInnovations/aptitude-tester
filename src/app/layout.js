@@ -1,5 +1,6 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
+import Header from "../common/components/GoogleAdSense/Header";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,14 +16,8 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         <meta name="theme-color" content="#317EFB" />
+        <Header pId="7589879263289412" />
       </head>
-      {process.env.NODE_ENV != "proction" && (
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7589879263289412"
-          crossOrigin="anonymous"
-        ></script>
-      )}
       <body className={inter.className}>{children}</body>
     </html>
   );
